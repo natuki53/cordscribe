@@ -63,6 +63,11 @@ export class MeetingService {
     if (permissions && (!permissions.has(PermissionFlagsBits.ViewChannel) || !permissions.has(PermissionFlagsBits.Connect))) {
       throw new Error('Bot needs View Channel and Connect permissions in this voice channel');
     }
+    const outputPermissions = botMember && this.output.permissionsFor(botMember);
+    if (outputPermissions && [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.ReadMessageHistory]
+      .some((permission) => !outputPermissions.has(permission))) {
+      throw new Error('Bot needs View Channel, Send Messages, Attach Files, and Read Message History permissions in the meeting channel');
+    }
     await this.ensureSttReady();
     let meeting = this.store.createMeeting({
       guild_id: guild.id, voice_channel_id: voice.id, output_channel_id: this.output.id,

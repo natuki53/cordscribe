@@ -20,6 +20,8 @@ Discordアプリは作成済みです。導入時の操作は[Discordアプリ�
 - Docker Engine / Composeと、STT用のPython 3.12環境
 - Botに対象VCの`View Channel`・`Connect`、会議テキストチャンネルの`View Channel`・`Send Messages`・`Attach Files`・`Read Message History`権限
 
+非公開のVCや会議テキストチャンネルでは、サーバーへのBot招待時に選んだ権限だけでは足りません。各チャンネルの権限設定でCordScribeロールを追加し、上記の権限を許可してください。
+
 Discordアプリを`bot`と`applications.commands`で対象Guildに追加します。Bot Gateway Intentは`Guilds`と`GuildVoiceStates`だけで、Message Content Intentは不要です。`/meeting`の操作ロールは不要です。操作は設定したGuildの会議チャンネル内に限り、そのチャンネルを閲覧できるメンバーなら会議の開始・停止・取得・再要約・削除を実行できます。
 
 ## ローカル開発
