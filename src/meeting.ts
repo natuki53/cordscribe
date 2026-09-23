@@ -40,17 +40,16 @@ export class MeetingService {
   }
 
   private async ensureSttReady(): Promise<void> {
-    if (await this.stt.ready()) return;
-    try { await this.stt.load(); }
-    catch {
-      // An idle Ollama model may still own VRAM. An active chat request may be delayed.
-      await fetch(`${this.config.ollamaBaseUrl}/api/generate`, {
+    // An active chat request may be delayed; meetings own the shared GPU first.
+    try {
+      const response = await fetch(`${this.config.ollamaBaseUrl}/api/generate`, {
         method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ model: this.config.ollamaModel, keep_alive: 0, stream: false }),
+        body: JSON.stringify({ model: this.config.ollamaModel, prompt: '', keep_alive: 0, stream: false }),
         signal: AbortSignal.timeout(30_000),
-      }).catch(() => null);
-      await this.stt.load();
-    }
+      });
+      if (!response.ok) this.logError('OLLAMA_UNLOAD_FAILED', `HTTP ${response.status}`);
+    } catch (error) { this.logError('OLLAMA_UNLOAD_FAILED', error); }
+    if (!(await this.stt.ready())) await this.stt.load();
     if (!(await this.stt.ready())) throw new Error('STT is not ready');
   }
 

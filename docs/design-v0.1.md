@@ -18,7 +18,7 @@ Discord Gateway + Voice → Node.js Bot → RAM内の話者別PCM → メモリ�
                          要約メッセージ + 全文.txt添付 → Discord
 ```
 
-BotはNode.js 24、`discord.js`、`@discordjs/voice`、`prism-media`、`ffmpeg`を使う。STTはPython 3.12の単一プロセスで、`faster-whisper`の`turbo`（`large-v3-turbo`）をCUDA、`int8_float16`でロードする。PythonサービスはDiscord IDを受け取らない。Ollamaは既存のループバックサービスを共用し、要約には`qwen3.5:9b`を使う。モデル選定は実機受け入れ試験で再評価する。
+BotはNode.js 24、`discord.js`、`@discordjs/voice`、`prism-media`、`ffmpeg`を使う。STTはPython 3.12の単一プロセスで、`faster-whisper`の`turbo`（`large-v3-turbo`）をCUDA、`int8_float16`でロードする。PythonサービスはDiscord IDを受け取らない。Ollamaは既存のループバックサービスを共用し、要約には`qwen3.5:9b`を使う。会議開始時にOllamaのモデルを明示的に解放し、Whisperの準備を確認する。モデル選定は実機受け入れ試験で再評価する。
 
 ## 外部インターフェース
 

@@ -31,6 +31,8 @@ npm run check
 
 Node.js 24が必要です。テストはDiscordやGPUに接続しません。音声受信の実機試験は別途行ってください。
 
+ホスト上では`test/audio-smoke.mjs`でOpus変換と撤回時の破棄を、`test/ollama-smoke.mjs`で実際の構造化要約を、`test/gpu-handoff-smoke.mjs`でOllamaとWhisperのGPU切り替えを確認できます。後者2件は会議のないときだけ実行してください。
+
 ## Ryzenホストへの配置
 
 以下はリポジトリを`/home/natuki/cordscribe`へ置いた場合の手順です。既存のOllama、Minecraft、CI VMは変更しません。
@@ -45,6 +47,7 @@ Node.js 24が必要です。テストはDiscordやGPUに接続しません。音
 `compose.yaml`はホストネットワークを使います。BotがループバックのSTTとOllamaにアクセスするためで、HTTPポートを外部公開する設定はありません。BotのSQLiteは`./data`にのみ書き込みます。`runtime`と`data`は`natuki`（UID 1000）だけが読めるようにしてください。
 
 STTは起動時にGPUへロードし、会議がなければ5分後に自動解放します。録音中はBotがロード状態を維持し、停止後に即時解放します。
+会議開始時にはBotが既存Ollamaモデルを解放してからWhisperの準備を確認します。既存チャットBotは会議中に応答が遅くなる場合があります。
 
 起動順はSTT、Botです。停止時は`docker compose stop bot`、`sudo systemctl stop cordscribe-stt`の順です。Botは進行中の会議をDrainしてから終了しますが、強制終了でRAM上の音声が失われた場合は次回起動時に`LOST`として記録します。
 
