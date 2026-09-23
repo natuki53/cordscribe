@@ -159,7 +159,7 @@ export class MeetingService {
       const result = await this.summarizer.summarize(meeting);
       await publisher.summary(this.store.getMeeting(meeting.id)!, result.markdown, result.version);
     } catch (error) {
-      await publisher.warning(meeting, `要約に失敗しました。全文は保存済みです。操作ロールの方は /meeting regenerate で再試行できます。`);
+      await publisher.warning(meeting, `要約に失敗しました。全文は保存済みです。会議チャンネルで /meeting regenerate を実行すると再試行できます。`);
       throw error;
     }
   }

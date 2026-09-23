@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { Client, GatewayIntentBits, GuildMember, MessageFlags, REST, Routes, SlashCommandBuilder, type ButtonInteraction, type ChatInputCommandInteraction, type TextChannel } from 'discord.js';
+import { Client, GatewayIntentBits, MessageFlags, REST, Routes, SlashCommandBuilder, type ButtonInteraction, type ChatInputCommandInteraction, type TextChannel } from 'discord.js';
 import { loadConfig } from './config.js';
 import { Store } from './db.js';
 import { MeetingService } from './meeting.js';
@@ -22,20 +22,16 @@ const commands = [new SlashCommandBuilder().setName('meeting').setDescription('V
   .addSubcommand((sub) => sub.setName('delete').setDescription('会議データとBot投稿を削除').addStringOption((option) => option.setName('id').setDescription('会議ID').setRequired(true)))
   .toJSON()];
 
-async function authorized(interaction: ChatInputCommandInteraction): Promise<boolean> {
-  if (interaction.guildId !== config.guildId) return false;
-  const member = interaction.member instanceof GuildMember ? interaction.member : await interaction.guild?.members.fetch(interaction.user.id).catch(() => null);
-  return member?.roles.cache.has(config.operatorRoleId) ?? false;
-}
-
 async function handleCommand(interaction: ChatInputCommandInteraction): Promise<void> {
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-  if (!service || !await authorized(interaction)) { await interaction.editReply('この操作は対象サーバーの指定ロールだけが使えます。'); return; }
+  if (!service || interaction.guildId !== config.guildId || interaction.channelId !== config.meetingChannelId) {
+    await interaction.editReply('設定されたサーバーの会議チャンネルで実行してください。');
+    return;
+  }
   const sub = interaction.options.getSubcommand();
   const latest = store.latestMeeting(config.guildId);
   try {
     if (sub === 'start') {
-      if (interaction.channelId !== config.meetingChannelId) throw new Error('設定された会議チャンネルで実行してください');
       const state = interaction.guild!.voiceStates.cache.get(interaction.user.id);
       if (!state?.channelId) throw new Error('先にVCへ参加してください');
       const meeting = await service.start(interaction.guild!, state.channelId, interaction.user.id, interaction.options.getString('title'));
@@ -97,7 +93,7 @@ client.once('clientReady', async () => {
     await rest.put(Routes.applicationGuildCommands(config.applicationId, config.guildId), { body: commands });
     await service.reconcilePublications();
     for (const meeting of recovered) {
-      if (meeting.guild_id === config.guildId) await (channel as TextChannel).send({ content: `⚠️ 会議 ${meeting.id} はBot再起動で中断しました。未処理音声は欠損として記録しました。操作ロールの方は /meeting finalize で部分議事録を確定できます。`, allowedMentions: { parse: [] } });
+      if (meeting.guild_id === config.guildId) await (channel as TextChannel).send({ content: `⚠️ 会議 ${meeting.id} はBot再起動で中断しました。未処理音声は欠損として記録しました。会議チャンネルで /meeting finalize を実行すると部分議事録を確定できます。`, allowedMentions: { parse: [] } });
     }
     console.info('CORDSCRIBE_READY');
   } catch (error) {

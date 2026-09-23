@@ -15,12 +15,12 @@ Discordアプリは作成済みです。導入時の操作は[Discordアプリ�
 
 ## 必要なもの
 
-- DiscordアプリとBotトークン、対象Guild ID、操作ロールID、会議用テキストチャンネルID
+- DiscordアプリとBotトークン、対象Guild ID、会議用テキストチャンネルID
 - RyzenホストのNVIDIA GPU、ドライバ、Ollama（ループバックの`127.0.0.1:11434`）
 - Docker Engine / Composeと、STT用のPython 3.12環境
 - Botに対象VCの`View Channel`・`Connect`、会議テキストチャンネルの`View Channel`・`Send Messages`・`Attach Files`・`Read Message History`権限
 
-Discordアプリを`bot`と`applications.commands`で対象Guildに追加します。Bot Gateway Intentは`Guilds`と`GuildVoiceStates`だけで、Message Content Intentは不要です。操作ロールはBotに付けるロールではなく、`/meeting`を使う人のロールです。
+Discordアプリを`bot`と`applications.commands`で対象Guildに追加します。Bot Gateway Intentは`Guilds`と`GuildVoiceStates`だけで、Message Content Intentは不要です。`/meeting`の操作ロールは不要です。操作は設定したGuildの会議チャンネル内に限り、そのチャンネルを閲覧できるメンバーなら会議の開始・停止・取得・再要約・削除を実行できます。
 
 ## ローカル開発
 
@@ -39,7 +39,7 @@ Node.js 24が必要です。テストはDiscordやGPUに接続しません。音
 
 1. Python 3.12と`uv`を公式配布元から用意し、`uv python install 3.12`を実行します。
 2. `mkdir -p runtime data models`で保存先を作り、`chmod 700 runtime data models`、`uv venv --python 3.12 stt/.venv`、`uv pip install --python stt/.venv/bin/python -r stt/requirements.txt`を実行します。GPU用cuBLASとcuDNN 9もこの環境に入ります。Pythonの版を変えた場合はsystemdの`LD_LIBRARY_PATH`を合わせてください。
-3. `stt/env.example`を`runtime/stt.env`に、`.env.example`を`runtime/bot.env`にコピーします。後者へBotトークンと4つのDiscord IDを入力し、両ファイルを`chmod 600`にします。これらはGitへ追加しません。
+3. `stt/env.example`を`runtime/stt.env`に、`.env.example`を`runtime/bot.env`にコピーします。後者へBotトークンと3つのDiscord IDを入力し、両ファイルを`chmod 600`にします。これらはGitへ追加しません。
 4. `deploy/cordscribe-stt.service`を`/etc/systemd/system/cordscribe-stt.service`へ配置し、`sudo systemctl daemon-reload && sudo systemctl enable --now cordscribe-stt`を実行します。初回はWhisperモデルの取得が必要です。
 5. `curl http://127.0.0.1:8765/ready`で`ready: true`を確認します。
 6. `docker compose up -d --build`でBotを起動し、`docker compose logs --tail=100 bot`に`CORDSCRIBE_READY`があることを確認します。
@@ -53,7 +53,7 @@ STTは起動時にGPUへロードし、会議がなければ5分後に自動解�
 
 ## 操作
 
-操作ロールを持つVC参加者が、会議用テキストチャンネルで`/meeting start`を実行します。参加者は案内メッセージで同意・拒否・撤回を選びます。停止は`/meeting stop`です。停止後の処理は非同期で、`/meeting status`で待ち行列を確認できます。
+VC参加者が、会議用テキストチャンネルで`/meeting start`を実行します。参加者は案内メッセージで同意・拒否・撤回を選びます。停止は`/meeting stop`です。停止後の処理は非同期で、`/meeting status`で待ち行列を確認できます。すべての`/meeting`操作はこのチャンネルで実行します。
 
 Botクラッシュ後は`/meeting finalize id:<会議ID>`で部分議事録を作成します。要約だけが失敗した場合は`/meeting regenerate id:<会議ID>`を実行します。`/meeting delete`はBotが投稿した全文・要約を削除したうえで会議DBを削除します。Discordの利用者が既にダウンロードした添付ファイルは回収できません。
 

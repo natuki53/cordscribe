@@ -4,7 +4,7 @@
 
 Discordの指定GuildにあるVCを、参加者本人の明示的な同意後だけ文字起こしする。Botは会議の全文と根拠発言ID付き要約を指定テキストチャンネルへ投稿する。初回は同時会議1件、同時に同意する話者8人まで、会議は最長4時間。入力音声と要約は外部のクラウドAIに送信しない。
 
-Botの起動、停止、状態確認、全文再投稿、要約再生成、部分確定、会議削除は`OPERATOR_ROLE_ID`のメンバーだけが操作できる。同意ボタンは会議VCにいる本人だけが使える。ボタンを表示する会議テキストチャンネルは参加者が閲覧できるよう管理者が設定する。
+Botの開始、停止、状態確認、全文再投稿、要約再生成、部分確定、会議削除は指定Guildの会議テキストチャンネルを閲覧できるメンバーなら操作できる。操作ロールは不要とする。同意ボタンは会議VCにいる本人だけが使える。会議テキストチャンネルの閲覧権限は参加者と運用上のアクセス範囲に合わせて管理者が設定する。
 
 ## 構成
 
@@ -24,14 +24,14 @@ BotはNode.js 24、`discord.js`、`@discordjs/voice`、`prism-media`、`ffmpeg`�
 
 | 操作 | 条件 | 結果 |
 | --- | --- | --- |
-| `/meeting start [title]` | 操作ロール、本人がVC参加中、指定テキストチャンネル | STT ready後にBot参加、同意案内を投稿 |
+| `/meeting start [title]` | 指定Guildの会議チャンネル、本人がVC参加中 | STT ready後にBot参加、同意案内を投稿 |
 | 同意・拒否・撤回ボタン | 本人が対象VCに参加中 | 同意後だけ話者別音声を購読。撤回時は未確定音声を破棄 |
-| `/meeting stop` | 操作ロール、録音中 | 音声受付停止、全バッファ確定、STT排出、全文・要約投稿 |
-| `/meeting status` | 操作ロール | 状態、同意者数、キュー遅延、音声RAM |
-| `/meeting transcript [id]` | 操作ロール、確定済み | 未投稿の全文添付を投稿。投稿済みなら重複しない |
-| `/meeting regenerate id` | 操作ロール、全文あり | 新しい`summary_runs.version`を追加し、別投稿 |
-| `/meeting finalize id` | 操作ロール、中断または全文確定済み | 欠損を明示した部分全文・要約を作成 |
-| `/meeting delete id` | 操作ロール、停止済み | Botの投稿を削除してからDBの会議データを削除 |
+| `/meeting stop` | 指定Guildの会議チャンネル、録音中 | 音声受付停止、全バッファ確定、STT排出、全文・要約投稿 |
+| `/meeting status` | 指定Guildの会議チャンネル | 状態、同意者数、キュー遅延、音声RAM |
+| `/meeting transcript [id]` | 指定Guildの会議チャンネル、確定済み | 未投稿の全文添付を投稿。投稿済みなら重複しない |
+| `/meeting regenerate id` | 指定Guildの会議チャンネル、全文あり | 新しい`summary_runs.version`を追加し、別投稿 |
+| `/meeting finalize id` | 指定Guildの会議チャンネル、中断または全文確定済み | 欠損を明示した部分全文・要約を作成 |
+| `/meeting delete id` | 指定Guildの会議チャンネル、停止済み | Botの投稿を削除してからDBの会議データを削除 |
 
 STTサービスは`GET /health`、`GET /ready`、`POST /v1/transcribe`を127.0.0.1:8765に提供する。POSTの本文は16kHz、mono、signed 16bit little endianの生PCMで、28秒以下。`X-Audio-Format=s16le`、`X-Sample-Rate=16000`、`X-Channels=1`、`X-Language=ja`を検証する。結果は`text`、`language`、`languageProbability`、`durationMs`。内部管理用の`POST /admin/load`と`/admin/unload`はGPUの使用時間を切り替える。外部公開しない。
 
@@ -39,7 +39,7 @@ STTサービスは`GET /health`、`GET /ready`、`POST /v1/transcribe`を127.0.0
 
 SQLiteの時刻はUnix epochミリ秒、発言位置は会議開始からのミリ秒。`meetings`、`participants`、`participant_presence`、`utterances`、`summary_runs`、`meeting_events`、`deliveries`を持つ。`meetings`にはGuild内の有効な会議を1件にする部分ユニークインデックス、設定スナップショット、30日削除時刻を持つ。`utterances.id`はUUID、表示とLLM根拠用の`public_id`は会議内の`U000001`形式。DB登録後に音声をキューへ移す。
 
-正常時は`STARTING → RECORDING → DRAINING → TRANSCRIBED → SUMMARIZING → COMPLETED`。要約失敗時は`TRANSCRIBED`へ戻し、全文は保持する。Bot再起動時に進行中の会議は`INTERRUPTED`、未完了の発言は`LOST`とし、操作ロールが`finalize`できる。発言が`FAILED`または`LOST`なら`transcription_result=PARTIAL`。投稿は`deliveries`に状態・メッセージID・一意マーカーを持ち、再起動後に再照合する。
+正常時は`STARTING → RECORDING → DRAINING → TRANSCRIBED → SUMMARIZING → COMPLETED`。要約失敗時は`TRANSCRIBED`へ戻し、全文は保持する。Bot再起動時に進行中の会議は`INTERRUPTED`、未完了の発言は`LOST`とし、会議チャンネルから`finalize`できる。発言が`FAILED`または`LOST`なら`transcription_result=PARTIAL`。投稿は`deliveries`に状態・メッセージID・一意マーカーを持ち、再起動後に再照合する。
 
 参加者の同意は会議単位で`PENDING / ACCEPTED / DECLINED / REVOKED`を保持する。再入室では以前の同意状態を使う。撤回済み以前に確定した本文は残り、会議単位の削除は別操作。退出・再入室履歴は`participant_presence`に保存する。
 

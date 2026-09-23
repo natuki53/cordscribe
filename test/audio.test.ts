@@ -38,6 +38,28 @@ test('long audio splits at exactly 28 seconds with one chain', () => {
     const utterances = store.utterances(meeting.id);
     assert.equal(utterances[0]?.chain_id, utterances[1]?.chain_id);
     assert.deepEqual(utterances.map((u) => u.chain_index), [0, 1]);
+    assert.equal(utterances[1]?.started_offset_ms, 28_000);
+  } finally { store.close(); }
+});
+
+test('eight simultaneous speakers get distinct evidence IDs and shared RAM accounting', () => {
+  const store = new Store(':memory:');
+  try {
+    const meeting = store.createMeeting({ guild_id: 'g', voice_channel_id: 'v', output_channel_id: 'c', started_by_user_id: 'u1', title: null, config_snapshot_json: '{}' });
+    store.setStatus(meeting.id, ['STARTING'], 'RECORDING', { startedAt: 1000 });
+    const jobs: { audio: Buffer }[] = [];
+    const queue = { enqueue: (job: { audio: Buffer }) => jobs.push(job) } as unknown as SttQueue;
+    const budget = new AudioBudget(() => {});
+    for (let i = 1; i <= 8; i++) {
+      const userId = `u${i}`;
+      store.join(meeting.id, userId, userId);
+      const segmenter = new Segmenter(meeting.id, userId, 1000, store, queue, budget);
+      segmenter.push(Buffer.alloc(500 * 32), 1000);
+      segmenter.finalize();
+    }
+    assert.equal(jobs.length, 8);
+    assert.equal(budget.bytes, 8 * 500 * 32);
+    assert.deepEqual(store.utterances(meeting.id).map((u) => u.public_id).sort(), Array.from({ length: 8 }, (_, i) => `U${String(i + 1).padStart(6, '0')}`));
   } finally { store.close(); }
 });
 

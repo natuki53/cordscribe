@@ -2,7 +2,6 @@ export interface Config {
   discordToken: string;
   applicationId: string;
   guildId: string;
-  operatorRoleId: string;
   meetingChannelId: string;
   dbPath: string;
   sttBaseUrl: string;
@@ -32,7 +31,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     discordToken: required('DISCORD_TOKEN'),
     applicationId: required('DISCORD_APPLICATION_ID'),
     guildId: required('DISCORD_GUILD_ID'),
-    operatorRoleId: required('OPERATOR_ROLE_ID'),
     meetingChannelId: required('MEETING_CHANNEL_ID'),
     dbPath: env.DB_PATH || '/var/lib/cordscribe/cordscribe.sqlite',
     sttBaseUrl: url('STT_BASE_URL', 'http://127.0.0.1:8765'),
