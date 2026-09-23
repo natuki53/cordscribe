@@ -1,0 +1,8 @@
+.git
+node_modules
+dist
+.env
+runtime
+data
+stt/.venv
+stt/__pycache__

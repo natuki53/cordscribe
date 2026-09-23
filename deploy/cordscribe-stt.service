@@ -1,0 +1,25 @@
+[Unit]
+Description=CordScribe local Whisper transcription
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=natuki
+Group=natuki
+WorkingDirectory=/home/natuki/cordscribe/stt
+Environment=HF_HOME=/home/natuki/cordscribe/models
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=LD_LIBRARY_PATH=/home/natuki/cordscribe/stt/.venv/lib/python3.12/site-packages/nvidia/cublas/lib:/home/natuki/cordscribe/stt/.venv/lib/python3.12/site-packages/nvidia/cudnn/lib
+EnvironmentFile=/home/natuki/cordscribe/runtime/stt.env
+ExecStart=/home/natuki/cordscribe/stt/.venv/bin/python -m uvicorn app:app --host 127.0.0.1 --port 8765 --workers 1
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=120
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/home/natuki/cordscribe/models
+
+[Install]
+WantedBy=multi-user.target

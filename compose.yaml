@@ -1,0 +1,18 @@
+services:
+  bot:
+    build: .
+    image: cordscribe-bot:local
+    network_mode: host
+    env_file: ./runtime/bot.env
+    user: "1000:1000"
+    volumes:
+      - ./data:/var/lib/cordscribe
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    stop_grace_period: 20m

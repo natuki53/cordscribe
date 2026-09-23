@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.pytest_cache/
+__pycache__/
+.venv/
+data/
+runtime/
+models/
