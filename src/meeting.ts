@@ -19,6 +19,7 @@ interface LiveMeeting {
   emptySince: number | null;
   warnedQueue: boolean;
   criticalQueue: boolean;
+  lastKeepaliveAtMs: number;
 }
 
 export class MeetingService {
@@ -57,7 +58,7 @@ export class MeetingService {
     if (this.live || this.store.activeMeeting(guild.id)) throw new Error('A meeting is already active');
     const voice = guild.channels.cache.get(voiceChannelId);
     if (!voice || voice.type !== ChannelType.GuildVoice) throw new Error('Join a voice channel before starting');
-    if (!voice.members.has(userId)) throw new Error('Only a participant in the voice channel may start');
+    if (guild.voiceStates.cache.get(userId)?.channelId !== voice.id) throw new Error('Only a participant in the voice channel may start');
     await this.ensureSttReady();
     let meeting = this.store.createMeeting({
       guild_id: guild.id, voice_channel_id: voice.id, output_channel_id: this.output.id,
@@ -69,15 +70,17 @@ export class MeetingService {
       connection = joinVoiceChannel({ channelId: voice.id, guildId: guild.id, adapterCreator: guild.voiceAdapterCreator, selfDeaf: false, selfMute: true });
       await entersState(connection, VoiceConnectionStatus.Ready, 20_000);
       meeting = this.store.setStatus(meeting.id, ['STARTING'], 'RECORDING', { startedAt: Date.now() });
-      for (const member of voice.members.values()) {
-        if (!member.user.bot) this.store.join(meeting.id, member.id, member.displayName);
+      for (const state of guild.voiceStates.cache.values()) {
+        if (state.channelId === voice.id && state.id !== guild.client.user?.id && !state.member?.user.bot) {
+          this.store.join(meeting.id, state.id, state.member?.displayName ?? state.id);
+        }
       }
       const publisher = new Publisher(this.store, this.output);
       const budget = new AudioBudget(() => { void this.stop('AUDIO_MEMORY_LIMIT').catch((error) => this.logError('AUTO_STOP_FAILED', error)); });
       const queue = new SttQueue(this.store, this.stt, budget);
       const audio = new AudioReceiver(connection.receiver, meeting.id, meeting.started_at_ms!, this.store, queue, budget,
         (reason) => { this.store.event(meeting.id, reason, 'ERROR'); void this.stop(reason).catch((error) => this.logError('AUDIO_STOP_FAILED', error)); });
-      this.live = { meeting, guild, connection, audio, queue, budget, publisher, emptySince: null, warnedQueue: false, criticalQueue: false };
+      this.live = { meeting, guild, connection, audio, queue, budget, publisher, emptySince: null, warnedQueue: false, criticalQueue: false, lastKeepaliveAtMs: Date.now() };
       await publisher.notice(meeting);
       connection.on('stateChange', (_old, state) => {
         if (state.status !== VoiceConnectionStatus.Disconnected || !this.live || this.live.meeting.id !== meeting.id) return;
@@ -214,9 +217,13 @@ export class MeetingService {
     const live = this.live;
     if (!live || this.stopping) return;
     const now = Date.now();
+    if (now - live.lastKeepaliveAtMs >= 60_000) {
+      live.lastKeepaliveAtMs = now;
+      await this.stt.keepalive().catch((error) => this.logError('STT_KEEPALIVE_FAILED', error));
+    }
     const voice = live.guild.channels.cache.get(live.meeting.voice_channel_id);
     if (!voice || voice.type !== ChannelType.GuildVoice) { await this.stop('VOICE_CHANNEL_REMOVED'); return; }
-    const humans = voice.members.filter((member) => !member.user.bot).size;
+    const humans = live.guild.voiceStates.cache.filter((state) => state.channelId === voice.id && state.id !== live.guild.client.user?.id && !state.member?.user.bot).size;
     live.emptySince = humans === 0 ? live.emptySince ?? now : null;
     if (live.emptySince !== null && now - live.emptySince >= 300_000) { await this.stop('EMPTY_AUTO_STOP'); return; }
     if (now - (live.meeting.started_at_ms ?? now) >= 14_400_000) { await this.stop('MAX_DURATION'); return; }

@@ -44,6 +44,8 @@ Node.js 24が必要です。テストはDiscordやGPUに接続しません。音
 
 `compose.yaml`はホストネットワークを使います。BotがループバックのSTTとOllamaにアクセスするためで、HTTPポートを外部公開する設定はありません。BotのSQLiteは`./data`にのみ書き込みます。`runtime`と`data`は`natuki`（UID 1000）だけが読めるようにしてください。
 
+STTは起動時にGPUへロードし、会議がなければ5分後に自動解放します。録音中はBotがロード状態を維持し、停止後に即時解放します。
+
 起動順はSTT、Botです。停止時は`docker compose stop bot`、`sudo systemctl stop cordscribe-stt`の順です。Botは進行中の会議をDrainしてから終了しますが、強制終了でRAM上の音声が失われた場合は次回起動時に`LOST`として記録します。
 
 ## 操作

@@ -29,6 +29,7 @@ export class SttClient {
 
   async load(): Promise<void> { await this.json('/admin/load', 'POST'); }
   async unload(): Promise<void> { await this.json('/admin/unload', 'POST'); }
+  async keepalive(): Promise<void> { await this.json('/admin/keepalive', 'POST'); }
   async ready(): Promise<boolean> {
     try { return (await this.json('/ready')).ready === true; } catch { return false; }
   }
