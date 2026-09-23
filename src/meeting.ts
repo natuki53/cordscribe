@@ -1,5 +1,5 @@
 import { joinVoiceChannel, entersState, VoiceConnectionStatus, type VoiceConnection } from '@discordjs/voice';
-import { ChannelType, type Guild, type TextChannel, type VoiceState } from 'discord.js';
+import { ChannelType, PermissionFlagsBits, type Guild, type TextChannel, type VoiceState } from 'discord.js';
 import type { Config } from './config.js';
 import { AudioReceiver } from './audio.js';
 import { Store } from './db.js';
@@ -58,6 +58,11 @@ export class MeetingService {
     const voice = guild.channels.cache.get(voiceChannelId);
     if (!voice || voice.type !== ChannelType.GuildVoice) throw new Error('Join a voice channel before starting');
     if (guild.voiceStates.cache.get(userId)?.channelId !== voice.id) throw new Error('Only a participant in the voice channel may start');
+    const botMember = guild.members.me ?? await guild.members.fetchMe().catch(() => null);
+    const permissions = botMember && voice.permissionsFor(botMember);
+    if (permissions && (!permissions.has(PermissionFlagsBits.ViewChannel) || !permissions.has(PermissionFlagsBits.Connect))) {
+      throw new Error('Bot needs View Channel and Connect permissions in this voice channel');
+    }
     await this.ensureSttReady();
     let meeting = this.store.createMeeting({
       guild_id: guild.id, voice_channel_id: voice.id, output_channel_id: this.output.id,
@@ -67,6 +72,8 @@ export class MeetingService {
     let connection: VoiceConnection | null = null;
     try {
       connection = joinVoiceChannel({ channelId: voice.id, guildId: guild.id, adapterCreator: guild.voiceAdapterCreator, selfDeaf: false, selfMute: true });
+      connection.on('stateChange', (oldState, newState) => console.info('VOICE_CONNECTION_STATE', oldState.status, newState.status));
+      connection.on('error', (error) => this.logError('VOICE_CONNECTION_ERROR', error));
       await entersState(connection, VoiceConnectionStatus.Ready, 20_000);
       meeting = this.store.setStatus(meeting.id, ['STARTING'], 'RECORDING', { startedAt: Date.now() });
       for (const state of guild.voiceStates.cache.values()) {
@@ -89,6 +96,7 @@ export class MeetingService {
       });
       return meeting;
     } catch (error) {
+      this.logError('MEETING_START_FAILED', error);
       if (this.live?.meeting.id === meeting.id) { await this.live.audio.stop(); await this.live.queue.drain(meeting.id); this.live = null; }
       connection?.destroy();
       this.store.setStatus(meeting.id, ['STARTING', 'RECORDING'], 'FAILED', { stoppedAt: Date.now(), stopReason: 'START_FAILED' });
