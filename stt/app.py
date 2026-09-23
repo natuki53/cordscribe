@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import gc
+import logging
 import threading
 from typing import Any
 
@@ -37,7 +38,7 @@ def startup() -> None:
         _load()
     except Exception:
         # Keep the health endpoint alive; /ready stays false until VRAM is available.
-        pass
+        logging.exception("STT_MODEL_LOAD_FAILED")
 
 
 @app.get("/health")
@@ -55,6 +56,7 @@ def load() -> dict[str, bool]:
     try:
         _load()
     except Exception as exc:
+        logging.exception("STT_MODEL_LOAD_FAILED")
         raise HTTPException(503, "model_load_failed") from exc
     return {"ready": True}
 
@@ -92,6 +94,7 @@ async def transcribe(
             )
             text = "".join(segment.text for segment in segments).strip()
         except Exception as exc:
+            logging.exception("STT_TRANSCRIPTION_FAILED")
             raise HTTPException(503, "transcription_failed") from exc
     return {
         "text": text,
