@@ -1,0 +1,3574 @@
+{
+  "id": "operations-handoff",
+  "title": "運用引き継ぎ",
+  "synthetic": true,
+  "durationMinutes": 210,
+  "speakers": [
+    {
+      "userId": "user-1",
+      "displayName": "現担当"
+    },
+    {
+      "userId": "user-2",
+      "displayName": "次担当"
+    },
+    {
+      "userId": "user-3",
+      "displayName": "管理者"
+    }
+  ],
+  "anchors": [
+    {
+      "kind": "decision",
+      "publicId": "U000036",
+      "text": "夜間の一次受付は次担当が引き受け、管理者がバックアップすることに決めました。"
+    },
+    {
+      "kind": "action",
+      "publicId": "U000106",
+      "text": "監視手順書の更新は現担当の私が2026年10月8日までに完了します。"
+    },
+    {
+      "kind": "proposal",
+      "publicId": "U000185",
+      "text": "バックアップ頻度を毎日にする案はありますが、容量を確認するまで保留します。"
+    },
+    {
+      "kind": "revision",
+      "publicId": "U000278",
+      "text": "緊急連絡は電話を先にする予定を変更し、専用チャネルへの通知を先にします。"
+    },
+    {
+      "kind": "openQuestion",
+      "publicId": "U000344",
+      "text": "権限棚卸しの承認者はまだ決まっていません。管理者が確認します。"
+    },
+    {
+      "kind": "action",
+      "publicId": "U000419",
+      "text": "引き継ぎ演習は次担当の私が2026年10月18日までに実施します。"
+    }
+  ],
+  "utterances": [
+    {
+      "publicId": "U000001",
+      "speakerUserId": "user-2",
+      "startMs": 0,
+      "endMs": 7030,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000002",
+      "speakerUserId": "user-1",
+      "startMs": 28636,
+      "endMs": 36236,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000003",
+      "speakerUserId": "user-2",
+      "startMs": 57272,
+      "endMs": 66202,
+      "topic": "監視手順",
+      "text": "現時点の資料では監視手順の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000004",
+      "speakerUserId": "user-2",
+      "startMs": 85909,
+      "endMs": 92939,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000005",
+      "speakerUserId": "user-1",
+      "startMs": 114545,
+      "endMs": 123095,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000006",
+      "speakerUserId": "user-3",
+      "startMs": 143181,
+      "endMs": 150971,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000007",
+      "speakerUserId": "user-1",
+      "startMs": 171818,
+      "endMs": 179228,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000008",
+      "speakerUserId": "user-2",
+      "startMs": 200454,
+      "endMs": 209384,
+      "topic": "監視手順",
+      "text": "現時点の資料では監視手順の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000009",
+      "speakerUserId": "user-2",
+      "startMs": 229090,
+      "endMs": 236500,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000010",
+      "speakerUserId": "user-3",
+      "startMs": 257727,
+      "endMs": 265707,
+      "topic": "監視手順",
+      "text": "監視手順の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000011",
+      "speakerUserId": "user-3",
+      "startMs": 286363,
+      "endMs": 294153,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000012",
+      "speakerUserId": "user-1",
+      "startMs": 315000,
+      "endMs": 322410,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000013",
+      "speakerUserId": "user-1",
+      "startMs": 343636,
+      "endMs": 351046,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000014",
+      "speakerUserId": "user-1",
+      "startMs": 372272,
+      "endMs": 379872,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000015",
+      "speakerUserId": "user-1",
+      "startMs": 400909,
+      "endMs": 408319,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000016",
+      "speakerUserId": "user-2",
+      "startMs": 429545,
+      "endMs": 437525,
+      "topic": "監視手順",
+      "text": "監視手順の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000017",
+      "speakerUserId": "user-2",
+      "startMs": 458181,
+      "endMs": 465211,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000018",
+      "speakerUserId": "user-3",
+      "startMs": 486818,
+      "endMs": 494988,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000019",
+      "speakerUserId": "user-3",
+      "startMs": 515454,
+      "endMs": 523244,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000020",
+      "speakerUserId": "user-3",
+      "startMs": 544090,
+      "endMs": 551690,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000021",
+      "speakerUserId": "user-2",
+      "startMs": 572727,
+      "endMs": 580137,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000022",
+      "speakerUserId": "user-3",
+      "startMs": 601363,
+      "endMs": 608963,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000023",
+      "speakerUserId": "user-2",
+      "startMs": 630000,
+      "endMs": 637410,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000024",
+      "speakerUserId": "user-2",
+      "startMs": 658636,
+      "endMs": 667186,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000025",
+      "speakerUserId": "user-1",
+      "startMs": 687272,
+      "endMs": 696202,
+      "topic": "監視手順",
+      "text": "現時点の資料では監視手順の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000026",
+      "speakerUserId": "user-2",
+      "startMs": 715909,
+      "endMs": 723319,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000027",
+      "speakerUserId": "user-2",
+      "startMs": 744545,
+      "endMs": 751955,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000028",
+      "speakerUserId": "user-3",
+      "startMs": 773181,
+      "endMs": 780781,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000029",
+      "speakerUserId": "user-3",
+      "startMs": 801818,
+      "endMs": 809228,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000030",
+      "speakerUserId": "user-3",
+      "startMs": 830454,
+      "endMs": 837484,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000031",
+      "speakerUserId": "user-2",
+      "startMs": 859090,
+      "endMs": 867640,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000032",
+      "speakerUserId": "user-2",
+      "startMs": 887727,
+      "endMs": 895707,
+      "topic": "監視手順",
+      "text": "監視手順の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000033",
+      "speakerUserId": "user-2",
+      "startMs": 916363,
+      "endMs": 923773,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000034",
+      "speakerUserId": "user-3",
+      "startMs": 945000,
+      "endMs": 952410,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000035",
+      "speakerUserId": "user-1",
+      "startMs": 973636,
+      "endMs": 981046,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000036",
+      "speakerUserId": "user-1",
+      "startMs": 1002272,
+      "endMs": 1009492,
+      "topic": "夜間受付",
+      "text": "夜間の一次受付は次担当が引き受け、管理者がバックアップすることに決めました。"
+    },
+    {
+      "publicId": "U000037",
+      "speakerUserId": "user-3",
+      "startMs": 1030909,
+      "endMs": 1038319,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000038",
+      "speakerUserId": "user-3",
+      "startMs": 1059545,
+      "endMs": 1067715,
+      "topic": "夜間受付",
+      "text": "ここまでの夜間受付の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000039",
+      "speakerUserId": "user-3",
+      "startMs": 1088181,
+      "endMs": 1095591,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000040",
+      "speakerUserId": "user-3",
+      "startMs": 1116818,
+      "endMs": 1124228,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000041",
+      "speakerUserId": "user-2",
+      "startMs": 1145454,
+      "endMs": 1152864,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000042",
+      "speakerUserId": "user-1",
+      "startMs": 1174090,
+      "endMs": 1181500,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000043",
+      "speakerUserId": "user-3",
+      "startMs": 1202727,
+      "endMs": 1210137,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000044",
+      "speakerUserId": "user-3",
+      "startMs": 1231363,
+      "endMs": 1238963,
+      "topic": "夜間受付",
+      "text": "夜間受付は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000045",
+      "speakerUserId": "user-3",
+      "startMs": 1260000,
+      "endMs": 1267410,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000046",
+      "speakerUserId": "user-1",
+      "startMs": 1288636,
+      "endMs": 1296806,
+      "topic": "夜間受付",
+      "text": "ここまでの夜間受付の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000047",
+      "speakerUserId": "user-1",
+      "startMs": 1317272,
+      "endMs": 1324682,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000048",
+      "speakerUserId": "user-2",
+      "startMs": 1345909,
+      "endMs": 1353509,
+      "topic": "夜間受付",
+      "text": "夜間受付は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000049",
+      "speakerUserId": "user-2",
+      "startMs": 1374545,
+      "endMs": 1381955,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000050",
+      "speakerUserId": "user-2",
+      "startMs": 1403181,
+      "endMs": 1410591,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000051",
+      "speakerUserId": "user-1",
+      "startMs": 1431818,
+      "endMs": 1439418,
+      "topic": "夜間受付",
+      "text": "夜間受付は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000052",
+      "speakerUserId": "user-3",
+      "startMs": 1460454,
+      "endMs": 1469004,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000053",
+      "speakerUserId": "user-3",
+      "startMs": 1489090,
+      "endMs": 1498020,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000054",
+      "speakerUserId": "user-3",
+      "startMs": 1517727,
+      "endMs": 1526657,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000055",
+      "speakerUserId": "user-1",
+      "startMs": 1546363,
+      "endMs": 1554153,
+      "topic": "夜間受付",
+      "text": "資料の夜間受付の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000056",
+      "speakerUserId": "user-3",
+      "startMs": 1575000,
+      "endMs": 1583550,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000057",
+      "speakerUserId": "user-3",
+      "startMs": 1603636,
+      "endMs": 1611616,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000058",
+      "speakerUserId": "user-2",
+      "startMs": 1632272,
+      "endMs": 1640822,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000059",
+      "speakerUserId": "user-1",
+      "startMs": 1660909,
+      "endMs": 1668319,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000060",
+      "speakerUserId": "user-1",
+      "startMs": 1689545,
+      "endMs": 1696955,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000061",
+      "speakerUserId": "user-3",
+      "startMs": 1718181,
+      "endMs": 1727111,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000062",
+      "speakerUserId": "user-1",
+      "startMs": 1746818,
+      "endMs": 1754798,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000063",
+      "speakerUserId": "user-3",
+      "startMs": 1775454,
+      "endMs": 1783434,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000064",
+      "speakerUserId": "user-3",
+      "startMs": 1804090,
+      "endMs": 1810740,
+      "topic": "権限",
+      "text": "先ほどの権限の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000065",
+      "speakerUserId": "user-2",
+      "startMs": 1832727,
+      "endMs": 1839377,
+      "topic": "権限",
+      "text": "先ほどの権限の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000066",
+      "speakerUserId": "user-1",
+      "startMs": 1861363,
+      "endMs": 1868393,
+      "topic": "権限",
+      "text": "権限については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000067",
+      "speakerUserId": "user-1",
+      "startMs": 1890000,
+      "endMs": 1898550,
+      "topic": "権限",
+      "text": "現時点の資料では権限の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000068",
+      "speakerUserId": "user-3",
+      "startMs": 1918636,
+      "endMs": 1926806,
+      "topic": "権限",
+      "text": "手元では権限に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000069",
+      "speakerUserId": "user-2",
+      "startMs": 1947272,
+      "endMs": 1955062,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000070",
+      "speakerUserId": "user-2",
+      "startMs": 1975909,
+      "endMs": 1983699,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000071",
+      "speakerUserId": "user-1",
+      "startMs": 2004545,
+      "endMs": 2012145,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000072",
+      "speakerUserId": "user-3",
+      "startMs": 2033181,
+      "endMs": 2041731,
+      "topic": "権限",
+      "text": "現時点の資料では権限の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000073",
+      "speakerUserId": "user-2",
+      "startMs": 2061818,
+      "endMs": 2068848,
+      "topic": "権限",
+      "text": "権限の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000074",
+      "speakerUserId": "user-3",
+      "startMs": 2090454,
+      "endMs": 2097484,
+      "topic": "権限",
+      "text": "権限の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000075",
+      "speakerUserId": "user-1",
+      "startMs": 2119090,
+      "endMs": 2126310,
+      "topic": "権限",
+      "text": "権限は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000076",
+      "speakerUserId": "user-3",
+      "startMs": 2147727,
+      "endMs": 2154757,
+      "topic": "権限",
+      "text": "権限の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000077",
+      "speakerUserId": "user-3",
+      "startMs": 2176363,
+      "endMs": 2184153,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000078",
+      "speakerUserId": "user-1",
+      "startMs": 2205000,
+      "endMs": 2212410,
+      "topic": "権限",
+      "text": "資料の権限の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000079",
+      "speakerUserId": "user-3",
+      "startMs": 2233636,
+      "endMs": 2241426,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000080",
+      "speakerUserId": "user-1",
+      "startMs": 2262272,
+      "endMs": 2269302,
+      "topic": "権限",
+      "text": "権限の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000081",
+      "speakerUserId": "user-2",
+      "startMs": 2290909,
+      "endMs": 2299459,
+      "topic": "権限",
+      "text": "現時点の資料では権限の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000082",
+      "speakerUserId": "user-3",
+      "startMs": 2319545,
+      "endMs": 2327715,
+      "topic": "権限",
+      "text": "手元では権限に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000083",
+      "speakerUserId": "user-1",
+      "startMs": 2348181,
+      "endMs": 2355781,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000084",
+      "speakerUserId": "user-1",
+      "startMs": 2376818,
+      "endMs": 2383848,
+      "topic": "権限",
+      "text": "権限については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000085",
+      "speakerUserId": "user-1",
+      "startMs": 2405454,
+      "endMs": 2413624,
+      "topic": "権限",
+      "text": "手元では権限に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000086",
+      "speakerUserId": "user-1",
+      "startMs": 2434090,
+      "endMs": 2441880,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000087",
+      "speakerUserId": "user-2",
+      "startMs": 2462727,
+      "endMs": 2470327,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000088",
+      "speakerUserId": "user-1",
+      "startMs": 2491363,
+      "endMs": 2499153,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000089",
+      "speakerUserId": "user-2",
+      "startMs": 2520000,
+      "endMs": 2527600,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000090",
+      "speakerUserId": "user-3",
+      "startMs": 2548636,
+      "endMs": 2556806,
+      "topic": "権限",
+      "text": "手元では権限に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000091",
+      "speakerUserId": "user-1",
+      "startMs": 2577272,
+      "endMs": 2584302,
+      "topic": "権限",
+      "text": "権限の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000092",
+      "speakerUserId": "user-1",
+      "startMs": 2605909,
+      "endMs": 2613509,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000093",
+      "speakerUserId": "user-2",
+      "startMs": 2634545,
+      "endMs": 2641195,
+      "topic": "権限",
+      "text": "先ほどの権限の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000094",
+      "speakerUserId": "user-2",
+      "startMs": 2663181,
+      "endMs": 2670781,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000095",
+      "speakerUserId": "user-2",
+      "startMs": 2691818,
+      "endMs": 2699418,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000096",
+      "speakerUserId": "user-1",
+      "startMs": 2720454,
+      "endMs": 2727864,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000097",
+      "speakerUserId": "user-2",
+      "startMs": 2749090,
+      "endMs": 2756500,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000098",
+      "speakerUserId": "user-3",
+      "startMs": 2777727,
+      "endMs": 2785137,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000099",
+      "speakerUserId": "user-1",
+      "startMs": 2806363,
+      "endMs": 2814533,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000100",
+      "speakerUserId": "user-2",
+      "startMs": 2835000,
+      "endMs": 2842410,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000101",
+      "speakerUserId": "user-2",
+      "startMs": 2863636,
+      "endMs": 2871236,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000102",
+      "speakerUserId": "user-2",
+      "startMs": 2892272,
+      "endMs": 2900062,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000103",
+      "speakerUserId": "user-3",
+      "startMs": 2920909,
+      "endMs": 2928889,
+      "topic": "監視手順",
+      "text": "監視手順の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000104",
+      "speakerUserId": "user-2",
+      "startMs": 2949545,
+      "endMs": 2958095,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000105",
+      "speakerUserId": "user-1",
+      "startMs": 2978181,
+      "endMs": 2987111,
+      "topic": "監視手順",
+      "text": "現時点の資料では監視手順の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000106",
+      "speakerUserId": "user-1",
+      "startMs": 3006818,
+      "endMs": 3013278,
+      "topic": "監視手順",
+      "text": "監視手順書の更新は現担当の私が2026年10月8日までに完了します。"
+    },
+    {
+      "publicId": "U000107",
+      "speakerUserId": "user-2",
+      "startMs": 3035454,
+      "endMs": 3042864,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000108",
+      "speakerUserId": "user-3",
+      "startMs": 3064090,
+      "endMs": 3072070,
+      "topic": "監視手順",
+      "text": "監視手順の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000109",
+      "speakerUserId": "user-3",
+      "startMs": 3092727,
+      "endMs": 3100517,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000110",
+      "speakerUserId": "user-3",
+      "startMs": 3121363,
+      "endMs": 3129913,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000111",
+      "speakerUserId": "user-2",
+      "startMs": 3150000,
+      "endMs": 3157790,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000112",
+      "speakerUserId": "user-3",
+      "startMs": 3178636,
+      "endMs": 3186426,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000113",
+      "speakerUserId": "user-2",
+      "startMs": 3207272,
+      "endMs": 3215442,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000114",
+      "speakerUserId": "user-1",
+      "startMs": 3235909,
+      "endMs": 3244079,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000115",
+      "speakerUserId": "user-3",
+      "startMs": 3264545,
+      "endMs": 3271955,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000116",
+      "speakerUserId": "user-3",
+      "startMs": 3293181,
+      "endMs": 3300591,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000117",
+      "speakerUserId": "user-1",
+      "startMs": 3321818,
+      "endMs": 3329988,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000118",
+      "speakerUserId": "user-1",
+      "startMs": 3350454,
+      "endMs": 3357864,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000119",
+      "speakerUserId": "user-2",
+      "startMs": 3379090,
+      "endMs": 3386500,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000120",
+      "speakerUserId": "user-1",
+      "startMs": 3407727,
+      "endMs": 3415897,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000121",
+      "speakerUserId": "user-3",
+      "startMs": 3436363,
+      "endMs": 3443773,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000122",
+      "speakerUserId": "user-2",
+      "startMs": 3465000,
+      "endMs": 3472410,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000123",
+      "speakerUserId": "user-2",
+      "startMs": 3493636,
+      "endMs": 3501046,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000124",
+      "speakerUserId": "user-1",
+      "startMs": 3522272,
+      "endMs": 3529682,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000125",
+      "speakerUserId": "user-1",
+      "startMs": 3550909,
+      "endMs": 3559079,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000126",
+      "speakerUserId": "user-1",
+      "startMs": 3579545,
+      "endMs": 3586955,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000127",
+      "speakerUserId": "user-2",
+      "startMs": 3608181,
+      "endMs": 3616351,
+      "topic": "バックアップ",
+      "text": "資料のバックアップの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000128",
+      "speakerUserId": "user-2",
+      "startMs": 3636818,
+      "endMs": 3644988,
+      "topic": "バックアップ",
+      "text": "資料のバックアップの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000129",
+      "speakerUserId": "user-2",
+      "startMs": 3665454,
+      "endMs": 3673244,
+      "topic": "バックアップ",
+      "text": "バックアップについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000130",
+      "speakerUserId": "user-2",
+      "startMs": 3694090,
+      "endMs": 3701880,
+      "topic": "バックアップ",
+      "text": "バックアップについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000131",
+      "speakerUserId": "user-2",
+      "startMs": 3722727,
+      "endMs": 3730517,
+      "topic": "バックアップ",
+      "text": "バックアップの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000132",
+      "speakerUserId": "user-1",
+      "startMs": 3751363,
+      "endMs": 3759723,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000133",
+      "speakerUserId": "user-2",
+      "startMs": 3780000,
+      "endMs": 3788360,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000134",
+      "speakerUserId": "user-3",
+      "startMs": 3808636,
+      "endMs": 3817566,
+      "topic": "バックアップ",
+      "text": "手元ではバックアップに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000135",
+      "speakerUserId": "user-2",
+      "startMs": 3837272,
+      "endMs": 3845632,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000136",
+      "speakerUserId": "user-1",
+      "startMs": 3865909,
+      "endMs": 3874839,
+      "topic": "バックアップ",
+      "text": "手元ではバックアップに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000137",
+      "speakerUserId": "user-2",
+      "startMs": 3894545,
+      "endMs": 3901955,
+      "topic": "バックアップ",
+      "text": "先ほどのバックアップの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000138",
+      "speakerUserId": "user-3",
+      "startMs": 3923181,
+      "endMs": 3930591,
+      "topic": "バックアップ",
+      "text": "先ほどのバックアップの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000139",
+      "speakerUserId": "user-3",
+      "startMs": 3951818,
+      "endMs": 3959988,
+      "topic": "バックアップ",
+      "text": "資料のバックアップの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000140",
+      "speakerUserId": "user-1",
+      "startMs": 3980454,
+      "endMs": 3989004,
+      "topic": "バックアップ",
+      "text": "ここまでのバックアップの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000141",
+      "speakerUserId": "user-2",
+      "startMs": 4009090,
+      "endMs": 4016500,
+      "topic": "バックアップ",
+      "text": "先ほどのバックアップの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000142",
+      "speakerUserId": "user-2",
+      "startMs": 4037727,
+      "endMs": 4046657,
+      "topic": "バックアップ",
+      "text": "手元ではバックアップに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000143",
+      "speakerUserId": "user-2",
+      "startMs": 4066363,
+      "endMs": 4074343,
+      "topic": "バックアップ",
+      "text": "バックアップは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000144",
+      "speakerUserId": "user-3",
+      "startMs": 4095000,
+      "endMs": 4102980,
+      "topic": "バックアップ",
+      "text": "バックアップは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000145",
+      "speakerUserId": "user-2",
+      "startMs": 4123636,
+      "endMs": 4131046,
+      "topic": "バックアップ",
+      "text": "先ほどのバックアップの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000146",
+      "speakerUserId": "user-2",
+      "startMs": 4152272,
+      "endMs": 4159682,
+      "topic": "バックアップ",
+      "text": "先ほどのバックアップの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000147",
+      "speakerUserId": "user-3",
+      "startMs": 4180909,
+      "endMs": 4190219,
+      "topic": "バックアップ",
+      "text": "現時点の資料ではバックアップの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000148",
+      "speakerUserId": "user-1",
+      "startMs": 4209545,
+      "endMs": 4217905,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000149",
+      "speakerUserId": "user-2",
+      "startMs": 4238181,
+      "endMs": 4245971,
+      "topic": "バックアップ",
+      "text": "バックアップの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000150",
+      "speakerUserId": "user-2",
+      "startMs": 4266818,
+      "endMs": 4274608,
+      "topic": "バックアップ",
+      "text": "バックアップの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000151",
+      "speakerUserId": "user-3",
+      "startMs": 4295454,
+      "endMs": 4303814,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000152",
+      "speakerUserId": "user-2",
+      "startMs": 4324090,
+      "endMs": 4331880,
+      "topic": "バックアップ",
+      "text": "バックアップの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000153",
+      "speakerUserId": "user-2",
+      "startMs": 4352727,
+      "endMs": 4360897,
+      "topic": "バックアップ",
+      "text": "資料のバックアップの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000154",
+      "speakerUserId": "user-1",
+      "startMs": 4381363,
+      "endMs": 4389153,
+      "topic": "バックアップ",
+      "text": "バックアップについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000155",
+      "speakerUserId": "user-1",
+      "startMs": 4410000,
+      "endMs": 4417790,
+      "topic": "バックアップ",
+      "text": "バックアップについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000156",
+      "speakerUserId": "user-2",
+      "startMs": 4438636,
+      "endMs": 4446616,
+      "topic": "バックアップ",
+      "text": "バックアップは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000157",
+      "speakerUserId": "user-1",
+      "startMs": 4467272,
+      "endMs": 4476582,
+      "topic": "バックアップ",
+      "text": "現時点の資料ではバックアップの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000158",
+      "speakerUserId": "user-3",
+      "startMs": 4495909,
+      "endMs": 4503319,
+      "topic": "バックアップ",
+      "text": "先ほどのバックアップの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000159",
+      "speakerUserId": "user-2",
+      "startMs": 4524545,
+      "endMs": 4533665,
+      "topic": "問い合わせ",
+      "text": "現時点の資料では問い合わせの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000160",
+      "speakerUserId": "user-1",
+      "startMs": 4553181,
+      "endMs": 4561351,
+      "topic": "問い合わせ",
+      "text": "問い合わせの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000161",
+      "speakerUserId": "user-1",
+      "startMs": 4581818,
+      "endMs": 4589418,
+      "topic": "問い合わせ",
+      "text": "問い合わせについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000162",
+      "speakerUserId": "user-1",
+      "startMs": 4610454,
+      "endMs": 4619194,
+      "topic": "問い合わせ",
+      "text": "手元では問い合わせに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000163",
+      "speakerUserId": "user-3",
+      "startMs": 4639090,
+      "endMs": 4647450,
+      "topic": "問い合わせ",
+      "text": "ここまでの問い合わせの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000164",
+      "speakerUserId": "user-2",
+      "startMs": 4667727,
+      "endMs": 4675707,
+      "topic": "問い合わせ",
+      "text": "資料の問い合わせの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000165",
+      "speakerUserId": "user-3",
+      "startMs": 4696363,
+      "endMs": 4704533,
+      "topic": "問い合わせ",
+      "text": "問い合わせの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000166",
+      "speakerUserId": "user-3",
+      "startMs": 4725000,
+      "endMs": 4734120,
+      "topic": "問い合わせ",
+      "text": "現時点の資料では問い合わせの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000167",
+      "speakerUserId": "user-2",
+      "startMs": 4753636,
+      "endMs": 4762376,
+      "topic": "問い合わせ",
+      "text": "手元では問い合わせに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000168",
+      "speakerUserId": "user-2",
+      "startMs": 4782272,
+      "endMs": 4789872,
+      "topic": "問い合わせ",
+      "text": "問い合わせの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000169",
+      "speakerUserId": "user-3",
+      "startMs": 4810909,
+      "endMs": 4818889,
+      "topic": "問い合わせ",
+      "text": "資料の問い合わせの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000170",
+      "speakerUserId": "user-3",
+      "startMs": 4839545,
+      "endMs": 4847145,
+      "topic": "問い合わせ",
+      "text": "問い合わせについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000171",
+      "speakerUserId": "user-2",
+      "startMs": 4868181,
+      "endMs": 4875971,
+      "topic": "問い合わせ",
+      "text": "問い合わせは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000172",
+      "speakerUserId": "user-1",
+      "startMs": 4896818,
+      "endMs": 4904418,
+      "topic": "問い合わせ",
+      "text": "問い合わせについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000173",
+      "speakerUserId": "user-3",
+      "startMs": 4925454,
+      "endMs": 4933814,
+      "topic": "問い合わせ",
+      "text": "ここまでの問い合わせの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000174",
+      "speakerUserId": "user-3",
+      "startMs": 4954090,
+      "endMs": 4961310,
+      "topic": "問い合わせ",
+      "text": "先ほどの問い合わせの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000175",
+      "speakerUserId": "user-3",
+      "startMs": 4982727,
+      "endMs": 4990897,
+      "topic": "問い合わせ",
+      "text": "問い合わせの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000176",
+      "speakerUserId": "user-1",
+      "startMs": 5011363,
+      "endMs": 5019153,
+      "topic": "問い合わせ",
+      "text": "問い合わせは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000177",
+      "speakerUserId": "user-2",
+      "startMs": 5040000,
+      "endMs": 5048360,
+      "topic": "問い合わせ",
+      "text": "ここまでの問い合わせの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000178",
+      "speakerUserId": "user-1",
+      "startMs": 5068636,
+      "endMs": 5076236,
+      "topic": "問い合わせ",
+      "text": "問い合わせの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000179",
+      "speakerUserId": "user-3",
+      "startMs": 5097272,
+      "endMs": 5106012,
+      "topic": "問い合わせ",
+      "text": "手元では問い合わせに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000180",
+      "speakerUserId": "user-3",
+      "startMs": 5125909,
+      "endMs": 5134269,
+      "topic": "問い合わせ",
+      "text": "ここまでの問い合わせの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000181",
+      "speakerUserId": "user-1",
+      "startMs": 5154545,
+      "endMs": 5163285,
+      "topic": "問い合わせ",
+      "text": "手元では問い合わせに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000182",
+      "speakerUserId": "user-2",
+      "startMs": 5183181,
+      "endMs": 5191161,
+      "topic": "問い合わせ",
+      "text": "資料の問い合わせの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000183",
+      "speakerUserId": "user-1",
+      "startMs": 5211818,
+      "endMs": 5220178,
+      "topic": "問い合わせ",
+      "text": "ここまでの問い合わせの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000184",
+      "speakerUserId": "user-3",
+      "startMs": 5240454,
+      "endMs": 5248054,
+      "topic": "問い合わせ",
+      "text": "問い合わせについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000185",
+      "speakerUserId": "user-2",
+      "startMs": 5269090,
+      "endMs": 5276120,
+      "topic": "問い合わせ",
+      "text": "バックアップ頻度を毎日にする案はありますが、容量を確認するまで保留します。"
+    },
+    {
+      "publicId": "U000186",
+      "speakerUserId": "user-2",
+      "startMs": 5297727,
+      "endMs": 5305327,
+      "topic": "問い合わせ",
+      "text": "問い合わせの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000187",
+      "speakerUserId": "user-1",
+      "startMs": 5326363,
+      "endMs": 5333963,
+      "topic": "問い合わせ",
+      "text": "問い合わせの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000188",
+      "speakerUserId": "user-2",
+      "startMs": 5355000,
+      "endMs": 5363170,
+      "topic": "問い合わせ",
+      "text": "問い合わせの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000189",
+      "speakerUserId": "user-1",
+      "startMs": 5383636,
+      "endMs": 5391236,
+      "topic": "問い合わせ",
+      "text": "問い合わせについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000190",
+      "speakerUserId": "user-2",
+      "startMs": 5412272,
+      "endMs": 5418922,
+      "topic": "権限",
+      "text": "先ほどの権限の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000191",
+      "speakerUserId": "user-3",
+      "startMs": 5440909,
+      "endMs": 5448699,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000192",
+      "speakerUserId": "user-2",
+      "startMs": 5469545,
+      "endMs": 5477335,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000193",
+      "speakerUserId": "user-1",
+      "startMs": 5498181,
+      "endMs": 5505211,
+      "topic": "権限",
+      "text": "権限の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000194",
+      "speakerUserId": "user-3",
+      "startMs": 5526818,
+      "endMs": 5534038,
+      "topic": "権限",
+      "text": "権限は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000195",
+      "speakerUserId": "user-3",
+      "startMs": 5555454,
+      "endMs": 5564004,
+      "topic": "権限",
+      "text": "現時点の資料では権限の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000196",
+      "speakerUserId": "user-2",
+      "startMs": 5584090,
+      "endMs": 5591690,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000197",
+      "speakerUserId": "user-2",
+      "startMs": 5612727,
+      "endMs": 5621277,
+      "topic": "権限",
+      "text": "現時点の資料では権限の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000198",
+      "speakerUserId": "user-2",
+      "startMs": 5641363,
+      "endMs": 5648393,
+      "topic": "権限",
+      "text": "権限の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000199",
+      "speakerUserId": "user-2",
+      "startMs": 5670000,
+      "endMs": 5677030,
+      "topic": "権限",
+      "text": "権限の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000200",
+      "speakerUserId": "user-1",
+      "startMs": 5698636,
+      "endMs": 5706806,
+      "topic": "権限",
+      "text": "手元では権限に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000201",
+      "speakerUserId": "user-1",
+      "startMs": 5727272,
+      "endMs": 5733922,
+      "topic": "権限",
+      "text": "先ほどの権限の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000202",
+      "speakerUserId": "user-1",
+      "startMs": 5755909,
+      "endMs": 5762939,
+      "topic": "権限",
+      "text": "権限の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000203",
+      "speakerUserId": "user-2",
+      "startMs": 5784545,
+      "endMs": 5792145,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000204",
+      "speakerUserId": "user-2",
+      "startMs": 5813181,
+      "endMs": 5820401,
+      "topic": "権限",
+      "text": "権限は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000205",
+      "speakerUserId": "user-2",
+      "startMs": 5841818,
+      "endMs": 5849608,
+      "topic": "権限",
+      "text": "ここまでの権限の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000206",
+      "speakerUserId": "user-1",
+      "startMs": 5870454,
+      "endMs": 5878624,
+      "topic": "権限",
+      "text": "手元では権限に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000207",
+      "speakerUserId": "user-3",
+      "startMs": 5899090,
+      "endMs": 5907260,
+      "topic": "権限",
+      "text": "手元では権限に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000208",
+      "speakerUserId": "user-1",
+      "startMs": 5927727,
+      "endMs": 5934377,
+      "topic": "権限",
+      "text": "先ほどの権限の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000209",
+      "speakerUserId": "user-2",
+      "startMs": 5956363,
+      "endMs": 5964533,
+      "topic": "権限",
+      "text": "手元では権限に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000210",
+      "speakerUserId": "user-3",
+      "startMs": 5985000,
+      "endMs": 5992030,
+      "topic": "権限",
+      "text": "権限の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000211",
+      "speakerUserId": "user-2",
+      "startMs": 6013636,
+      "endMs": 6021046,
+      "topic": "権限",
+      "text": "資料の権限の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000212",
+      "speakerUserId": "user-2",
+      "startMs": 6042272,
+      "endMs": 6049302,
+      "topic": "権限",
+      "text": "権限の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000213",
+      "speakerUserId": "user-3",
+      "startMs": 6070909,
+      "endMs": 6079459,
+      "topic": "権限",
+      "text": "現時点の資料では権限の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000214",
+      "speakerUserId": "user-3",
+      "startMs": 6099545,
+      "endMs": 6106575,
+      "topic": "権限",
+      "text": "権限の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000215",
+      "speakerUserId": "user-1",
+      "startMs": 6128181,
+      "endMs": 6135211,
+      "topic": "権限",
+      "text": "権限の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000216",
+      "speakerUserId": "user-3",
+      "startMs": 6156818,
+      "endMs": 6163848,
+      "topic": "権限",
+      "text": "権限の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000217",
+      "speakerUserId": "user-2",
+      "startMs": 6185454,
+      "endMs": 6193054,
+      "topic": "権限",
+      "text": "権限の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000218",
+      "speakerUserId": "user-3",
+      "startMs": 6214090,
+      "endMs": 6221120,
+      "topic": "権限",
+      "text": "権限の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000219",
+      "speakerUserId": "user-1",
+      "startMs": 6242727,
+      "endMs": 6251277,
+      "topic": "権限",
+      "text": "現時点の資料では権限の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000220",
+      "speakerUserId": "user-1",
+      "startMs": 6271363,
+      "endMs": 6279913,
+      "topic": "権限",
+      "text": "現時点の資料では権限の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000221",
+      "speakerUserId": "user-2",
+      "startMs": 6300000,
+      "endMs": 6308550,
+      "topic": "緊急連絡",
+      "text": "手元では緊急連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000222",
+      "speakerUserId": "user-1",
+      "startMs": 6328636,
+      "endMs": 6335666,
+      "topic": "緊急連絡",
+      "text": "先ほどの緊急連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000223",
+      "speakerUserId": "user-2",
+      "startMs": 6357272,
+      "endMs": 6365062,
+      "topic": "緊急連絡",
+      "text": "資料の緊急連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000224",
+      "speakerUserId": "user-2",
+      "startMs": 6385909,
+      "endMs": 6393509,
+      "topic": "緊急連絡",
+      "text": "緊急連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000225",
+      "speakerUserId": "user-1",
+      "startMs": 6414545,
+      "endMs": 6423095,
+      "topic": "緊急連絡",
+      "text": "手元では緊急連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000226",
+      "speakerUserId": "user-1",
+      "startMs": 6443181,
+      "endMs": 6450591,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000227",
+      "speakerUserId": "user-2",
+      "startMs": 6471818,
+      "endMs": 6480368,
+      "topic": "緊急連絡",
+      "text": "手元では緊急連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000228",
+      "speakerUserId": "user-1",
+      "startMs": 6500454,
+      "endMs": 6508244,
+      "topic": "緊急連絡",
+      "text": "資料の緊急連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000229",
+      "speakerUserId": "user-2",
+      "startMs": 6529090,
+      "endMs": 6536690,
+      "topic": "緊急連絡",
+      "text": "緊急連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000230",
+      "speakerUserId": "user-1",
+      "startMs": 6557727,
+      "endMs": 6565517,
+      "topic": "緊急連絡",
+      "text": "資料の緊急連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000231",
+      "speakerUserId": "user-3",
+      "startMs": 6586363,
+      "endMs": 6594153,
+      "topic": "緊急連絡",
+      "text": "資料の緊急連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000232",
+      "speakerUserId": "user-3",
+      "startMs": 6615000,
+      "endMs": 6622410,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000233",
+      "speakerUserId": "user-2",
+      "startMs": 6643636,
+      "endMs": 6651046,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000234",
+      "speakerUserId": "user-2",
+      "startMs": 6672272,
+      "endMs": 6680062,
+      "topic": "緊急連絡",
+      "text": "資料の緊急連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000235",
+      "speakerUserId": "user-3",
+      "startMs": 6700909,
+      "endMs": 6709079,
+      "topic": "緊急連絡",
+      "text": "ここまでの緊急連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000236",
+      "speakerUserId": "user-1",
+      "startMs": 6729545,
+      "endMs": 6738475,
+      "topic": "緊急連絡",
+      "text": "現時点の資料では緊急連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000237",
+      "speakerUserId": "user-1",
+      "startMs": 6758181,
+      "endMs": 6765591,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000238",
+      "speakerUserId": "user-2",
+      "startMs": 6786818,
+      "endMs": 6793848,
+      "topic": "緊急連絡",
+      "text": "先ほどの緊急連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000239",
+      "speakerUserId": "user-3",
+      "startMs": 6815454,
+      "endMs": 6822864,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000240",
+      "speakerUserId": "user-1",
+      "startMs": 6844090,
+      "endMs": 6852260,
+      "topic": "緊急連絡",
+      "text": "ここまでの緊急連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000241",
+      "speakerUserId": "user-2",
+      "startMs": 6872727,
+      "endMs": 6880137,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000242",
+      "speakerUserId": "user-1",
+      "startMs": 6901363,
+      "endMs": 6908773,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000243",
+      "speakerUserId": "user-2",
+      "startMs": 6930000,
+      "endMs": 6937980,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000244",
+      "speakerUserId": "user-3",
+      "startMs": 6958636,
+      "endMs": 6967186,
+      "topic": "緊急連絡",
+      "text": "手元では緊急連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000245",
+      "speakerUserId": "user-3",
+      "startMs": 6987272,
+      "endMs": 6995822,
+      "topic": "緊急連絡",
+      "text": "手元では緊急連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000246",
+      "speakerUserId": "user-3",
+      "startMs": 7015909,
+      "endMs": 7024839,
+      "topic": "緊急連絡",
+      "text": "現時点の資料では緊急連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000247",
+      "speakerUserId": "user-1",
+      "startMs": 7044545,
+      "endMs": 7051575,
+      "topic": "緊急連絡",
+      "text": "先ほどの緊急連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000248",
+      "speakerUserId": "user-3",
+      "startMs": 7073181,
+      "endMs": 7081351,
+      "topic": "緊急連絡",
+      "text": "ここまでの緊急連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000249",
+      "speakerUserId": "user-2",
+      "startMs": 7101818,
+      "endMs": 7109988,
+      "topic": "緊急連絡",
+      "text": "ここまでの緊急連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000250",
+      "speakerUserId": "user-1",
+      "startMs": 7130454,
+      "endMs": 7137864,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000251",
+      "speakerUserId": "user-2",
+      "startMs": 7159090,
+      "endMs": 7168020,
+      "topic": "緊急連絡",
+      "text": "現時点の資料では緊急連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000252",
+      "speakerUserId": "user-3",
+      "startMs": 7187727,
+      "endMs": 7194757,
+      "topic": "緊急連絡",
+      "text": "先ほどの緊急連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000253",
+      "speakerUserId": "user-2",
+      "startMs": 7216363,
+      "endMs": 7224343,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000254",
+      "speakerUserId": "user-2",
+      "startMs": 7244999,
+      "endMs": 7252409,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000255",
+      "speakerUserId": "user-1",
+      "startMs": 7273636,
+      "endMs": 7281236,
+      "topic": "夜間受付",
+      "text": "夜間受付は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000256",
+      "speakerUserId": "user-2",
+      "startMs": 7302272,
+      "endMs": 7309682,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000257",
+      "speakerUserId": "user-2",
+      "startMs": 7330909,
+      "endMs": 7338889,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000258",
+      "speakerUserId": "user-3",
+      "startMs": 7359545,
+      "endMs": 7367525,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000259",
+      "speakerUserId": "user-3",
+      "startMs": 7388181,
+      "endMs": 7397111,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000260",
+      "speakerUserId": "user-3",
+      "startMs": 7416818,
+      "endMs": 7424798,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000261",
+      "speakerUserId": "user-3",
+      "startMs": 7445454,
+      "endMs": 7453054,
+      "topic": "夜間受付",
+      "text": "夜間受付は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000262",
+      "speakerUserId": "user-2",
+      "startMs": 7474090,
+      "endMs": 7481500,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000263",
+      "speakerUserId": "user-3",
+      "startMs": 7502727,
+      "endMs": 7510897,
+      "topic": "夜間受付",
+      "text": "ここまでの夜間受付の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000264",
+      "speakerUserId": "user-2",
+      "startMs": 7531363,
+      "endMs": 7538393,
+      "topic": "夜間受付",
+      "text": "先ほどの夜間受付の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000265",
+      "speakerUserId": "user-1",
+      "startMs": 7560000,
+      "endMs": 7567410,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000266",
+      "speakerUserId": "user-2",
+      "startMs": 7588636,
+      "endMs": 7596046,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000267",
+      "speakerUserId": "user-3",
+      "startMs": 7617272,
+      "endMs": 7625822,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000268",
+      "speakerUserId": "user-1",
+      "startMs": 7645909,
+      "endMs": 7654079,
+      "topic": "夜間受付",
+      "text": "ここまでの夜間受付の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000269",
+      "speakerUserId": "user-2",
+      "startMs": 7674545,
+      "endMs": 7681955,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000270",
+      "speakerUserId": "user-1",
+      "startMs": 7703181,
+      "endMs": 7710591,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000271",
+      "speakerUserId": "user-2",
+      "startMs": 7731818,
+      "endMs": 7740748,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000272",
+      "speakerUserId": "user-1",
+      "startMs": 7760454,
+      "endMs": 7767864,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000273",
+      "speakerUserId": "user-2",
+      "startMs": 7789090,
+      "endMs": 7796500,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000274",
+      "speakerUserId": "user-3",
+      "startMs": 7817727,
+      "endMs": 7826277,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000275",
+      "speakerUserId": "user-2",
+      "startMs": 7846363,
+      "endMs": 7854913,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000276",
+      "speakerUserId": "user-2",
+      "startMs": 7875000,
+      "endMs": 7882410,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000277",
+      "speakerUserId": "user-2",
+      "startMs": 7903636,
+      "endMs": 7911046,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000278",
+      "speakerUserId": "user-1",
+      "startMs": 7932272,
+      "endMs": 7939112,
+      "topic": "夜間受付",
+      "text": "緊急連絡は電話を先にする予定を変更し、専用チャネルへの通知を先にします。"
+    },
+    {
+      "publicId": "U000279",
+      "speakerUserId": "user-1",
+      "startMs": 7960909,
+      "endMs": 7969459,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000280",
+      "speakerUserId": "user-3",
+      "startMs": 7989545,
+      "endMs": 7998095,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000281",
+      "speakerUserId": "user-1",
+      "startMs": 8018181,
+      "endMs": 8025971,
+      "topic": "夜間受付",
+      "text": "資料の夜間受付の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000282",
+      "speakerUserId": "user-1",
+      "startMs": 8046818,
+      "endMs": 8055748,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000283",
+      "speakerUserId": "user-1",
+      "startMs": 8075454,
+      "endMs": 8083624,
+      "topic": "夜間受付",
+      "text": "ここまでの夜間受付の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000284",
+      "speakerUserId": "user-2",
+      "startMs": 8104090,
+      "endMs": 8113020,
+      "topic": "監視手順",
+      "text": "現時点の資料では監視手順の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000285",
+      "speakerUserId": "user-3",
+      "startMs": 8132727,
+      "endMs": 8140517,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000286",
+      "speakerUserId": "user-1",
+      "startMs": 8161363,
+      "endMs": 8168773,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000287",
+      "speakerUserId": "user-2",
+      "startMs": 8190000,
+      "endMs": 8197790,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000288",
+      "speakerUserId": "user-3",
+      "startMs": 8218636,
+      "endMs": 8226046,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000289",
+      "speakerUserId": "user-1",
+      "startMs": 8247272,
+      "endMs": 8255822,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000290",
+      "speakerUserId": "user-1",
+      "startMs": 8275909,
+      "endMs": 8283319,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000291",
+      "speakerUserId": "user-1",
+      "startMs": 8304545,
+      "endMs": 8311955,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000292",
+      "speakerUserId": "user-3",
+      "startMs": 8333181,
+      "endMs": 8340971,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000293",
+      "speakerUserId": "user-2",
+      "startMs": 8361818,
+      "endMs": 8369988,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000294",
+      "speakerUserId": "user-1",
+      "startMs": 8390454,
+      "endMs": 8397864,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000295",
+      "speakerUserId": "user-2",
+      "startMs": 8419090,
+      "endMs": 8427260,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000296",
+      "speakerUserId": "user-1",
+      "startMs": 8447727,
+      "endMs": 8455137,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000297",
+      "speakerUserId": "user-1",
+      "startMs": 8476363,
+      "endMs": 8483393,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000298",
+      "speakerUserId": "user-3",
+      "startMs": 8505000,
+      "endMs": 8512790,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000299",
+      "speakerUserId": "user-1",
+      "startMs": 8533636,
+      "endMs": 8541806,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000300",
+      "speakerUserId": "user-2",
+      "startMs": 8562272,
+      "endMs": 8571202,
+      "topic": "監視手順",
+      "text": "現時点の資料では監視手順の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000301",
+      "speakerUserId": "user-1",
+      "startMs": 8590909,
+      "endMs": 8599079,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000302",
+      "speakerUserId": "user-2",
+      "startMs": 8619545,
+      "endMs": 8627335,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000303",
+      "speakerUserId": "user-1",
+      "startMs": 8648181,
+      "endMs": 8655591,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000304",
+      "speakerUserId": "user-3",
+      "startMs": 8676818,
+      "endMs": 8683848,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000305",
+      "speakerUserId": "user-1",
+      "startMs": 8705454,
+      "endMs": 8713244,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000306",
+      "speakerUserId": "user-3",
+      "startMs": 8734090,
+      "endMs": 8741880,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000307",
+      "speakerUserId": "user-2",
+      "startMs": 8762727,
+      "endMs": 8769757,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000308",
+      "speakerUserId": "user-2",
+      "startMs": 8791363,
+      "endMs": 8799533,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000309",
+      "speakerUserId": "user-2",
+      "startMs": 8820000,
+      "endMs": 8828550,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000310",
+      "speakerUserId": "user-1",
+      "startMs": 8848636,
+      "endMs": 8856236,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000311",
+      "speakerUserId": "user-1",
+      "startMs": 8877272,
+      "endMs": 8884682,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000312",
+      "speakerUserId": "user-3",
+      "startMs": 8905909,
+      "endMs": 8913509,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000313",
+      "speakerUserId": "user-2",
+      "startMs": 8934545,
+      "endMs": 8941575,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000314",
+      "speakerUserId": "user-1",
+      "startMs": 8963181,
+      "endMs": 8971731,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000315",
+      "speakerUserId": "user-1",
+      "startMs": 8991818,
+      "endMs": 8999228,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000316",
+      "speakerUserId": "user-2",
+      "startMs": 9020454,
+      "endMs": 9027864,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000317",
+      "speakerUserId": "user-3",
+      "startMs": 9049090,
+      "endMs": 9057640,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000318",
+      "speakerUserId": "user-3",
+      "startMs": 9077727,
+      "endMs": 9085517,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000319",
+      "speakerUserId": "user-2",
+      "startMs": 9106363,
+      "endMs": 9113393,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000320",
+      "speakerUserId": "user-2",
+      "startMs": 9135000,
+      "endMs": 9143170,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000321",
+      "speakerUserId": "user-1",
+      "startMs": 9163636,
+      "endMs": 9171806,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000322",
+      "speakerUserId": "user-3",
+      "startMs": 9192272,
+      "endMs": 9200062,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000323",
+      "speakerUserId": "user-2",
+      "startMs": 9220909,
+      "endMs": 9229079,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000324",
+      "speakerUserId": "user-3",
+      "startMs": 9249545,
+      "endMs": 9256955,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000325",
+      "speakerUserId": "user-3",
+      "startMs": 9278181,
+      "endMs": 9287111,
+      "topic": "監視手順",
+      "text": "現時点の資料では監視手順の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000326",
+      "speakerUserId": "user-1",
+      "startMs": 9306818,
+      "endMs": 9314228,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000327",
+      "speakerUserId": "user-2",
+      "startMs": 9335454,
+      "endMs": 9342864,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000328",
+      "speakerUserId": "user-3",
+      "startMs": 9364090,
+      "endMs": 9371120,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000329",
+      "speakerUserId": "user-1",
+      "startMs": 9392727,
+      "endMs": 9401657,
+      "topic": "監視手順",
+      "text": "現時点の資料では監視手順の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000330",
+      "speakerUserId": "user-3",
+      "startMs": 9421363,
+      "endMs": 9428773,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000331",
+      "speakerUserId": "user-2",
+      "startMs": 9450000,
+      "endMs": 9457030,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000332",
+      "speakerUserId": "user-3",
+      "startMs": 9478636,
+      "endMs": 9485666,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000333",
+      "speakerUserId": "user-3",
+      "startMs": 9507272,
+      "endMs": 9515822,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000334",
+      "speakerUserId": "user-1",
+      "startMs": 9535909,
+      "endMs": 9544079,
+      "topic": "監視手順",
+      "text": "ここまでの監視手順の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000335",
+      "speakerUserId": "user-2",
+      "startMs": 9564545,
+      "endMs": 9571955,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000336",
+      "speakerUserId": "user-1",
+      "startMs": 9593181,
+      "endMs": 9600591,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000337",
+      "speakerUserId": "user-3",
+      "startMs": 9621818,
+      "endMs": 9629228,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000338",
+      "speakerUserId": "user-2",
+      "startMs": 9650454,
+      "endMs": 9657864,
+      "topic": "監視手順",
+      "text": "監視手順の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000339",
+      "speakerUserId": "user-2",
+      "startMs": 9679090,
+      "endMs": 9686880,
+      "topic": "監視手順",
+      "text": "資料の監視手順の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000340",
+      "speakerUserId": "user-1",
+      "startMs": 9707727,
+      "endMs": 9714757,
+      "topic": "監視手順",
+      "text": "先ほどの監視手順の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000341",
+      "speakerUserId": "user-3",
+      "startMs": 9736363,
+      "endMs": 9743963,
+      "topic": "監視手順",
+      "text": "監視手順は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000342",
+      "speakerUserId": "user-1",
+      "startMs": 9765000,
+      "endMs": 9772410,
+      "topic": "監視手順",
+      "text": "監視手順の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000343",
+      "speakerUserId": "user-1",
+      "startMs": 9793636,
+      "endMs": 9801046,
+      "topic": "監視手順",
+      "text": "監視手順については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000344",
+      "speakerUserId": "user-1",
+      "startMs": 9822272,
+      "endMs": 9828162,
+      "topic": "監視手順",
+      "text": "権限棚卸しの承認者はまだ決まっていません。管理者が確認します。"
+    },
+    {
+      "publicId": "U000345",
+      "speakerUserId": "user-2",
+      "startMs": 9850909,
+      "endMs": 9859459,
+      "topic": "監視手順",
+      "text": "手元では監視手順に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000346",
+      "speakerUserId": "user-3",
+      "startMs": 9879545,
+      "endMs": 9887525,
+      "topic": "監視手順",
+      "text": "監視手順の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000347",
+      "speakerUserId": "user-3",
+      "startMs": 9908181,
+      "endMs": 9915591,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000348",
+      "speakerUserId": "user-2",
+      "startMs": 9936818,
+      "endMs": 9944228,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000349",
+      "speakerUserId": "user-2",
+      "startMs": 9965454,
+      "endMs": 9973054,
+      "topic": "夜間受付",
+      "text": "夜間受付は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000350",
+      "speakerUserId": "user-3",
+      "startMs": 9994090,
+      "endMs": 10003020,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000351",
+      "speakerUserId": "user-1",
+      "startMs": 10022727,
+      "endMs": 10030137,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000352",
+      "speakerUserId": "user-3",
+      "startMs": 10051363,
+      "endMs": 10058773,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000353",
+      "speakerUserId": "user-2",
+      "startMs": 10080000,
+      "endMs": 10087030,
+      "topic": "夜間受付",
+      "text": "先ほどの夜間受付の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000354",
+      "speakerUserId": "user-2",
+      "startMs": 10108636,
+      "endMs": 10116046,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000355",
+      "speakerUserId": "user-1",
+      "startMs": 10137272,
+      "endMs": 10146202,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000356",
+      "speakerUserId": "user-2",
+      "startMs": 10165909,
+      "endMs": 10174839,
+      "topic": "夜間受付",
+      "text": "現時点の資料では夜間受付の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000357",
+      "speakerUserId": "user-1",
+      "startMs": 10194545,
+      "endMs": 10202335,
+      "topic": "夜間受付",
+      "text": "資料の夜間受付の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000358",
+      "speakerUserId": "user-3",
+      "startMs": 10223181,
+      "endMs": 10230211,
+      "topic": "夜間受付",
+      "text": "先ほどの夜間受付の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000359",
+      "speakerUserId": "user-1",
+      "startMs": 10251818,
+      "endMs": 10260368,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000360",
+      "speakerUserId": "user-2",
+      "startMs": 10280454,
+      "endMs": 10287864,
+      "topic": "夜間受付",
+      "text": "夜間受付の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000361",
+      "speakerUserId": "user-2",
+      "startMs": 10309090,
+      "endMs": 10316880,
+      "topic": "夜間受付",
+      "text": "資料の夜間受付の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000362",
+      "speakerUserId": "user-3",
+      "startMs": 10337727,
+      "endMs": 10345137,
+      "topic": "夜間受付",
+      "text": "夜間受付については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000363",
+      "speakerUserId": "user-1",
+      "startMs": 10366363,
+      "endMs": 10374343,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000364",
+      "speakerUserId": "user-3",
+      "startMs": 10395000,
+      "endMs": 10403550,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000365",
+      "speakerUserId": "user-2",
+      "startMs": 10423636,
+      "endMs": 10430666,
+      "topic": "夜間受付",
+      "text": "先ほどの夜間受付の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000366",
+      "speakerUserId": "user-1",
+      "startMs": 10452272,
+      "endMs": 10459302,
+      "topic": "夜間受付",
+      "text": "先ほどの夜間受付の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000367",
+      "speakerUserId": "user-1",
+      "startMs": 10480909,
+      "endMs": 10488319,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000368",
+      "speakerUserId": "user-1",
+      "startMs": 10509545,
+      "endMs": 10517715,
+      "topic": "夜間受付",
+      "text": "ここまでの夜間受付の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000369",
+      "speakerUserId": "user-3",
+      "startMs": 10538181,
+      "endMs": 10545971,
+      "topic": "夜間受付",
+      "text": "資料の夜間受付の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000370",
+      "speakerUserId": "user-3",
+      "startMs": 10566818,
+      "endMs": 10574798,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000371",
+      "speakerUserId": "user-1",
+      "startMs": 10595454,
+      "endMs": 10604004,
+      "topic": "夜間受付",
+      "text": "手元では夜間受付に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000372",
+      "speakerUserId": "user-3",
+      "startMs": 10624090,
+      "endMs": 10632260,
+      "topic": "夜間受付",
+      "text": "ここまでの夜間受付の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000373",
+      "speakerUserId": "user-3",
+      "startMs": 10652727,
+      "endMs": 10659757,
+      "topic": "夜間受付",
+      "text": "先ほどの夜間受付の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000374",
+      "speakerUserId": "user-2",
+      "startMs": 10681363,
+      "endMs": 10689343,
+      "topic": "夜間受付",
+      "text": "夜間受付の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000375",
+      "speakerUserId": "user-3",
+      "startMs": 10710000,
+      "endMs": 10718170,
+      "topic": "夜間受付",
+      "text": "ここまでの夜間受付の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000376",
+      "speakerUserId": "user-1",
+      "startMs": 10738636,
+      "endMs": 10746046,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000377",
+      "speakerUserId": "user-1",
+      "startMs": 10767272,
+      "endMs": 10774872,
+      "topic": "夜間受付",
+      "text": "夜間受付は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000378",
+      "speakerUserId": "user-3",
+      "startMs": 10795909,
+      "endMs": 10803319,
+      "topic": "夜間受付",
+      "text": "夜間受付の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000379",
+      "speakerUserId": "user-3",
+      "startMs": 10824545,
+      "endMs": 10833475,
+      "topic": "バックアップ",
+      "text": "手元ではバックアップに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000380",
+      "speakerUserId": "user-1",
+      "startMs": 10853181,
+      "endMs": 10860591,
+      "topic": "バックアップ",
+      "text": "先ほどのバックアップの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000381",
+      "speakerUserId": "user-1",
+      "startMs": 10881818,
+      "endMs": 10889798,
+      "topic": "バックアップ",
+      "text": "バックアップは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000382",
+      "speakerUserId": "user-1",
+      "startMs": 10910454,
+      "endMs": 10919764,
+      "topic": "バックアップ",
+      "text": "現時点の資料ではバックアップの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000383",
+      "speakerUserId": "user-1",
+      "startMs": 10939090,
+      "endMs": 10946880,
+      "topic": "バックアップ",
+      "text": "バックアップの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000384",
+      "speakerUserId": "user-3",
+      "startMs": 10967727,
+      "endMs": 10975517,
+      "topic": "バックアップ",
+      "text": "バックアップの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000385",
+      "speakerUserId": "user-2",
+      "startMs": 10996363,
+      "endMs": 11004153,
+      "topic": "バックアップ",
+      "text": "バックアップについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000386",
+      "speakerUserId": "user-2",
+      "startMs": 11025000,
+      "endMs": 11033930,
+      "topic": "バックアップ",
+      "text": "手元ではバックアップに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000387",
+      "speakerUserId": "user-2",
+      "startMs": 11053636,
+      "endMs": 11062186,
+      "topic": "バックアップ",
+      "text": "ここまでのバックアップの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000388",
+      "speakerUserId": "user-3",
+      "startMs": 11082272,
+      "endMs": 11090632,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000389",
+      "speakerUserId": "user-1",
+      "startMs": 11110909,
+      "endMs": 11119269,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000390",
+      "speakerUserId": "user-3",
+      "startMs": 11139545,
+      "endMs": 11148095,
+      "topic": "バックアップ",
+      "text": "ここまでのバックアップの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000391",
+      "speakerUserId": "user-3",
+      "startMs": 11168181,
+      "endMs": 11177491,
+      "topic": "バックアップ",
+      "text": "現時点の資料ではバックアップの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000392",
+      "speakerUserId": "user-1",
+      "startMs": 11196818,
+      "endMs": 11204798,
+      "topic": "バックアップ",
+      "text": "バックアップは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000393",
+      "speakerUserId": "user-2",
+      "startMs": 11225454,
+      "endMs": 11233624,
+      "topic": "バックアップ",
+      "text": "資料のバックアップの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000394",
+      "speakerUserId": "user-2",
+      "startMs": 11254090,
+      "endMs": 11262450,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000395",
+      "speakerUserId": "user-1",
+      "startMs": 11282727,
+      "endMs": 11290517,
+      "topic": "バックアップ",
+      "text": "バックアップについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000396",
+      "speakerUserId": "user-1",
+      "startMs": 11311363,
+      "endMs": 11319723,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000397",
+      "speakerUserId": "user-1",
+      "startMs": 11340000,
+      "endMs": 11347790,
+      "topic": "バックアップ",
+      "text": "バックアップについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000398",
+      "speakerUserId": "user-1",
+      "startMs": 11368636,
+      "endMs": 11376996,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000399",
+      "speakerUserId": "user-1",
+      "startMs": 11397272,
+      "endMs": 11405822,
+      "topic": "バックアップ",
+      "text": "ここまでのバックアップの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000400",
+      "speakerUserId": "user-1",
+      "startMs": 11425909,
+      "endMs": 11435219,
+      "topic": "バックアップ",
+      "text": "現時点の資料ではバックアップの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000401",
+      "speakerUserId": "user-2",
+      "startMs": 11454545,
+      "endMs": 11461955,
+      "topic": "バックアップ",
+      "text": "先ほどのバックアップの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000402",
+      "speakerUserId": "user-2",
+      "startMs": 11483181,
+      "endMs": 11490971,
+      "topic": "バックアップ",
+      "text": "バックアップの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000403",
+      "speakerUserId": "user-3",
+      "startMs": 11511818,
+      "endMs": 11519798,
+      "topic": "バックアップ",
+      "text": "バックアップは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000404",
+      "speakerUserId": "user-3",
+      "startMs": 11540454,
+      "endMs": 11548434,
+      "topic": "バックアップ",
+      "text": "バックアップは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000405",
+      "speakerUserId": "user-3",
+      "startMs": 11569090,
+      "endMs": 11576880,
+      "topic": "バックアップ",
+      "text": "バックアップについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000406",
+      "speakerUserId": "user-2",
+      "startMs": 11597727,
+      "endMs": 11605517,
+      "topic": "バックアップ",
+      "text": "バックアップの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000407",
+      "speakerUserId": "user-1",
+      "startMs": 11626363,
+      "endMs": 11634153,
+      "topic": "バックアップ",
+      "text": "バックアップの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000408",
+      "speakerUserId": "user-1",
+      "startMs": 11655000,
+      "endMs": 11663360,
+      "topic": "バックアップ",
+      "text": "バックアップの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000409",
+      "speakerUserId": "user-3",
+      "startMs": 11683636,
+      "endMs": 11691426,
+      "topic": "バックアップ",
+      "text": "バックアップの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000410",
+      "speakerUserId": "user-1",
+      "startMs": 11712272,
+      "endMs": 11720252,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000411",
+      "speakerUserId": "user-2",
+      "startMs": 11740909,
+      "endMs": 11749459,
+      "topic": "緊急連絡",
+      "text": "手元では緊急連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000412",
+      "speakerUserId": "user-2",
+      "startMs": 11769545,
+      "endMs": 11776955,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000413",
+      "speakerUserId": "user-2",
+      "startMs": 11798181,
+      "endMs": 11805211,
+      "topic": "緊急連絡",
+      "text": "先ほどの緊急連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000414",
+      "speakerUserId": "user-3",
+      "startMs": 11826818,
+      "endMs": 11834608,
+      "topic": "緊急連絡",
+      "text": "資料の緊急連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000415",
+      "speakerUserId": "user-3",
+      "startMs": 11855454,
+      "endMs": 11863244,
+      "topic": "緊急連絡",
+      "text": "資料の緊急連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000416",
+      "speakerUserId": "user-2",
+      "startMs": 11884090,
+      "endMs": 11891500,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000417",
+      "speakerUserId": "user-3",
+      "startMs": 11912727,
+      "endMs": 11919757,
+      "topic": "緊急連絡",
+      "text": "先ほどの緊急連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000418",
+      "speakerUserId": "user-3",
+      "startMs": 11941363,
+      "endMs": 11949913,
+      "topic": "緊急連絡",
+      "text": "手元では緊急連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000419",
+      "speakerUserId": "user-2",
+      "startMs": 11970000,
+      "endMs": 11976270,
+      "topic": "緊急連絡",
+      "text": "引き継ぎ演習は次担当の私が2026年10月18日までに実施します。"
+    },
+    {
+      "publicId": "U000420",
+      "speakerUserId": "user-1",
+      "startMs": 11998636,
+      "endMs": 12006046,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000421",
+      "speakerUserId": "user-2",
+      "startMs": 12027272,
+      "endMs": 12036202,
+      "topic": "緊急連絡",
+      "text": "現時点の資料では緊急連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000422",
+      "speakerUserId": "user-2",
+      "startMs": 12055909,
+      "endMs": 12064079,
+      "topic": "緊急連絡",
+      "text": "ここまでの緊急連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000423",
+      "speakerUserId": "user-1",
+      "startMs": 12084545,
+      "endMs": 12091955,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000424",
+      "speakerUserId": "user-3",
+      "startMs": 12113181,
+      "endMs": 12122111,
+      "topic": "緊急連絡",
+      "text": "現時点の資料では緊急連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000425",
+      "speakerUserId": "user-2",
+      "startMs": 12141818,
+      "endMs": 12149228,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000426",
+      "speakerUserId": "user-3",
+      "startMs": 12170454,
+      "endMs": 12177864,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000427",
+      "speakerUserId": "user-3",
+      "startMs": 12199090,
+      "endMs": 12206690,
+      "topic": "緊急連絡",
+      "text": "緊急連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000428",
+      "speakerUserId": "user-3",
+      "startMs": 12227727,
+      "endMs": 12235517,
+      "topic": "緊急連絡",
+      "text": "資料の緊急連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000429",
+      "speakerUserId": "user-1",
+      "startMs": 12256363,
+      "endMs": 12263773,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000430",
+      "speakerUserId": "user-3",
+      "startMs": 12285000,
+      "endMs": 12292410,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000431",
+      "speakerUserId": "user-2",
+      "startMs": 12313636,
+      "endMs": 12322186,
+      "topic": "緊急連絡",
+      "text": "手元では緊急連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000432",
+      "speakerUserId": "user-3",
+      "startMs": 12342272,
+      "endMs": 12349682,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000433",
+      "speakerUserId": "user-3",
+      "startMs": 12370909,
+      "endMs": 12378319,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000434",
+      "speakerUserId": "user-3",
+      "startMs": 12399545,
+      "endMs": 12406575,
+      "topic": "緊急連絡",
+      "text": "先ほどの緊急連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000435",
+      "speakerUserId": "user-3",
+      "startMs": 12428181,
+      "endMs": 12436161,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000436",
+      "speakerUserId": "user-2",
+      "startMs": 12456818,
+      "endMs": 12464228,
+      "topic": "緊急連絡",
+      "text": "緊急連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000437",
+      "speakerUserId": "user-1",
+      "startMs": 12485454,
+      "endMs": 12492864,
+      "topic": "緊急連絡",
+      "text": "緊急連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000438",
+      "speakerUserId": "user-3",
+      "startMs": 12514090,
+      "endMs": 12521120,
+      "topic": "緊急連絡",
+      "text": "先ほどの緊急連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000439",
+      "speakerUserId": "user-3",
+      "startMs": 12542727,
+      "endMs": 12551657,
+      "topic": "緊急連絡",
+      "text": "現時点の資料では緊急連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000440",
+      "speakerUserId": "user-1",
+      "startMs": 12571363,
+      "endMs": 12580293,
+      "topic": "緊急連絡",
+      "text": "現時点の資料では緊急連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    }
+  ]
+}

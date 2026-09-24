@@ -1,0 +1,443 @@
+[
+  {
+    "id": "dense-workshop",
+    "model": "gemma4:e4b-it-qat",
+    "anchorId": "U001171",
+    "anchorKind": "openQuestion",
+    "seconds": 33,
+    "attempts": 1,
+    "promptTokens": 2772,
+    "generatedTokens": 1222,
+    "validated": true,
+    "anchorPassed": true,
+    "error": null,
+    "linked": {
+      "topics": [],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": [
+        {
+          "text": "旧クライアントの利用者数が未確認のため、移行案内の対象が確定していない。",
+          "evidenceUtteranceIds": [
+            "U001171"
+          ]
+        }
+      ]
+    },
+    "summary": {
+      "schemaVersion": "1",
+      "title": "Meeting Minutes",
+      "overview": "会議の概要",
+      "topics": [
+        {
+          "title": "互換性に関する議論",
+          "summary": "互換性の利用者側の影響整理、資料の不備確認、および前提条件の再確認が行われた。",
+          "evidenceUtteranceIds": [
+            "U001161",
+            "U001179",
+            "U001183",
+            "U001205"
+          ]
+        },
+        {
+          "title": "公開に関する議論",
+          "summary": "公開に伴う利用者側の影響整理、資料の不備確認、および前提条件の再確認が行われた。",
+          "evidenceUtteranceIds": [
+            "U001185",
+            "U001192",
+            "U001194",
+            "U001203"
+          ]
+        }
+      ],
+      "decisions": [],
+      "actionItems": [
+        {
+          "task": "互換性に関する利用者側の影響を整理する。",
+          "assigneeUserId": null,
+          "assigneeDisplayName": null,
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U001161",
+            "U001192",
+            "U001194"
+          ]
+        },
+        {
+          "task": "互換性に関する例外時の扱いを考慮する。",
+          "assigneeUserId": null,
+          "assigneeDisplayName": null,
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U001162",
+            "U001175",
+            "U001181",
+            "U001187"
+          ]
+        },
+        {
+          "task": "互換性に関する現場で起きるケースを挙げ、影響範囲を整理する。",
+          "assigneeUserId": null,
+          "assigneeDisplayName": null,
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U001163",
+            "U001172",
+            "U001173",
+            "U001179",
+            "U001191"
+          ]
+        },
+        {
+          "task": "互換性に関する資料の注記にある数字の根拠を確認する。",
+          "assigneeUserId": null,
+          "assigneeDisplayName": null,
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U001166",
+            "U001176",
+            "U001178",
+            "U001204"
+          ]
+        },
+        {
+          "task": "互換性に関する関係する画面と運用手順を分けて確認する。",
+          "assigneeUserId": null,
+          "assigneeDisplayName": null,
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U001164",
+            "U001170",
+            "U001184"
+          ]
+        },
+        {
+          "task": "互換性の議論で前提がずれないよう、対象と対象外を読み合わせる。",
+          "assigneeUserId": null,
+          "assigneeDisplayName": null,
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U001165",
+            "U001169",
+            "U001183",
+            "U001205"
+          ]
+        },
+        {
+          "task": "公開に関する利用者側の影響を整理する。",
+          "assigneeUserId": null,
+          "assigneeDisplayName": null,
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U001185",
+            "U001192",
+            "U001194"
+          ]
+        },
+        {
+          "task": "公開に関する資料の注記にある数字の根拠を確認する。",
+          "assigneeUserId": null,
+          "assigneeDisplayName": null,
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U001204"
+          ]
+        }
+      ],
+      "openQuestions": [
+        {
+          "text": "旧クライアントの利用者数が未確認のため、移行案内の対象が確定していない。",
+          "evidenceUtteranceIds": [
+            "U001171"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "incident-review",
+    "model": "gemma4:e4b-it-qat",
+    "anchorId": "U000328",
+    "anchorKind": "proposal",
+    "seconds": 10,
+    "attempts": 1,
+    "promptTokens": 2696,
+    "generatedTokens": 401,
+    "validated": true,
+    "anchorPassed": false,
+    "error": null,
+    "linked": {
+      "topics": [],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": []
+    },
+    "summary": {
+      "schemaVersion": "1",
+      "title": "Meeting Minutes",
+      "overview": "会議の概要",
+      "topics": [
+        {
+          "title": "利用者連絡に関する論点確認",
+          "summary": "利用者連絡に関して、窓口ごとの説明の差異や、資料上の数値根拠の不明瞭さなど、判断に必要な情報が不足している点が議論された。",
+          "evidenceUtteranceIds": [
+            "U000315",
+            "U000323",
+            "U000332",
+            "U000348"
+          ]
+        },
+        {
+          "title": "監視通知に関する論点確認",
+          "summary": "監視通知に関して、窓口ごとの説明の差異や、資料上の数値根拠の不明瞭さ、例外時の取り扱いなど、判断に必要な情報が不足している点が議論された。",
+          "evidenceUtteranceIds": [
+            "U000339",
+            "U000348",
+            "U000357"
+          ]
+        }
+      ],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": [
+        {
+          "text": "利用者連絡に関する判断に必要な情報が揃っているか",
+          "evidenceUtteranceIds": [
+            "U000315",
+            "U000332"
+          ]
+        },
+        {
+          "text": "監視通知に関する判断に必要な情報が揃っているか",
+          "evidenceUtteranceIds": [
+            "U000348"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "operations-handoff",
+    "model": "gemma4:e4b-it-qat",
+    "anchorId": "U000106",
+    "anchorKind": "action",
+    "seconds": 62,
+    "attempts": 2,
+    "promptTokens": 2798,
+    "generatedTokens": 1239,
+    "validated": false,
+    "anchorPassed": false,
+    "error": "Invalid due date",
+    "linked": null,
+    "summary": null
+  },
+  {
+    "id": "product-roadmap",
+    "model": "gemma4:e4b-it-qat",
+    "anchorId": "U000643",
+    "anchorKind": "revision",
+    "seconds": 19,
+    "attempts": 1,
+    "promptTokens": 2727,
+    "generatedTokens": 854,
+    "validated": true,
+    "anchorPassed": false,
+    "error": null,
+    "linked": {
+      "topics": [],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": []
+    },
+    "summary": {
+      "schemaVersion": "1",
+      "title": "Meeting Minutes",
+      "overview": "会議の概要",
+      "topics": [
+        {
+          "title": "検索機能に関する議論",
+          "summary": "検索機能について、前提条件の確認、影響範囲の整理、および具体的な手順の照合が必要であることが確認された。",
+          "evidenceUtteranceIds": [
+            "U000633",
+            "U000641",
+            "U000648",
+            "U000650",
+            "U000651",
+            "U000654",
+            "U000676"
+          ]
+        },
+        {
+          "title": "サポート機能に関する議論",
+          "summary": "サポート機能についても、前提条件の確認、影響範囲の整理、および具体的な手順の照合が必要であることが確認された。",
+          "evidenceUtteranceIds": [
+            "U000634",
+            "U000646",
+            "U000654",
+            "U000660",
+            "U000672",
+            "U000676"
+          ]
+        }
+      ],
+      "decisions": [],
+      "actionItems": [
+        {
+          "task": "検索の利用者側の影響を一覧に書き足す。",
+          "assigneeUserId": "user-2",
+          "assigneeDisplayName": "企画",
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U000655"
+          ]
+        },
+        {
+          "task": "サポートの利用者側の影響を一覧に書き足す。",
+          "assigneeUserId": "user-2",
+          "assigneeDisplayName": "企画",
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U000667"
+          ]
+        },
+        {
+          "task": "検索に関係する操作を二通り試した結果と、確認中の数字について後で資料を共有する。",
+          "assigneeUserId": "user-1",
+          "assigneeDisplayName": "進行",
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U000644"
+          ]
+        },
+        {
+          "task": "検索に関係する操作を二通り試した結果と、確認中の数字について後で資料を共有する。",
+          "assigneeUserId": "user-5",
+          "assigneeDisplayName": "品質",
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U000653"
+          ]
+        },
+        {
+          "task": "サポートに関係する操作を二通り試した結果と、確認中の数字について後で資料を共有する。",
+          "assigneeUserId": "user-4",
+          "assigneeDisplayName": "設計",
+          "dueDate": null,
+          "dueText": null,
+          "evidenceUtteranceIds": [
+            "U000665"
+          ]
+        }
+      ],
+      "openQuestions": [
+        {
+          "text": "資料の検索の箇所にある数字の根拠を確認する。",
+          "evidenceUtteranceIds": [
+            "U000634",
+            "U000646",
+            "U000654"
+          ]
+        },
+        {
+          "text": "サポートの資料の箇所にある数字の根拠を確認する。",
+          "evidenceUtteranceIds": [
+            "U000660",
+            "U000676"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "release-planning",
+    "model": "gemma4:e4b-it-qat",
+    "anchorId": "U000303",
+    "anchorKind": "revision",
+    "seconds": 10,
+    "attempts": 1,
+    "promptTokens": 2718,
+    "generatedTokens": 403,
+    "validated": true,
+    "anchorPassed": true,
+    "error": null,
+    "linked": {
+      "topics": [
+        {
+          "title": "公開日に関する決定と確認事項",
+          "summary": "公開日が2026年10月12日に変更されることが決定した。また、公開日の説明についても例外時の扱いを考慮する必要があるとの指摘があった。",
+          "evidenceUtteranceIds": [
+            "U000303",
+            "U000313"
+          ]
+        }
+      ],
+      "decisions": [
+        {
+          "text": "公開日は2026年10月12日に変更する。",
+          "evidenceUtteranceIds": [
+            "U000303"
+          ]
+        }
+      ],
+      "actionItems": [],
+      "openQuestions": []
+    },
+    "summary": {
+      "schemaVersion": "1",
+      "title": "Meeting Minutes",
+      "overview": "会議の概要",
+      "topics": [
+        {
+          "title": "告知文に関する議論",
+          "summary": "告知文について、例外時の扱いを考慮する必要があることが指摘された。",
+          "evidenceUtteranceIds": [
+            "U000272",
+            "U000274",
+            "U000304"
+          ]
+        },
+        {
+          "title": "配布ページに関する議論",
+          "summary": "告知文や配布ページの操作について、窓口ごとの説明の差異や前提条件の確認が必要であるという認識が共有された。また、資料内の数字の根拠確認や利用者側の影響整理が求められている。",
+          "evidenceUtteranceIds": [
+            "U000273",
+            "U000283",
+            "U000291",
+            "U000296",
+            "U000301"
+          ]
+        },
+        {
+          "title": "公開日に関する決定と確認事項",
+          "summary": "公開日が2026年10月12日に変更されることが決定した。また、公開日の説明についても例外時の扱いを考慮する必要があるとの指摘があった。",
+          "evidenceUtteranceIds": [
+            "U000303",
+            "U000313"
+          ]
+        }
+      ],
+      "decisions": [
+        {
+          "text": "公開日は2026年10月12日に変更する。",
+          "evidenceUtteranceIds": [
+            "U000303"
+          ]
+        }
+      ],
+      "actionItems": [],
+      "openQuestions": []
+    }
+  }
+]

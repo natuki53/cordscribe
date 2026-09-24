@@ -1,0 +1,64 @@
+{
+  "fixtureId": "release-planning",
+  "model": "qwen3.5:9b",
+  "seconds": 583,
+  "status": "TRANSCRIBED",
+  "calls": [
+    {
+      "index": 1,
+      "stage": "extract",
+      "seconds": 133,
+      "status": 200,
+      "promptTokens": 2615,
+      "generatedTokens": 1150,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 2,
+      "stage": "extract",
+      "seconds": 71,
+      "status": 200,
+      "promptTokens": 2608,
+      "generatedTokens": 763,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 3,
+      "stage": "extract",
+      "seconds": 47,
+      "status": 200,
+      "promptTokens": 2607,
+      "generatedTokens": 493,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 4,
+      "stage": "extract",
+      "seconds": 44,
+      "status": 200,
+      "promptTokens": 2603,
+      "generatedTokens": 448,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 5,
+      "stage": "extract",
+      "seconds": 144,
+      "status": 200,
+      "promptTokens": 2596,
+      "generatedTokens": 1600,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 6,
+      "stage": "extract",
+      "seconds": 144,
+      "status": 200,
+      "promptTokens": 2648,
+      "generatedTokens": 1600,
+      "allowedEvidenceIds": 45
+    }
+  ],
+  "summary": null,
+  "error": "SUMMARY_VALIDATION_FAILED: Unterminated string in JSON at position 3744 (line 136 column 16)"
+}

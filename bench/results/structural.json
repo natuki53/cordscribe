@@ -1,0 +1,212 @@
+[
+  {
+    "id": "dense-workshop",
+    "title": "API移行の技術検討",
+    "durationMinutes": 310,
+    "speakers": 8,
+    "utterances": 1500,
+    "transcriptBytes": 228101,
+    "topicSwitches": 13,
+    "topicRevisits": 6,
+    "anchors": [
+      {
+        "kind": "decision",
+        "publicId": "U000121"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000361"
+      },
+      {
+        "kind": "proposal",
+        "publicId": "U000631"
+      },
+      {
+        "kind": "revision",
+        "publicId": "U000946"
+      },
+      {
+        "kind": "openQuestion",
+        "publicId": "U001171"
+      },
+      {
+        "kind": "action",
+        "publicId": "U001426"
+      }
+    ],
+    "firstPassCalls": 34,
+    "leanTotalCalls": 39,
+    "verboseTotalCalls": 71,
+    "maxPromptCharacters": 5100,
+    "maxEvidenceChoices": 45,
+    "sampleAnchor": "U001171"
+  },
+  {
+    "id": "incident-review",
+    "title": "サービス障害の振り返り",
+    "durationMinutes": 225,
+    "speakers": 6,
+    "utterances": 780,
+    "transcriptBytes": 119022,
+    "topicSwitches": 12,
+    "topicRevisits": 7,
+    "anchors": [
+      {
+        "kind": "decision",
+        "publicId": "U000063"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000188"
+      },
+      {
+        "kind": "proposal",
+        "publicId": "U000328"
+      },
+      {
+        "kind": "revision",
+        "publicId": "U000492"
+      },
+      {
+        "kind": "openQuestion",
+        "publicId": "U000609"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000742"
+      }
+    ],
+    "firstPassCalls": 18,
+    "leanTotalCalls": 21,
+    "verboseTotalCalls": 38,
+    "maxPromptCharacters": 5027,
+    "maxEvidenceChoices": 46,
+    "sampleAnchor": "U000328"
+  },
+  {
+    "id": "operations-handoff",
+    "title": "運用引き継ぎ",
+    "durationMinutes": 210,
+    "speakers": 3,
+    "utterances": 440,
+    "transcriptBytes": 68708,
+    "topicSwitches": 12,
+    "topicRevisits": 7,
+    "anchors": [
+      {
+        "kind": "decision",
+        "publicId": "U000036"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000106"
+      },
+      {
+        "kind": "proposal",
+        "publicId": "U000185"
+      },
+      {
+        "kind": "revision",
+        "publicId": "U000278"
+      },
+      {
+        "kind": "openQuestion",
+        "publicId": "U000344"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000419"
+      }
+    ],
+    "firstPassCalls": 10,
+    "leanTotalCalls": 11,
+    "verboseTotalCalls": 21,
+    "maxPromptCharacters": 4701,
+    "maxEvidenceChoices": 45,
+    "sampleAnchor": "U000106"
+  },
+  {
+    "id": "product-roadmap",
+    "title": "製品ロードマップ策定",
+    "durationMinutes": 245,
+    "speakers": 8,
+    "utterances": 1020,
+    "transcriptBytes": 153783,
+    "topicSwitches": 13,
+    "topicRevisits": 6,
+    "anchors": [
+      {
+        "kind": "decision",
+        "publicId": "U000082"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000245"
+      },
+      {
+        "kind": "proposal",
+        "publicId": "U000429"
+      },
+      {
+        "kind": "revision",
+        "publicId": "U000643"
+      },
+      {
+        "kind": "openQuestion",
+        "publicId": "U000796"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000970"
+      }
+    ],
+    "firstPassCalls": 23,
+    "leanTotalCalls": 27,
+    "verboseTotalCalls": 47,
+    "maxPromptCharacters": 5093,
+    "maxEvidenceChoices": 46,
+    "sampleAnchor": "U000643"
+  },
+  {
+    "id": "release-planning",
+    "title": "配布ページ公開計画",
+    "durationMinutes": 190,
+    "speakers": 4,
+    "utterances": 480,
+    "transcriptBytes": 73363,
+    "topicSwitches": 12,
+    "topicRevisits": 7,
+    "anchors": [
+      {
+        "kind": "decision",
+        "publicId": "U000039"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000116"
+      },
+      {
+        "kind": "proposal",
+        "publicId": "U000202"
+      },
+      {
+        "kind": "revision",
+        "publicId": "U000303"
+      },
+      {
+        "kind": "openQuestion",
+        "publicId": "U000375"
+      },
+      {
+        "kind": "action",
+        "publicId": "U000457"
+      }
+    ],
+    "firstPassCalls": 11,
+    "leanTotalCalls": 12,
+    "verboseTotalCalls": 23,
+    "maxPromptCharacters": 4924,
+    "maxEvidenceChoices": 45,
+    "sampleAnchor": "U000303"
+  }
+]

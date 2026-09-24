@@ -1,0 +1,387 @@
+[
+  {
+    "id": "dense-workshop",
+    "model": "qwen3.5:9b",
+    "anchorId": "U001171",
+    "anchorKind": "openQuestion",
+    "seconds": 89,
+    "attempts": 1,
+    "promptTokens": 2683,
+    "generatedTokens": 673,
+    "validated": true,
+    "anchorPassed": false,
+    "error": null,
+    "linked": {
+      "topics": [],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": []
+    },
+    "summary": {
+      "schemaVersion": "1",
+      "title": "",
+      "overview": "",
+      "topics": [
+        {
+          "title": "互換性に関する課題整理",
+          "summary": "現場で起きるケースの例示、影響範囲の整理、対象・対象外の読み合わせ、例外時の扱いについて議論する。資料上の数字根拠の確認も必要である。",
+          "evidenceUtteranceIds": [
+            "U001161",
+            "U001162",
+            "U001163",
+            "U001164",
+            "U001165",
+            "U001167",
+            "U001172",
+            "U001173",
+            "U001179"
+          ]
+        },
+        {
+          "title": "公開に関する課題整理",
+          "summary": "窓口による説明の違い、例外時の扱い、対象・対象外の読み合わせについて議論する。現場での操作確認と数字の確認を後で共有する予定である。問い合わせ傾向の資料への反映も検討事項である。",
+          "evidenceUtteranceIds": [
+            "U001180",
+            "U001181",
+            "U001183",
+            "U001185",
+            "U001186",
+            "U001187",
+            "U001189",
+            "U001190",
+            "U001191",
+            "U001193"
+          ]
+        }
+      ],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": [
+        {
+          "text": "互換性・公開の資料上の数字根拠について、確認が必要である。",
+          "evidenceUtteranceIds": [
+            "U001166",
+            "U001176",
+            "U001178",
+            "U001204"
+          ]
+        },
+        {
+          "text": "公開に関係する操作の数字確認結果を後で資料に共有する必要がある。",
+          "evidenceUtteranceIds": [
+            "U001177",
+            "U001182",
+            "U001195",
+            "U001200"
+          ]
+        },
+        {
+          "text": "公開の論点について、まだ判断に必要な情報が揃っていない。",
+          "evidenceUtteranceIds": [
+            "U001189",
+            "U001190"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "incident-review",
+    "model": "qwen3.5:9b",
+    "anchorId": "U000328",
+    "anchorKind": "proposal",
+    "seconds": 77,
+    "attempts": 1,
+    "promptTokens": 2593,
+    "generatedTokens": 809,
+    "validated": true,
+    "anchorPassed": true,
+    "error": null,
+    "linked": {
+      "topics": [],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": []
+    },
+    "summary": {
+      "schemaVersion": "1",
+      "title": "",
+      "overview": "",
+      "topics": [
+        {
+          "title": "利用者連絡の論点確認と情報不足の確認",
+          "summary": "利用者の説明が窓口によって異なる可能性があるため、実際の手順を照らし合わせる必要がある。また、判断に必要な情報が揃っていない現状がある。",
+          "evidenceUtteranceIds": [
+            "U000315",
+            "U000329",
+            "U000332",
+            "U000348"
+          ]
+        },
+        {
+          "title": "利用者連絡の資料注記と根拠確認",
+          "summary": "資料の利用者連絡箇所に注記があり、数字の根拠を次の確認項目として残す。関連する問い合わせ傾向も資料に反映したい。",
+          "evidenceUtteranceIds": [
+            "U000317",
+            "U000320",
+            "U000324",
+            "U000334"
+          ]
+        },
+        {
+          "title": "利用者連絡の前提確認と対象範囲の見直し",
+          "summary": "議論で前提がずれないよう、対象と対象外をもう一度読み合わせる。関係する画面と運用手順を分けて確認したい。",
+          "evidenceUtteranceIds": [
+            "U000319",
+            "U000323",
+            "U000327"
+          ]
+        },
+        {
+          "title": "監視通知の論点確認と情報不足の確認",
+          "summary": "監視通知の説明について、例外時の扱いも考慮する必要がある。また、判断に必要な情報が揃っていない現状がある。",
+          "evidenceUtteranceIds": [
+            "U000348",
+            "U000351"
+          ]
+        },
+        {
+          "title": "監視通知の資料注記と根拠確認",
+          "summary": "資料の監視通知箇所に注記があり、数字の根拠を次の確認項目として残す。関連する問い合わせ傾向も資料に反映したい。",
+          "evidenceUtteranceIds": [
+            "U000342",
+            "U000345",
+            "U000349"
+          ]
+        },
+        {
+          "title": "監視通知の前提確認と対象範囲の見直し",
+          "summary": "議論で前提がずれないよう、例外時の扱いも考慮する必要がある。現場で起きるケースを挙げ、影響範囲を整理したい。",
+          "evidenceUtteranceIds": [
+            "U000341",
+            "U000351"
+          ]
+        },
+        {
+          "title": "監視通知の利用者側影響の整理と課題一覧化",
+          "summary": "監視通知の利用者側の影響を整理し、見えている課題を一覧に書き足す。窓口によって説明が違う可能性があるため実際の手順を照らし合わせる必要がある。",
+          "evidenceUtteranceIds": [
+            "U000347",
+            "U000352"
+          ]
+        }
+      ],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": []
+    }
+  },
+  {
+    "id": "operations-handoff",
+    "model": "qwen3.5:9b",
+    "anchorId": "U000106",
+    "anchorKind": "action",
+    "seconds": 320,
+    "attempts": 2,
+    "promptTokens": 2685,
+    "generatedTokens": 1600,
+    "validated": false,
+    "anchorPassed": false,
+    "error": "Unterminated string in JSON at position 3365 (line 147 column 12)",
+    "linked": null,
+    "summary": null
+  },
+  {
+    "id": "product-roadmap",
+    "model": "qwen3.5:9b",
+    "anchorId": "U000643",
+    "anchorKind": "revision",
+    "seconds": 77,
+    "attempts": 1,
+    "promptTokens": 2625,
+    "generatedTokens": 829,
+    "validated": true,
+    "anchorPassed": true,
+    "error": null,
+    "linked": {
+      "topics": [
+        {
+          "title": "モバイル版リリース方針の変更",
+          "summary": "先ほどの方針を変更し、次期リリースではなく「次々期の候補」へ移動させることになった。",
+          "evidenceUtteranceIds": [
+            "U000643"
+          ]
+        }
+      ],
+      "decisions": [
+        {
+          "text": "モバイル版を次期リリースから除外し、次々期の候補として扱う。",
+          "evidenceUtteranceIds": [
+            "U000643"
+          ]
+        }
+      ],
+      "actionItems": [],
+      "openQuestions": []
+    },
+    "summary": {
+      "schemaVersion": "1",
+      "title": "",
+      "overview": "",
+      "topics": [
+        {
+          "title": "検索機能に関する論点整理と情報収集の必要性",
+          "summary": "検索条件が揃っていないため、対象・対象外を再確認し、現場でのケースや影響範囲、窓口による説明の違いなどを整理する必要がある。また、資料内の数字根拠の確認も必要である。",
+          "evidenceUtteranceIds": [
+            "U000633",
+            "U000634",
+            "U000635",
+            "U000636",
+            "U000637",
+            "U000638",
+            "U000639",
+            "U000640",
+            "U000641",
+            "U000642",
+            "U000645",
+            "U000647",
+            "U000648",
+            "U000649",
+            "U000650",
+            "U000651",
+            "U000652",
+            "U000653",
+            "U000654",
+            "U000655",
+            "U000656"
+          ]
+        },
+        {
+          "title": "モバイル版リリース方針の変更",
+          "summary": "先ほどの方針を変更し、次期リリースではなく「次々期の候補」へ移動させることになった。",
+          "evidenceUtteranceIds": [
+            "U000643"
+          ]
+        },
+        {
+          "title": "サポート機能に関する論点整理と情報収集の必要性",
+          "summary": "検索と同様に、サポートの説明や窓口による違い、例外時の扱い、現場でのケースなどを整理する必要がある。また、資料内の数字根拠の確認も必要である。問い合わせ傾向の反映も検討事項となっている。",
+          "evidenceUtteranceIds": [
+            "U000657",
+            "U000658",
+            "U000659",
+            "U000660",
+            "U000661",
+            "U000662",
+            "U000663",
+            "U000664",
+            "U000665",
+            "U000666",
+            "U000667",
+            "U000668",
+            "U000669",
+            "U000670",
+            "U000671",
+            "U000672",
+            "U000673",
+            "U000674",
+            "U000675",
+            "U000676",
+            "U000677"
+          ]
+        }
+      ],
+      "decisions": [
+        {
+          "text": "モバイル版を次期リリースから除外し、次々期の候補として扱う。",
+          "evidenceUtteranceIds": [
+            "U000643"
+          ]
+        }
+      ],
+      "actionItems": [],
+      "openQuestions": []
+    }
+  },
+  {
+    "id": "release-planning",
+    "model": "qwen3.5:9b",
+    "anchorId": "U000303",
+    "anchorKind": "revision",
+    "seconds": 54,
+    "attempts": 1,
+    "promptTokens": 2615,
+    "generatedTokens": 569,
+    "validated": true,
+    "anchorPassed": false,
+    "error": null,
+    "linked": {
+      "topics": [
+        {
+          "title": "公開日の決定",
+          "summary": "公開日を 2026 年 10 月 5 日から変更し、2026 年 10 月 12 日に設定した。",
+          "evidenceUtteranceIds": [
+            "U000303"
+          ]
+        }
+      ],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": []
+    },
+    "summary": {
+      "schemaVersion": "1",
+      "title": "",
+      "overview": "",
+      "topics": [
+        {
+          "title": "公開日の決定",
+          "summary": "公開日を 2026 年 10 月 5 日から変更し、2026 年 10 月 12 日に設定した。",
+          "evidenceUtteranceIds": [
+            "U000303"
+          ]
+        },
+        {
+          "title": "配布ページに関する確認事項の整理",
+          "summary": "資料上の注記にある数字の根拠、例外時の扱い、対象と対象外の読み合わせ、現場でのケースによる影響範囲の整理など、判断に必要な情報の収集を継続する。",
+          "evidenceUtteranceIds": [
+            "U000279",
+            "U000308"
+          ]
+        },
+        {
+          "title": "配布ページの利用者側への影響の整理",
+          "summary": "見えている課題を一覧化し、利用者側の影響を整理する。",
+          "evidenceUtteranceIds": [
+            "U000290",
+            "U000305"
+          ]
+        },
+        {
+          "title": "配布ページと運用手順の区別確認",
+          "summary": "現時点では条件が揃っていないため、関係する画面と運用手順を分けて確認を行う。",
+          "evidenceUtteranceIds": [
+            "U000276"
+          ]
+        },
+        {
+          "title": "対象・対象外の読み合わせ",
+          "summary": "配布ページの議論で前提がずれないよう、対象と対象外をもう一度確認する。",
+          "evidenceUtteranceIds": [
+            "U000273"
+          ]
+        },
+        {
+          "title": "窓口による説明の違いの確認",
+          "summary": "配布ページや公開日について、窓口によって説明が異なる可能性があるため、実際の手順を照らし合わせる。また、現場で起きるケースを挙げて影響範囲を整理する。",
+          "evidenceUtteranceIds": [
+            "U000287"
+          ]
+        }
+      ],
+      "decisions": [],
+      "actionItems": [],
+      "openQuestions": []
+    }
+  }
+]

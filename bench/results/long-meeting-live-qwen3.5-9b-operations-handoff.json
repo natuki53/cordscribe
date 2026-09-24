@@ -1,0 +1,17 @@
+[
+  {
+    "id": "operations-handoff",
+    "model": "qwen3.5:9b",
+    "anchorId": "U000106",
+    "anchorKind": "action",
+    "seconds": 320,
+    "attempts": 2,
+    "promptTokens": 2685,
+    "generatedTokens": 1600,
+    "validated": false,
+    "anchorPassed": false,
+    "error": "Unterminated string in JSON at position 3365 (line 147 column 12)",
+    "linked": null,
+    "summary": null
+  }
+]

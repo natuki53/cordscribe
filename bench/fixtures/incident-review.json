@@ -1,0 +1,6306 @@
+{
+  "id": "incident-review",
+  "title": "サービス障害の振り返り",
+  "synthetic": true,
+  "durationMinutes": 225,
+  "speakers": [
+    {
+      "userId": "user-1",
+      "displayName": "進行"
+    },
+    {
+      "userId": "user-2",
+      "displayName": "監視"
+    },
+    {
+      "userId": "user-3",
+      "displayName": "基盤"
+    },
+    {
+      "userId": "user-4",
+      "displayName": "アプリ"
+    },
+    {
+      "userId": "user-5",
+      "displayName": "品質"
+    },
+    {
+      "userId": "user-6",
+      "displayName": "サポート"
+    }
+  ],
+  "anchors": [
+    {
+      "kind": "decision",
+      "publicId": "U000063",
+      "text": "異常検知から通知までの閾値を15分から5分へ変更することで合意します。"
+    },
+    {
+      "kind": "action",
+      "publicId": "U000188",
+      "text": "監視ダッシュボードの更新は監視担当の私が2026年10月7日までに行います。"
+    },
+    {
+      "kind": "proposal",
+      "publicId": "U000328",
+      "text": "データベースの遅延が原因かもしれませんが、ログ確認前なので断定しません。"
+    },
+    {
+      "kind": "revision",
+      "publicId": "U000492",
+      "text": "通知先を全員にする案は撤回し、一次当番とバックアップ当番の二人に限定します。"
+    },
+    {
+      "kind": "openQuestion",
+      "publicId": "U000609",
+      "text": "障害時に利用者へ最初の案内を出す時点は未決定です。サポートと次回詰めます。"
+    },
+    {
+      "kind": "action",
+      "publicId": "U000742",
+      "text": "復旧手順の演習は基盤担当の私が2026年10月15日までに実施します。"
+    }
+  ],
+  "utterances": [
+    {
+      "publicId": "U000001",
+      "speakerUserId": "user-3",
+      "startMs": 0,
+      "endMs": 7030,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000002",
+      "speakerUserId": "user-3",
+      "startMs": 17307,
+      "endMs": 24717,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000003",
+      "speakerUserId": "user-6",
+      "startMs": 34615,
+      "endMs": 42405,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000004",
+      "speakerUserId": "user-6",
+      "startMs": 51923,
+      "endMs": 60473,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000005",
+      "speakerUserId": "user-5",
+      "startMs": 69230,
+      "endMs": 76260,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000006",
+      "speakerUserId": "user-5",
+      "startMs": 86538,
+      "endMs": 94138,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000007",
+      "speakerUserId": "user-6",
+      "startMs": 103846,
+      "endMs": 111636,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000008",
+      "speakerUserId": "user-5",
+      "startMs": 121153,
+      "endMs": 128183,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000009",
+      "speakerUserId": "user-1",
+      "startMs": 138461,
+      "endMs": 147011,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000010",
+      "speakerUserId": "user-4",
+      "startMs": 155769,
+      "endMs": 162419,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000011",
+      "speakerUserId": "user-4",
+      "startMs": 173076,
+      "endMs": 180296,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000012",
+      "speakerUserId": "user-5",
+      "startMs": 190384,
+      "endMs": 197604,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000013",
+      "speakerUserId": "user-1",
+      "startMs": 207692,
+      "endMs": 216242,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000014",
+      "speakerUserId": "user-4",
+      "startMs": 225000,
+      "endMs": 232220,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000015",
+      "speakerUserId": "user-3",
+      "startMs": 242307,
+      "endMs": 250477,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000016",
+      "speakerUserId": "user-3",
+      "startMs": 259615,
+      "endMs": 266835,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000017",
+      "speakerUserId": "user-6",
+      "startMs": 276923,
+      "endMs": 283953,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000018",
+      "speakerUserId": "user-3",
+      "startMs": 294230,
+      "endMs": 302400,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000019",
+      "speakerUserId": "user-5",
+      "startMs": 311538,
+      "endMs": 318568,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000020",
+      "speakerUserId": "user-6",
+      "startMs": 328846,
+      "endMs": 337396,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000021",
+      "speakerUserId": "user-3",
+      "startMs": 346153,
+      "endMs": 354703,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000022",
+      "speakerUserId": "user-1",
+      "startMs": 363461,
+      "endMs": 370871,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000023",
+      "speakerUserId": "user-5",
+      "startMs": 380769,
+      "endMs": 387989,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000024",
+      "speakerUserId": "user-2",
+      "startMs": 398076,
+      "endMs": 405866,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000025",
+      "speakerUserId": "user-2",
+      "startMs": 415384,
+      "endMs": 423554,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000026",
+      "speakerUserId": "user-5",
+      "startMs": 432692,
+      "endMs": 439912,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000027",
+      "speakerUserId": "user-2",
+      "startMs": 450000,
+      "endMs": 457410,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000028",
+      "speakerUserId": "user-3",
+      "startMs": 467307,
+      "endMs": 475857,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000029",
+      "speakerUserId": "user-4",
+      "startMs": 484615,
+      "endMs": 492025,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000030",
+      "speakerUserId": "user-3",
+      "startMs": 501923,
+      "endMs": 508953,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000031",
+      "speakerUserId": "user-2",
+      "startMs": 519230,
+      "endMs": 527780,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000032",
+      "speakerUserId": "user-3",
+      "startMs": 536538,
+      "endMs": 544328,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000033",
+      "speakerUserId": "user-1",
+      "startMs": 553846,
+      "endMs": 560876,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000034",
+      "speakerUserId": "user-4",
+      "startMs": 571153,
+      "endMs": 579703,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000035",
+      "speakerUserId": "user-5",
+      "startMs": 588461,
+      "endMs": 595491,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000036",
+      "speakerUserId": "user-6",
+      "startMs": 605769,
+      "endMs": 613369,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000037",
+      "speakerUserId": "user-1",
+      "startMs": 623076,
+      "endMs": 631626,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000038",
+      "speakerUserId": "user-1",
+      "startMs": 640384,
+      "endMs": 647414,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000039",
+      "speakerUserId": "user-3",
+      "startMs": 657692,
+      "endMs": 664722,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000040",
+      "speakerUserId": "user-5",
+      "startMs": 675000,
+      "endMs": 682030,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000041",
+      "speakerUserId": "user-4",
+      "startMs": 692307,
+      "endMs": 699337,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000042",
+      "speakerUserId": "user-4",
+      "startMs": 709615,
+      "endMs": 717405,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000043",
+      "speakerUserId": "user-3",
+      "startMs": 726923,
+      "endMs": 734523,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000044",
+      "speakerUserId": "user-3",
+      "startMs": 744230,
+      "endMs": 751260,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000045",
+      "speakerUserId": "user-4",
+      "startMs": 761538,
+      "endMs": 768568,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000046",
+      "speakerUserId": "user-2",
+      "startMs": 778846,
+      "endMs": 786256,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000047",
+      "speakerUserId": "user-6",
+      "startMs": 796153,
+      "endMs": 803563,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000048",
+      "speakerUserId": "user-4",
+      "startMs": 813461,
+      "endMs": 820491,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000049",
+      "speakerUserId": "user-1",
+      "startMs": 830769,
+      "endMs": 838939,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000050",
+      "speakerUserId": "user-5",
+      "startMs": 848076,
+      "endMs": 856626,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000051",
+      "speakerUserId": "user-1",
+      "startMs": 865384,
+      "endMs": 872604,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000052",
+      "speakerUserId": "user-2",
+      "startMs": 882692,
+      "endMs": 889912,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000053",
+      "speakerUserId": "user-2",
+      "startMs": 900000,
+      "endMs": 907030,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000054",
+      "speakerUserId": "user-4",
+      "startMs": 917307,
+      "endMs": 925097,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000055",
+      "speakerUserId": "user-6",
+      "startMs": 934615,
+      "endMs": 943165,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000056",
+      "speakerUserId": "user-3",
+      "startMs": 951923,
+      "endMs": 959143,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000057",
+      "speakerUserId": "user-1",
+      "startMs": 969230,
+      "endMs": 976260,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000058",
+      "speakerUserId": "user-3",
+      "startMs": 986538,
+      "endMs": 993188,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000059",
+      "speakerUserId": "user-2",
+      "startMs": 1003846,
+      "endMs": 1011066,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000060",
+      "speakerUserId": "user-1",
+      "startMs": 1021153,
+      "endMs": 1028563,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000061",
+      "speakerUserId": "user-3",
+      "startMs": 1038461,
+      "endMs": 1045681,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000062",
+      "speakerUserId": "user-4",
+      "startMs": 1055769,
+      "endMs": 1062419,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000063",
+      "speakerUserId": "user-1",
+      "startMs": 1073076,
+      "endMs": 1079726,
+      "topic": "復旧",
+      "text": "異常検知から通知までの閾値を15分から5分へ変更することで合意します。"
+    },
+    {
+      "publicId": "U000064",
+      "speakerUserId": "user-1",
+      "startMs": 1090384,
+      "endMs": 1098934,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000065",
+      "speakerUserId": "user-1",
+      "startMs": 1107692,
+      "endMs": 1114342,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000066",
+      "speakerUserId": "user-2",
+      "startMs": 1125000,
+      "endMs": 1132030,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000067",
+      "speakerUserId": "user-2",
+      "startMs": 1142307,
+      "endMs": 1149717,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000068",
+      "speakerUserId": "user-2",
+      "startMs": 1159615,
+      "endMs": 1166645,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000069",
+      "speakerUserId": "user-2",
+      "startMs": 1176923,
+      "endMs": 1184143,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000070",
+      "speakerUserId": "user-2",
+      "startMs": 1194230,
+      "endMs": 1201450,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000071",
+      "speakerUserId": "user-2",
+      "startMs": 1211538,
+      "endMs": 1218568,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000072",
+      "speakerUserId": "user-5",
+      "startMs": 1228846,
+      "endMs": 1236256,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000073",
+      "speakerUserId": "user-5",
+      "startMs": 1246153,
+      "endMs": 1254703,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000074",
+      "speakerUserId": "user-4",
+      "startMs": 1263461,
+      "endMs": 1270871,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000075",
+      "speakerUserId": "user-2",
+      "startMs": 1280769,
+      "endMs": 1288179,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000076",
+      "speakerUserId": "user-5",
+      "startMs": 1298076,
+      "endMs": 1306246,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000077",
+      "speakerUserId": "user-4",
+      "startMs": 1315384,
+      "endMs": 1323554,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000078",
+      "speakerUserId": "user-2",
+      "startMs": 1332692,
+      "endMs": 1340862,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000079",
+      "speakerUserId": "user-4",
+      "startMs": 1350000,
+      "endMs": 1357030,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000080",
+      "speakerUserId": "user-4",
+      "startMs": 1367307,
+      "endMs": 1374717,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000081",
+      "speakerUserId": "user-6",
+      "startMs": 1384615,
+      "endMs": 1391835,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000082",
+      "speakerUserId": "user-4",
+      "startMs": 1401923,
+      "endMs": 1409713,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000083",
+      "speakerUserId": "user-1",
+      "startMs": 1419230,
+      "endMs": 1426260,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000084",
+      "speakerUserId": "user-6",
+      "startMs": 1436538,
+      "endMs": 1443568,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000085",
+      "speakerUserId": "user-3",
+      "startMs": 1453846,
+      "endMs": 1460876,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000086",
+      "speakerUserId": "user-5",
+      "startMs": 1471153,
+      "endMs": 1478943,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000087",
+      "speakerUserId": "user-4",
+      "startMs": 1488461,
+      "endMs": 1495491,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000088",
+      "speakerUserId": "user-6",
+      "startMs": 1505769,
+      "endMs": 1513939,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000089",
+      "speakerUserId": "user-5",
+      "startMs": 1523076,
+      "endMs": 1530106,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000090",
+      "speakerUserId": "user-5",
+      "startMs": 1540384,
+      "endMs": 1547984,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000091",
+      "speakerUserId": "user-1",
+      "startMs": 1557692,
+      "endMs": 1564722,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000092",
+      "speakerUserId": "user-4",
+      "startMs": 1575000,
+      "endMs": 1583550,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000093",
+      "speakerUserId": "user-2",
+      "startMs": 1592307,
+      "endMs": 1599337,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000094",
+      "speakerUserId": "user-4",
+      "startMs": 1609615,
+      "endMs": 1616645,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000095",
+      "speakerUserId": "user-4",
+      "startMs": 1626923,
+      "endMs": 1633953,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000096",
+      "speakerUserId": "user-6",
+      "startMs": 1644230,
+      "endMs": 1651260,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000097",
+      "speakerUserId": "user-6",
+      "startMs": 1661538,
+      "endMs": 1668758,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000098",
+      "speakerUserId": "user-3",
+      "startMs": 1678846,
+      "endMs": 1686446,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000099",
+      "speakerUserId": "user-5",
+      "startMs": 1696153,
+      "endMs": 1703563,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000100",
+      "speakerUserId": "user-4",
+      "startMs": 1713461,
+      "endMs": 1722011,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000101",
+      "speakerUserId": "user-5",
+      "startMs": 1730769,
+      "endMs": 1738179,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000102",
+      "speakerUserId": "user-3",
+      "startMs": 1748076,
+      "endMs": 1755106,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000103",
+      "speakerUserId": "user-4",
+      "startMs": 1765384,
+      "endMs": 1772414,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000104",
+      "speakerUserId": "user-3",
+      "startMs": 1782692,
+      "endMs": 1789722,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000105",
+      "speakerUserId": "user-5",
+      "startMs": 1800000,
+      "endMs": 1806650,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000106",
+      "speakerUserId": "user-3",
+      "startMs": 1817307,
+      "endMs": 1824337,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000107",
+      "speakerUserId": "user-4",
+      "startMs": 1834615,
+      "endMs": 1842405,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000108",
+      "speakerUserId": "user-3",
+      "startMs": 1851923,
+      "endMs": 1858573,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000109",
+      "speakerUserId": "user-5",
+      "startMs": 1869230,
+      "endMs": 1876260,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000110",
+      "speakerUserId": "user-6",
+      "startMs": 1886538,
+      "endMs": 1893188,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000111",
+      "speakerUserId": "user-1",
+      "startMs": 1903846,
+      "endMs": 1911446,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000112",
+      "speakerUserId": "user-2",
+      "startMs": 1921153,
+      "endMs": 1928563,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000113",
+      "speakerUserId": "user-3",
+      "startMs": 1938461,
+      "endMs": 1945871,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000114",
+      "speakerUserId": "user-1",
+      "startMs": 1955769,
+      "endMs": 1963369,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000115",
+      "speakerUserId": "user-2",
+      "startMs": 1973076,
+      "endMs": 1981626,
+      "topic": "監視通知",
+      "text": "手元では監視通知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000116",
+      "speakerUserId": "user-4",
+      "startMs": 1990384,
+      "endMs": 1998364,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000117",
+      "speakerUserId": "user-1",
+      "startMs": 2007692,
+      "endMs": 2015292,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000118",
+      "speakerUserId": "user-2",
+      "startMs": 2025000,
+      "endMs": 2032410,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000119",
+      "speakerUserId": "user-2",
+      "startMs": 2042307,
+      "endMs": 2049717,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000120",
+      "speakerUserId": "user-1",
+      "startMs": 2059615,
+      "endMs": 2067215,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000121",
+      "speakerUserId": "user-2",
+      "startMs": 2076923,
+      "endMs": 2084333,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000122",
+      "speakerUserId": "user-3",
+      "startMs": 2094230,
+      "endMs": 2102020,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000123",
+      "speakerUserId": "user-2",
+      "startMs": 2111538,
+      "endMs": 2118948,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000124",
+      "speakerUserId": "user-6",
+      "startMs": 2128846,
+      "endMs": 2135876,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000125",
+      "speakerUserId": "user-1",
+      "startMs": 2146153,
+      "endMs": 2155083,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000126",
+      "speakerUserId": "user-5",
+      "startMs": 2163461,
+      "endMs": 2170871,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000127",
+      "speakerUserId": "user-6",
+      "startMs": 2180769,
+      "endMs": 2188369,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000128",
+      "speakerUserId": "user-3",
+      "startMs": 2198076,
+      "endMs": 2205486,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000129",
+      "speakerUserId": "user-1",
+      "startMs": 2215384,
+      "endMs": 2223554,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000130",
+      "speakerUserId": "user-2",
+      "startMs": 2232692,
+      "endMs": 2240862,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000131",
+      "speakerUserId": "user-4",
+      "startMs": 2250000,
+      "endMs": 2258170,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000132",
+      "speakerUserId": "user-1",
+      "startMs": 2267307,
+      "endMs": 2274717,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000133",
+      "speakerUserId": "user-3",
+      "startMs": 2284615,
+      "endMs": 2293165,
+      "topic": "監視通知",
+      "text": "手元では監視通知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000134",
+      "speakerUserId": "user-1",
+      "startMs": 2301923,
+      "endMs": 2309333,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000135",
+      "speakerUserId": "user-3",
+      "startMs": 2319230,
+      "endMs": 2328160,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000136",
+      "speakerUserId": "user-1",
+      "startMs": 2336538,
+      "endMs": 2343948,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000137",
+      "speakerUserId": "user-3",
+      "startMs": 2353846,
+      "endMs": 2362016,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000138",
+      "speakerUserId": "user-1",
+      "startMs": 2371153,
+      "endMs": 2379133,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000139",
+      "speakerUserId": "user-3",
+      "startMs": 2388461,
+      "endMs": 2396631,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000140",
+      "speakerUserId": "user-3",
+      "startMs": 2405769,
+      "endMs": 2413559,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000141",
+      "speakerUserId": "user-6",
+      "startMs": 2423076,
+      "endMs": 2430866,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000142",
+      "speakerUserId": "user-2",
+      "startMs": 2440384,
+      "endMs": 2448934,
+      "topic": "監視通知",
+      "text": "手元では監視通知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000143",
+      "speakerUserId": "user-2",
+      "startMs": 2457692,
+      "endMs": 2465102,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000144",
+      "speakerUserId": "user-3",
+      "startMs": 2475000,
+      "endMs": 2483930,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000145",
+      "speakerUserId": "user-3",
+      "startMs": 2492307,
+      "endMs": 2499717,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000146",
+      "speakerUserId": "user-2",
+      "startMs": 2509615,
+      "endMs": 2516645,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000147",
+      "speakerUserId": "user-1",
+      "startMs": 2526923,
+      "endMs": 2534333,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000148",
+      "speakerUserId": "user-3",
+      "startMs": 2544230,
+      "endMs": 2552210,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000149",
+      "speakerUserId": "user-2",
+      "startMs": 2561538,
+      "endMs": 2568568,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000150",
+      "speakerUserId": "user-1",
+      "startMs": 2578846,
+      "endMs": 2586446,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000151",
+      "speakerUserId": "user-4",
+      "startMs": 2596153,
+      "endMs": 2603563,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000152",
+      "speakerUserId": "user-3",
+      "startMs": 2613461,
+      "endMs": 2620871,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000153",
+      "speakerUserId": "user-4",
+      "startMs": 2630769,
+      "endMs": 2638369,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000154",
+      "speakerUserId": "user-2",
+      "startMs": 2648076,
+      "endMs": 2655486,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000155",
+      "speakerUserId": "user-5",
+      "startMs": 2665384,
+      "endMs": 2672794,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000156",
+      "speakerUserId": "user-3",
+      "startMs": 2682692,
+      "endMs": 2690672,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000157",
+      "speakerUserId": "user-3",
+      "startMs": 2700000,
+      "endMs": 2708930,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000158",
+      "speakerUserId": "user-2",
+      "startMs": 2717307,
+      "endMs": 2724337,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000159",
+      "speakerUserId": "user-2",
+      "startMs": 2734615,
+      "endMs": 2742785,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000160",
+      "speakerUserId": "user-3",
+      "startMs": 2751923,
+      "endMs": 2759333,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000161",
+      "speakerUserId": "user-2",
+      "startMs": 2769230,
+      "endMs": 2776640,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000162",
+      "speakerUserId": "user-3",
+      "startMs": 2786538,
+      "endMs": 2793948,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000163",
+      "speakerUserId": "user-3",
+      "startMs": 2803846,
+      "endMs": 2812016,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000164",
+      "speakerUserId": "user-3",
+      "startMs": 2821153,
+      "endMs": 2829323,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000165",
+      "speakerUserId": "user-1",
+      "startMs": 2838461,
+      "endMs": 2847011,
+      "topic": "監視通知",
+      "text": "手元では監視通知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000166",
+      "speakerUserId": "user-5",
+      "startMs": 2855769,
+      "endMs": 2863179,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000167",
+      "speakerUserId": "user-5",
+      "startMs": 2873076,
+      "endMs": 2882006,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000168",
+      "speakerUserId": "user-3",
+      "startMs": 2890384,
+      "endMs": 2899314,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000169",
+      "speakerUserId": "user-1",
+      "startMs": 2907692,
+      "endMs": 2915862,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000170",
+      "speakerUserId": "user-5",
+      "startMs": 2925000,
+      "endMs": 2932030,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000171",
+      "speakerUserId": "user-2",
+      "startMs": 2942307,
+      "endMs": 2949527,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000172",
+      "speakerUserId": "user-6",
+      "startMs": 2959615,
+      "endMs": 2967405,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000173",
+      "speakerUserId": "user-2",
+      "startMs": 2976923,
+      "endMs": 2983953,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000174",
+      "speakerUserId": "user-5",
+      "startMs": 2994230,
+      "endMs": 3002780,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000175",
+      "speakerUserId": "user-6",
+      "startMs": 3011538,
+      "endMs": 3019328,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000176",
+      "speakerUserId": "user-2",
+      "startMs": 3028846,
+      "endMs": 3036066,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000177",
+      "speakerUserId": "user-6",
+      "startMs": 3046153,
+      "endMs": 3052803,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000178",
+      "speakerUserId": "user-2",
+      "startMs": 3063461,
+      "endMs": 3071061,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000179",
+      "speakerUserId": "user-3",
+      "startMs": 3080769,
+      "endMs": 3088939,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000180",
+      "speakerUserId": "user-2",
+      "startMs": 3098076,
+      "endMs": 3105106,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000181",
+      "speakerUserId": "user-2",
+      "startMs": 3115384,
+      "endMs": 3123174,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000182",
+      "speakerUserId": "user-2",
+      "startMs": 3132692,
+      "endMs": 3140292,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000183",
+      "speakerUserId": "user-1",
+      "startMs": 3150000,
+      "endMs": 3157410,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000184",
+      "speakerUserId": "user-1",
+      "startMs": 3167307,
+      "endMs": 3175857,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000185",
+      "speakerUserId": "user-3",
+      "startMs": 3184615,
+      "endMs": 3191645,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000186",
+      "speakerUserId": "user-6",
+      "startMs": 3201923,
+      "endMs": 3209143,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000187",
+      "speakerUserId": "user-2",
+      "startMs": 3219230,
+      "endMs": 3227020,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000188",
+      "speakerUserId": "user-2",
+      "startMs": 3236538,
+      "endMs": 3243758,
+      "topic": "検知",
+      "text": "監視ダッシュボードの更新は監視担当の私が2026年10月7日までに行います。"
+    },
+    {
+      "publicId": "U000189",
+      "speakerUserId": "user-2",
+      "startMs": 3253846,
+      "endMs": 3261636,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000190",
+      "speakerUserId": "user-5",
+      "startMs": 3271153,
+      "endMs": 3278753,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000191",
+      "speakerUserId": "user-1",
+      "startMs": 3288461,
+      "endMs": 3297011,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000192",
+      "speakerUserId": "user-4",
+      "startMs": 3305769,
+      "endMs": 3312419,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000193",
+      "speakerUserId": "user-2",
+      "startMs": 3323076,
+      "endMs": 3329726,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000194",
+      "speakerUserId": "user-2",
+      "startMs": 3340384,
+      "endMs": 3347414,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000195",
+      "speakerUserId": "user-1",
+      "startMs": 3357692,
+      "endMs": 3364342,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000196",
+      "speakerUserId": "user-3",
+      "startMs": 3375000,
+      "endMs": 3383550,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000197",
+      "speakerUserId": "user-3",
+      "startMs": 3392307,
+      "endMs": 3399337,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000198",
+      "speakerUserId": "user-2",
+      "startMs": 3409615,
+      "endMs": 3417405,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000199",
+      "speakerUserId": "user-2",
+      "startMs": 3426923,
+      "endMs": 3433953,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000200",
+      "speakerUserId": "user-2",
+      "startMs": 3444230,
+      "endMs": 3451260,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000201",
+      "speakerUserId": "user-6",
+      "startMs": 3461538,
+      "endMs": 3469708,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000202",
+      "speakerUserId": "user-6",
+      "startMs": 3478846,
+      "endMs": 3486636,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000203",
+      "speakerUserId": "user-4",
+      "startMs": 3496153,
+      "endMs": 3503183,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000204",
+      "speakerUserId": "user-2",
+      "startMs": 3513461,
+      "endMs": 3520681,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000205",
+      "speakerUserId": "user-2",
+      "startMs": 3530769,
+      "endMs": 3538939,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000206",
+      "speakerUserId": "user-2",
+      "startMs": 3548076,
+      "endMs": 3555106,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000207",
+      "speakerUserId": "user-5",
+      "startMs": 3565384,
+      "endMs": 3573554,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000208",
+      "speakerUserId": "user-1",
+      "startMs": 3582692,
+      "endMs": 3590292,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000209",
+      "speakerUserId": "user-5",
+      "startMs": 3600000,
+      "endMs": 3608550,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000210",
+      "speakerUserId": "user-4",
+      "startMs": 3617307,
+      "endMs": 3625477,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000211",
+      "speakerUserId": "user-1",
+      "startMs": 3634615,
+      "endMs": 3642785,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000212",
+      "speakerUserId": "user-3",
+      "startMs": 3651923,
+      "endMs": 3659713,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000213",
+      "speakerUserId": "user-1",
+      "startMs": 3669230,
+      "endMs": 3676260,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000214",
+      "speakerUserId": "user-4",
+      "startMs": 3686538,
+      "endMs": 3693948,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000215",
+      "speakerUserId": "user-4",
+      "startMs": 3703846,
+      "endMs": 3710876,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000216",
+      "speakerUserId": "user-1",
+      "startMs": 3721153,
+      "endMs": 3729323,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000217",
+      "speakerUserId": "user-6",
+      "startMs": 3738461,
+      "endMs": 3745111,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000218",
+      "speakerUserId": "user-6",
+      "startMs": 3755769,
+      "endMs": 3763369,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000219",
+      "speakerUserId": "user-2",
+      "startMs": 3773076,
+      "endMs": 3779726,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000220",
+      "speakerUserId": "user-1",
+      "startMs": 3790384,
+      "endMs": 3798934,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000221",
+      "speakerUserId": "user-1",
+      "startMs": 3807692,
+      "endMs": 3814912,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000222",
+      "speakerUserId": "user-3",
+      "startMs": 3825000,
+      "endMs": 3832600,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000223",
+      "speakerUserId": "user-2",
+      "startMs": 3842307,
+      "endMs": 3849337,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000224",
+      "speakerUserId": "user-1",
+      "startMs": 3859615,
+      "endMs": 3867405,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000225",
+      "speakerUserId": "user-5",
+      "startMs": 3876923,
+      "endMs": 3884903,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000226",
+      "speakerUserId": "user-1",
+      "startMs": 3894230,
+      "endMs": 3902020,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000227",
+      "speakerUserId": "user-4",
+      "startMs": 3911538,
+      "endMs": 3919518,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000228",
+      "speakerUserId": "user-3",
+      "startMs": 3928846,
+      "endMs": 3936826,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000229",
+      "speakerUserId": "user-3",
+      "startMs": 3946153,
+      "endMs": 3953563,
+      "topic": "データベース",
+      "text": "先ほどのデータベースの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000230",
+      "speakerUserId": "user-3",
+      "startMs": 3963461,
+      "endMs": 3971251,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000231",
+      "speakerUserId": "user-1",
+      "startMs": 3980769,
+      "endMs": 3988179,
+      "topic": "データベース",
+      "text": "先ほどのデータベースの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000232",
+      "speakerUserId": "user-4",
+      "startMs": 3998076,
+      "endMs": 4006056,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000233",
+      "speakerUserId": "user-5",
+      "startMs": 4015384,
+      "endMs": 4023174,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000234",
+      "speakerUserId": "user-5",
+      "startMs": 4032692,
+      "endMs": 4040482,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000235",
+      "speakerUserId": "user-1",
+      "startMs": 4050000,
+      "endMs": 4059310,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000236",
+      "speakerUserId": "user-5",
+      "startMs": 4067307,
+      "endMs": 4076237,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000237",
+      "speakerUserId": "user-2",
+      "startMs": 4084615,
+      "endMs": 4092785,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000238",
+      "speakerUserId": "user-4",
+      "startMs": 4101923,
+      "endMs": 4109713,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000239",
+      "speakerUserId": "user-1",
+      "startMs": 4119230,
+      "endMs": 4127400,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000240",
+      "speakerUserId": "user-6",
+      "startMs": 4136538,
+      "endMs": 4143948,
+      "topic": "データベース",
+      "text": "先ほどのデータベースの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000241",
+      "speakerUserId": "user-4",
+      "startMs": 4153846,
+      "endMs": 4162396,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000242",
+      "speakerUserId": "user-5",
+      "startMs": 4171153,
+      "endMs": 4179513,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000243",
+      "speakerUserId": "user-2",
+      "startMs": 4188461,
+      "endMs": 4196441,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000244",
+      "speakerUserId": "user-2",
+      "startMs": 4205769,
+      "endMs": 4213939,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000245",
+      "speakerUserId": "user-2",
+      "startMs": 4223076,
+      "endMs": 4232386,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000246",
+      "speakerUserId": "user-5",
+      "startMs": 4240384,
+      "endMs": 4248934,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000247",
+      "speakerUserId": "user-4",
+      "startMs": 4257692,
+      "endMs": 4265862,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000248",
+      "speakerUserId": "user-6",
+      "startMs": 4275000,
+      "endMs": 4284310,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000249",
+      "speakerUserId": "user-6",
+      "startMs": 4292307,
+      "endMs": 4300477,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000250",
+      "speakerUserId": "user-1",
+      "startMs": 4309615,
+      "endMs": 4318545,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000251",
+      "speakerUserId": "user-1",
+      "startMs": 4326923,
+      "endMs": 4334713,
+      "topic": "データベース",
+      "text": "データベースの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000252",
+      "speakerUserId": "user-4",
+      "startMs": 4344230,
+      "endMs": 4352400,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000253",
+      "speakerUserId": "user-4",
+      "startMs": 4361538,
+      "endMs": 4370468,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000254",
+      "speakerUserId": "user-2",
+      "startMs": 4378846,
+      "endMs": 4387396,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000255",
+      "speakerUserId": "user-2",
+      "startMs": 4396153,
+      "endMs": 4404323,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000256",
+      "speakerUserId": "user-2",
+      "startMs": 4413461,
+      "endMs": 4421251,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000257",
+      "speakerUserId": "user-1",
+      "startMs": 4430769,
+      "endMs": 4440079,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000258",
+      "speakerUserId": "user-1",
+      "startMs": 4448076,
+      "endMs": 4456436,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000259",
+      "speakerUserId": "user-5",
+      "startMs": 4465384,
+      "endMs": 4473934,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000260",
+      "speakerUserId": "user-2",
+      "startMs": 4482692,
+      "endMs": 4492002,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000261",
+      "speakerUserId": "user-4",
+      "startMs": 4500000,
+      "endMs": 4507980,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000262",
+      "speakerUserId": "user-4",
+      "startMs": 4517307,
+      "endMs": 4525477,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000263",
+      "speakerUserId": "user-2",
+      "startMs": 4534615,
+      "endMs": 4542405,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000264",
+      "speakerUserId": "user-6",
+      "startMs": 4551923,
+      "endMs": 4560473,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000265",
+      "speakerUserId": "user-5",
+      "startMs": 4569230,
+      "endMs": 4577020,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000266",
+      "speakerUserId": "user-3",
+      "startMs": 4586538,
+      "endMs": 4594708,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000267",
+      "speakerUserId": "user-5",
+      "startMs": 4603846,
+      "endMs": 4611636,
+      "topic": "データベース",
+      "text": "データベースの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000268",
+      "speakerUserId": "user-2",
+      "startMs": 4621153,
+      "endMs": 4630463,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000269",
+      "speakerUserId": "user-5",
+      "startMs": 4638461,
+      "endMs": 4646441,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000270",
+      "speakerUserId": "user-1",
+      "startMs": 4655769,
+      "endMs": 4664319,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000271",
+      "speakerUserId": "user-4",
+      "startMs": 4673076,
+      "endMs": 4682006,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000272",
+      "speakerUserId": "user-3",
+      "startMs": 4690384,
+      "endMs": 4698364,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000273",
+      "speakerUserId": "user-2",
+      "startMs": 4707692,
+      "endMs": 4715482,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000274",
+      "speakerUserId": "user-1",
+      "startMs": 4725000,
+      "endMs": 4732410,
+      "topic": "データベース",
+      "text": "先ほどのデータベースの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000275",
+      "speakerUserId": "user-5",
+      "startMs": 4742307,
+      "endMs": 4751237,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000276",
+      "speakerUserId": "user-5",
+      "startMs": 4759615,
+      "endMs": 4767975,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000277",
+      "speakerUserId": "user-1",
+      "startMs": 4776923,
+      "endMs": 4784903,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000278",
+      "speakerUserId": "user-6",
+      "startMs": 4794230,
+      "endMs": 4802780,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000279",
+      "speakerUserId": "user-3",
+      "startMs": 4811538,
+      "endMs": 4820848,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000280",
+      "speakerUserId": "user-1",
+      "startMs": 4828846,
+      "endMs": 4836446,
+      "topic": "利用者連絡",
+      "text": "利用者連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000281",
+      "speakerUserId": "user-5",
+      "startMs": 4846153,
+      "endMs": 4853373,
+      "topic": "利用者連絡",
+      "text": "先ほどの利用者連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000282",
+      "speakerUserId": "user-5",
+      "startMs": 4863461,
+      "endMs": 4872201,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000283",
+      "speakerUserId": "user-1",
+      "startMs": 4880769,
+      "endMs": 4888559,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000284",
+      "speakerUserId": "user-3",
+      "startMs": 4898076,
+      "endMs": 4905676,
+      "topic": "利用者連絡",
+      "text": "利用者連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000285",
+      "speakerUserId": "user-2",
+      "startMs": 4915384,
+      "endMs": 4922604,
+      "topic": "利用者連絡",
+      "text": "先ほどの利用者連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000286",
+      "speakerUserId": "user-3",
+      "startMs": 4932692,
+      "endMs": 4939912,
+      "topic": "利用者連絡",
+      "text": "先ほどの利用者連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000287",
+      "speakerUserId": "user-2",
+      "startMs": 4950000,
+      "endMs": 4957790,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000288",
+      "speakerUserId": "user-4",
+      "startMs": 4967307,
+      "endMs": 4976427,
+      "topic": "利用者連絡",
+      "text": "現時点の資料では利用者連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000289",
+      "speakerUserId": "user-5",
+      "startMs": 4984615,
+      "endMs": 4992215,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000290",
+      "speakerUserId": "user-6",
+      "startMs": 5001923,
+      "endMs": 5010283,
+      "topic": "利用者連絡",
+      "text": "ここまでの利用者連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000291",
+      "speakerUserId": "user-2",
+      "startMs": 5019230,
+      "endMs": 5028350,
+      "topic": "利用者連絡",
+      "text": "現時点の資料では利用者連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000292",
+      "speakerUserId": "user-3",
+      "startMs": 5036538,
+      "endMs": 5044328,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000293",
+      "speakerUserId": "user-4",
+      "startMs": 5053846,
+      "endMs": 5061636,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000294",
+      "speakerUserId": "user-6",
+      "startMs": 5071153,
+      "endMs": 5078943,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000295",
+      "speakerUserId": "user-4",
+      "startMs": 5088461,
+      "endMs": 5096441,
+      "topic": "利用者連絡",
+      "text": "資料の利用者連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000296",
+      "speakerUserId": "user-1",
+      "startMs": 5105769,
+      "endMs": 5113369,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000297",
+      "speakerUserId": "user-5",
+      "startMs": 5123076,
+      "endMs": 5131436,
+      "topic": "利用者連絡",
+      "text": "ここまでの利用者連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000298",
+      "speakerUserId": "user-1",
+      "startMs": 5140384,
+      "endMs": 5147604,
+      "topic": "利用者連絡",
+      "text": "先ほどの利用者連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000299",
+      "speakerUserId": "user-5",
+      "startMs": 5157692,
+      "endMs": 5165862,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000300",
+      "speakerUserId": "user-3",
+      "startMs": 5175000,
+      "endMs": 5182220,
+      "topic": "利用者連絡",
+      "text": "先ほどの利用者連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000301",
+      "speakerUserId": "user-1",
+      "startMs": 5192307,
+      "endMs": 5201047,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000302",
+      "speakerUserId": "user-6",
+      "startMs": 5209615,
+      "endMs": 5217785,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000303",
+      "speakerUserId": "user-3",
+      "startMs": 5226923,
+      "endMs": 5235663,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000304",
+      "speakerUserId": "user-6",
+      "startMs": 5244230,
+      "endMs": 5251450,
+      "topic": "利用者連絡",
+      "text": "先ほどの利用者連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000305",
+      "speakerUserId": "user-2",
+      "startMs": 5261538,
+      "endMs": 5270278,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000306",
+      "speakerUserId": "user-6",
+      "startMs": 5278846,
+      "endMs": 5286446,
+      "topic": "利用者連絡",
+      "text": "利用者連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000307",
+      "speakerUserId": "user-3",
+      "startMs": 5296153,
+      "endMs": 5304513,
+      "topic": "利用者連絡",
+      "text": "ここまでの利用者連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000308",
+      "speakerUserId": "user-3",
+      "startMs": 5313461,
+      "endMs": 5321251,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000309",
+      "speakerUserId": "user-4",
+      "startMs": 5330769,
+      "endMs": 5339509,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000310",
+      "speakerUserId": "user-3",
+      "startMs": 5348076,
+      "endMs": 5356246,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000311",
+      "speakerUserId": "user-2",
+      "startMs": 5365384,
+      "endMs": 5372604,
+      "topic": "利用者連絡",
+      "text": "先ほどの利用者連絡の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000312",
+      "speakerUserId": "user-5",
+      "startMs": 5382692,
+      "endMs": 5391432,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000313",
+      "speakerUserId": "user-2",
+      "startMs": 5400000,
+      "endMs": 5407600,
+      "topic": "利用者連絡",
+      "text": "利用者連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000314",
+      "speakerUserId": "user-4",
+      "startMs": 5417307,
+      "endMs": 5424907,
+      "topic": "利用者連絡",
+      "text": "利用者連絡については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000315",
+      "speakerUserId": "user-3",
+      "startMs": 5434615,
+      "endMs": 5442975,
+      "topic": "利用者連絡",
+      "text": "ここまでの利用者連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000316",
+      "speakerUserId": "user-3",
+      "startMs": 5451923,
+      "endMs": 5459713,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000317",
+      "speakerUserId": "user-6",
+      "startMs": 5469230,
+      "endMs": 5476830,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000318",
+      "speakerUserId": "user-1",
+      "startMs": 5486538,
+      "endMs": 5495278,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000319",
+      "speakerUserId": "user-4",
+      "startMs": 5503846,
+      "endMs": 5512966,
+      "topic": "利用者連絡",
+      "text": "現時点の資料では利用者連絡の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000320",
+      "speakerUserId": "user-2",
+      "startMs": 5521153,
+      "endMs": 5528753,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000321",
+      "speakerUserId": "user-1",
+      "startMs": 5538461,
+      "endMs": 5546441,
+      "topic": "利用者連絡",
+      "text": "資料の利用者連絡の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000322",
+      "speakerUserId": "user-2",
+      "startMs": 5555769,
+      "endMs": 5563559,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000323",
+      "speakerUserId": "user-2",
+      "startMs": 5573076,
+      "endMs": 5580676,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000324",
+      "speakerUserId": "user-1",
+      "startMs": 5590384,
+      "endMs": 5597984,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000325",
+      "speakerUserId": "user-3",
+      "startMs": 5607692,
+      "endMs": 5616432,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000326",
+      "speakerUserId": "user-4",
+      "startMs": 5625000,
+      "endMs": 5633740,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000327",
+      "speakerUserId": "user-1",
+      "startMs": 5642307,
+      "endMs": 5649907,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000328",
+      "speakerUserId": "user-2",
+      "startMs": 5659615,
+      "endMs": 5666455,
+      "topic": "利用者連絡",
+      "text": "データベースの遅延が原因かもしれませんが、ログ確認前なので断定しません。"
+    },
+    {
+      "publicId": "U000329",
+      "speakerUserId": "user-1",
+      "startMs": 5676923,
+      "endMs": 5684713,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000330",
+      "speakerUserId": "user-6",
+      "startMs": 5694230,
+      "endMs": 5702970,
+      "topic": "利用者連絡",
+      "text": "手元では利用者連絡に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000331",
+      "speakerUserId": "user-6",
+      "startMs": 5711538,
+      "endMs": 5719708,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000332",
+      "speakerUserId": "user-1",
+      "startMs": 5728846,
+      "endMs": 5737206,
+      "topic": "利用者連絡",
+      "text": "ここまでの利用者連絡の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000333",
+      "speakerUserId": "user-3",
+      "startMs": 5746153,
+      "endMs": 5753943,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000334",
+      "speakerUserId": "user-4",
+      "startMs": 5763461,
+      "endMs": 5771061,
+      "topic": "利用者連絡",
+      "text": "利用者連絡の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000335",
+      "speakerUserId": "user-4",
+      "startMs": 5780769,
+      "endMs": 5788559,
+      "topic": "利用者連絡",
+      "text": "利用者連絡は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000336",
+      "speakerUserId": "user-2",
+      "startMs": 5798076,
+      "endMs": 5806626,
+      "topic": "監視通知",
+      "text": "手元では監視通知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000337",
+      "speakerUserId": "user-6",
+      "startMs": 5815384,
+      "endMs": 5822984,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000338",
+      "speakerUserId": "user-1",
+      "startMs": 5832692,
+      "endMs": 5840292,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000339",
+      "speakerUserId": "user-3",
+      "startMs": 5850000,
+      "endMs": 5858930,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000340",
+      "speakerUserId": "user-3",
+      "startMs": 5867307,
+      "endMs": 5874717,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000341",
+      "speakerUserId": "user-5",
+      "startMs": 5884615,
+      "endMs": 5892025,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000342",
+      "speakerUserId": "user-3",
+      "startMs": 5901923,
+      "endMs": 5909713,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000343",
+      "speakerUserId": "user-3",
+      "startMs": 5919230,
+      "endMs": 5927020,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000344",
+      "speakerUserId": "user-6",
+      "startMs": 5936538,
+      "endMs": 5943948,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000345",
+      "speakerUserId": "user-6",
+      "startMs": 5953846,
+      "endMs": 5961636,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000346",
+      "speakerUserId": "user-6",
+      "startMs": 5971153,
+      "endMs": 5978563,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000347",
+      "speakerUserId": "user-4",
+      "startMs": 5988461,
+      "endMs": 5996061,
+      "topic": "監視通知",
+      "text": "監視通知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000348",
+      "speakerUserId": "user-2",
+      "startMs": 6005769,
+      "endMs": 6013939,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000349",
+      "speakerUserId": "user-6",
+      "startMs": 6023076,
+      "endMs": 6030866,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000350",
+      "speakerUserId": "user-3",
+      "startMs": 6040384,
+      "endMs": 6047414,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000351",
+      "speakerUserId": "user-5",
+      "startMs": 6057692,
+      "endMs": 6065102,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000352",
+      "speakerUserId": "user-1",
+      "startMs": 6075000,
+      "endMs": 6082980,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000353",
+      "speakerUserId": "user-2",
+      "startMs": 6092307,
+      "endMs": 6099337,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000354",
+      "speakerUserId": "user-1",
+      "startMs": 6109615,
+      "endMs": 6117405,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000355",
+      "speakerUserId": "user-3",
+      "startMs": 6126923,
+      "endMs": 6134333,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000356",
+      "speakerUserId": "user-2",
+      "startMs": 6144230,
+      "endMs": 6151640,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000357",
+      "speakerUserId": "user-2",
+      "startMs": 6161538,
+      "endMs": 6169328,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000358",
+      "speakerUserId": "user-1",
+      "startMs": 6178846,
+      "endMs": 6186826,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000359",
+      "speakerUserId": "user-2",
+      "startMs": 6196153,
+      "endMs": 6204133,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000360",
+      "speakerUserId": "user-5",
+      "startMs": 6213461,
+      "endMs": 6220871,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000361",
+      "speakerUserId": "user-2",
+      "startMs": 6230769,
+      "endMs": 6238179,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000362",
+      "speakerUserId": "user-5",
+      "startMs": 6248076,
+      "endMs": 6255866,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000363",
+      "speakerUserId": "user-1",
+      "startMs": 6265384,
+      "endMs": 6273364,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000364",
+      "speakerUserId": "user-2",
+      "startMs": 6282692,
+      "endMs": 6290102,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000365",
+      "speakerUserId": "user-3",
+      "startMs": 6300000,
+      "endMs": 6307030,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000366",
+      "speakerUserId": "user-1",
+      "startMs": 6317307,
+      "endMs": 6325287,
+      "topic": "監視通知",
+      "text": "監視通知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000367",
+      "speakerUserId": "user-4",
+      "startMs": 6334615,
+      "endMs": 6342025,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000368",
+      "speakerUserId": "user-4",
+      "startMs": 6351923,
+      "endMs": 6359333,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000369",
+      "speakerUserId": "user-2",
+      "startMs": 6369230,
+      "endMs": 6376260,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000370",
+      "speakerUserId": "user-6",
+      "startMs": 6386538,
+      "endMs": 6393568,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000371",
+      "speakerUserId": "user-5",
+      "startMs": 6403846,
+      "endMs": 6410876,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000372",
+      "speakerUserId": "user-2",
+      "startMs": 6421153,
+      "endMs": 6428183,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000373",
+      "speakerUserId": "user-5",
+      "startMs": 6438461,
+      "endMs": 6446251,
+      "topic": "監視通知",
+      "text": "資料の監視通知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000374",
+      "speakerUserId": "user-2",
+      "startMs": 6455769,
+      "endMs": 6463179,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000375",
+      "speakerUserId": "user-6",
+      "startMs": 6473076,
+      "endMs": 6481626,
+      "topic": "監視通知",
+      "text": "手元では監視通知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000376",
+      "speakerUserId": "user-4",
+      "startMs": 6490384,
+      "endMs": 6499314,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000377",
+      "speakerUserId": "user-5",
+      "startMs": 6507692,
+      "endMs": 6515102,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000378",
+      "speakerUserId": "user-2",
+      "startMs": 6525000,
+      "endMs": 6533550,
+      "topic": "監視通知",
+      "text": "手元では監視通知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000379",
+      "speakerUserId": "user-6",
+      "startMs": 6542307,
+      "endMs": 6549717,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000380",
+      "speakerUserId": "user-2",
+      "startMs": 6559615,
+      "endMs": 6567785,
+      "topic": "監視通知",
+      "text": "ここまでの監視通知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000381",
+      "speakerUserId": "user-2",
+      "startMs": 6576923,
+      "endMs": 6584333,
+      "topic": "監視通知",
+      "text": "監視通知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000382",
+      "speakerUserId": "user-3",
+      "startMs": 6594230,
+      "endMs": 6601640,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000383",
+      "speakerUserId": "user-3",
+      "startMs": 6611538,
+      "endMs": 6620468,
+      "topic": "監視通知",
+      "text": "現時点の資料では監視通知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000384",
+      "speakerUserId": "user-1",
+      "startMs": 6628846,
+      "endMs": 6636256,
+      "topic": "監視通知",
+      "text": "監視通知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000385",
+      "speakerUserId": "user-1",
+      "startMs": 6646153,
+      "endMs": 6653563,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000386",
+      "speakerUserId": "user-6",
+      "startMs": 6663461,
+      "endMs": 6670871,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000387",
+      "speakerUserId": "user-4",
+      "startMs": 6680769,
+      "endMs": 6688179,
+      "topic": "監視通知",
+      "text": "監視通知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000388",
+      "speakerUserId": "user-4",
+      "startMs": 6698076,
+      "endMs": 6705106,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000389",
+      "speakerUserId": "user-3",
+      "startMs": 6715384,
+      "endMs": 6723934,
+      "topic": "監視通知",
+      "text": "手元では監視通知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000390",
+      "speakerUserId": "user-6",
+      "startMs": 6732692,
+      "endMs": 6739722,
+      "topic": "監視通知",
+      "text": "先ほどの監視通知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000391",
+      "speakerUserId": "user-6",
+      "startMs": 6750000,
+      "endMs": 6758930,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000392",
+      "speakerUserId": "user-6",
+      "startMs": 6767307,
+      "endMs": 6775857,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000393",
+      "speakerUserId": "user-1",
+      "startMs": 6784615,
+      "endMs": 6792025,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000394",
+      "speakerUserId": "user-5",
+      "startMs": 6801923,
+      "endMs": 6810853,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000395",
+      "speakerUserId": "user-5",
+      "startMs": 6819230,
+      "endMs": 6826640,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000396",
+      "speakerUserId": "user-6",
+      "startMs": 6836538,
+      "endMs": 6843948,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000397",
+      "speakerUserId": "user-1",
+      "startMs": 6853846,
+      "endMs": 6861446,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000398",
+      "speakerUserId": "user-2",
+      "startMs": 6871153,
+      "endMs": 6878563,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000399",
+      "speakerUserId": "user-1",
+      "startMs": 6888461,
+      "endMs": 6895871,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000400",
+      "speakerUserId": "user-4",
+      "startMs": 6905769,
+      "endMs": 6913179,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000401",
+      "speakerUserId": "user-6",
+      "startMs": 6923076,
+      "endMs": 6932006,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000402",
+      "speakerUserId": "user-5",
+      "startMs": 6940384,
+      "endMs": 6947794,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000403",
+      "speakerUserId": "user-2",
+      "startMs": 6957692,
+      "endMs": 6964722,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000404",
+      "speakerUserId": "user-6",
+      "startMs": 6975000,
+      "endMs": 6982600,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000405",
+      "speakerUserId": "user-1",
+      "startMs": 6992307,
+      "endMs": 6999907,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000406",
+      "speakerUserId": "user-2",
+      "startMs": 7009615,
+      "endMs": 7017215,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000407",
+      "speakerUserId": "user-6",
+      "startMs": 7026923,
+      "endMs": 7034333,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000408",
+      "speakerUserId": "user-1",
+      "startMs": 7044230,
+      "endMs": 7052020,
+      "topic": "再発防止",
+      "text": "資料の再発防止の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000409",
+      "speakerUserId": "user-1",
+      "startMs": 7061538,
+      "endMs": 7068948,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000410",
+      "speakerUserId": "user-6",
+      "startMs": 7078846,
+      "endMs": 7086256,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000411",
+      "speakerUserId": "user-2",
+      "startMs": 7096153,
+      "endMs": 7103943,
+      "topic": "再発防止",
+      "text": "資料の再発防止の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000412",
+      "speakerUserId": "user-1",
+      "startMs": 7113461,
+      "endMs": 7120871,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000413",
+      "speakerUserId": "user-6",
+      "startMs": 7130769,
+      "endMs": 7138179,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000414",
+      "speakerUserId": "user-1",
+      "startMs": 7148076,
+      "endMs": 7155486,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000415",
+      "speakerUserId": "user-1",
+      "startMs": 7165384,
+      "endMs": 7173934,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000416",
+      "speakerUserId": "user-2",
+      "startMs": 7182692,
+      "endMs": 7191242,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000417",
+      "speakerUserId": "user-3",
+      "startMs": 7200000,
+      "endMs": 7208550,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000418",
+      "speakerUserId": "user-6",
+      "startMs": 7217307,
+      "endMs": 7225287,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000419",
+      "speakerUserId": "user-2",
+      "startMs": 7234615,
+      "endMs": 7243545,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000420",
+      "speakerUserId": "user-3",
+      "startMs": 7251923,
+      "endMs": 7258953,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000421",
+      "speakerUserId": "user-4",
+      "startMs": 7269230,
+      "endMs": 7276640,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000422",
+      "speakerUserId": "user-6",
+      "startMs": 7286538,
+      "endMs": 7294518,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000423",
+      "speakerUserId": "user-3",
+      "startMs": 7303846,
+      "endMs": 7311256,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000424",
+      "speakerUserId": "user-3",
+      "startMs": 7321153,
+      "endMs": 7329133,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000425",
+      "speakerUserId": "user-2",
+      "startMs": 7338461,
+      "endMs": 7346631,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000426",
+      "speakerUserId": "user-6",
+      "startMs": 7355769,
+      "endMs": 7363179,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000427",
+      "speakerUserId": "user-5",
+      "startMs": 7373076,
+      "endMs": 7380676,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000428",
+      "speakerUserId": "user-1",
+      "startMs": 7390384,
+      "endMs": 7398554,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000429",
+      "speakerUserId": "user-1",
+      "startMs": 7407692,
+      "endMs": 7415292,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000430",
+      "speakerUserId": "user-4",
+      "startMs": 7425000,
+      "endMs": 7433170,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000431",
+      "speakerUserId": "user-2",
+      "startMs": 7442307,
+      "endMs": 7450287,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000432",
+      "speakerUserId": "user-2",
+      "startMs": 7459615,
+      "endMs": 7467405,
+      "topic": "再発防止",
+      "text": "資料の再発防止の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000433",
+      "speakerUserId": "user-4",
+      "startMs": 7476923,
+      "endMs": 7484903,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000434",
+      "speakerUserId": "user-3",
+      "startMs": 7494230,
+      "endMs": 7503160,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000435",
+      "speakerUserId": "user-6",
+      "startMs": 7511538,
+      "endMs": 7519138,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000436",
+      "speakerUserId": "user-1",
+      "startMs": 7528846,
+      "endMs": 7536446,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000437",
+      "speakerUserId": "user-5",
+      "startMs": 7546153,
+      "endMs": 7554323,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000438",
+      "speakerUserId": "user-3",
+      "startMs": 7563461,
+      "endMs": 7571061,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000439",
+      "speakerUserId": "user-3",
+      "startMs": 7580769,
+      "endMs": 7587799,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000440",
+      "speakerUserId": "user-6",
+      "startMs": 7598076,
+      "endMs": 7607006,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000441",
+      "speakerUserId": "user-6",
+      "startMs": 7615384,
+      "endMs": 7622414,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000442",
+      "speakerUserId": "user-1",
+      "startMs": 7632692,
+      "endMs": 7639722,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000443",
+      "speakerUserId": "user-2",
+      "startMs": 7650000,
+      "endMs": 7657410,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000444",
+      "speakerUserId": "user-2",
+      "startMs": 7667307,
+      "endMs": 7674717,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000445",
+      "speakerUserId": "user-1",
+      "startMs": 7684615,
+      "endMs": 7692595,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000446",
+      "speakerUserId": "user-6",
+      "startMs": 7701923,
+      "endMs": 7709333,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000447",
+      "speakerUserId": "user-6",
+      "startMs": 7719230,
+      "endMs": 7726450,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000448",
+      "speakerUserId": "user-3",
+      "startMs": 7736538,
+      "endMs": 7743948,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000449",
+      "speakerUserId": "user-2",
+      "startMs": 7753846,
+      "endMs": 7761256,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000450",
+      "speakerUserId": "user-4",
+      "startMs": 7771153,
+      "endMs": 7778753,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000451",
+      "speakerUserId": "user-3",
+      "startMs": 7788461,
+      "endMs": 7797011,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000452",
+      "speakerUserId": "user-4",
+      "startMs": 7805769,
+      "endMs": 7813939,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000453",
+      "speakerUserId": "user-3",
+      "startMs": 7823076,
+      "endMs": 7831626,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000454",
+      "speakerUserId": "user-3",
+      "startMs": 7840384,
+      "endMs": 7848934,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000455",
+      "speakerUserId": "user-3",
+      "startMs": 7857692,
+      "endMs": 7864912,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000456",
+      "speakerUserId": "user-1",
+      "startMs": 7875000,
+      "endMs": 7883550,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000457",
+      "speakerUserId": "user-5",
+      "startMs": 7892307,
+      "endMs": 7899337,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000458",
+      "speakerUserId": "user-3",
+      "startMs": 7909615,
+      "endMs": 7916645,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000459",
+      "speakerUserId": "user-1",
+      "startMs": 7926923,
+      "endMs": 7934713,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000460",
+      "speakerUserId": "user-4",
+      "startMs": 7944230,
+      "endMs": 7951450,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000461",
+      "speakerUserId": "user-4",
+      "startMs": 7961538,
+      "endMs": 7968188,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000462",
+      "speakerUserId": "user-3",
+      "startMs": 7978846,
+      "endMs": 7986066,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000463",
+      "speakerUserId": "user-2",
+      "startMs": 7996153,
+      "endMs": 8003183,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000464",
+      "speakerUserId": "user-2",
+      "startMs": 8013461,
+      "endMs": 8020111,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000465",
+      "speakerUserId": "user-1",
+      "startMs": 8030769,
+      "endMs": 8037799,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000466",
+      "speakerUserId": "user-2",
+      "startMs": 8048076,
+      "endMs": 8054726,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000467",
+      "speakerUserId": "user-3",
+      "startMs": 8065384,
+      "endMs": 8072414,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000468",
+      "speakerUserId": "user-2",
+      "startMs": 8082692,
+      "endMs": 8090862,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000469",
+      "speakerUserId": "user-5",
+      "startMs": 8100000,
+      "endMs": 8107030,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000470",
+      "speakerUserId": "user-4",
+      "startMs": 8117307,
+      "endMs": 8125477,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000471",
+      "speakerUserId": "user-2",
+      "startMs": 8134615,
+      "endMs": 8141265,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000472",
+      "speakerUserId": "user-1",
+      "startMs": 8151923,
+      "endMs": 8159523,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000473",
+      "speakerUserId": "user-1",
+      "startMs": 8169230,
+      "endMs": 8177020,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000474",
+      "speakerUserId": "user-1",
+      "startMs": 8186538,
+      "endMs": 8193188,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000475",
+      "speakerUserId": "user-6",
+      "startMs": 8203846,
+      "endMs": 8210496,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000476",
+      "speakerUserId": "user-2",
+      "startMs": 8221153,
+      "endMs": 8228183,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000477",
+      "speakerUserId": "user-5",
+      "startMs": 8238461,
+      "endMs": 8247011,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000478",
+      "speakerUserId": "user-1",
+      "startMs": 8255769,
+      "endMs": 8263939,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000479",
+      "speakerUserId": "user-5",
+      "startMs": 8273076,
+      "endMs": 8280486,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000480",
+      "speakerUserId": "user-4",
+      "startMs": 8290384,
+      "endMs": 8298174,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000481",
+      "speakerUserId": "user-5",
+      "startMs": 8307692,
+      "endMs": 8314722,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000482",
+      "speakerUserId": "user-5",
+      "startMs": 8325000,
+      "endMs": 8333170,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000483",
+      "speakerUserId": "user-1",
+      "startMs": 8342307,
+      "endMs": 8350477,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000484",
+      "speakerUserId": "user-5",
+      "startMs": 8359615,
+      "endMs": 8366645,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000485",
+      "speakerUserId": "user-1",
+      "startMs": 8376923,
+      "endMs": 8383953,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000486",
+      "speakerUserId": "user-1",
+      "startMs": 8394230,
+      "endMs": 8400880,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000487",
+      "speakerUserId": "user-3",
+      "startMs": 8411538,
+      "endMs": 8418568,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000488",
+      "speakerUserId": "user-1",
+      "startMs": 8428846,
+      "endMs": 8436066,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000489",
+      "speakerUserId": "user-6",
+      "startMs": 8446153,
+      "endMs": 8453373,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000490",
+      "speakerUserId": "user-5",
+      "startMs": 8463461,
+      "endMs": 8470491,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000491",
+      "speakerUserId": "user-4",
+      "startMs": 8480769,
+      "endMs": 8487799,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000492",
+      "speakerUserId": "user-1",
+      "startMs": 8498076,
+      "endMs": 8505296,
+      "topic": "復旧",
+      "text": "通知先を全員にする案は撤回し、一次当番とバックアップ当番の二人に限定します。"
+    },
+    {
+      "publicId": "U000493",
+      "speakerUserId": "user-4",
+      "startMs": 8515384,
+      "endMs": 8523554,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000494",
+      "speakerUserId": "user-5",
+      "startMs": 8532692,
+      "endMs": 8540862,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000495",
+      "speakerUserId": "user-2",
+      "startMs": 8550000,
+      "endMs": 8556650,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000496",
+      "speakerUserId": "user-1",
+      "startMs": 8567307,
+      "endMs": 8574717,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000497",
+      "speakerUserId": "user-1",
+      "startMs": 8584615,
+      "endMs": 8591265,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000498",
+      "speakerUserId": "user-1",
+      "startMs": 8601923,
+      "endMs": 8609523,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000499",
+      "speakerUserId": "user-4",
+      "startMs": 8619230,
+      "endMs": 8626260,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000500",
+      "speakerUserId": "user-1",
+      "startMs": 8636538,
+      "endMs": 8644138,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000501",
+      "speakerUserId": "user-5",
+      "startMs": 8653846,
+      "endMs": 8661066,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000502",
+      "speakerUserId": "user-4",
+      "startMs": 8671153,
+      "endMs": 8678183,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000503",
+      "speakerUserId": "user-1",
+      "startMs": 8688461,
+      "endMs": 8695681,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000504",
+      "speakerUserId": "user-5",
+      "startMs": 8705769,
+      "endMs": 8712419,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000505",
+      "speakerUserId": "user-1",
+      "startMs": 8723076,
+      "endMs": 8731626,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000506",
+      "speakerUserId": "user-1",
+      "startMs": 8740384,
+      "endMs": 8747794,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000507",
+      "speakerUserId": "user-3",
+      "startMs": 8757692,
+      "endMs": 8764342,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000508",
+      "speakerUserId": "user-4",
+      "startMs": 8775000,
+      "endMs": 8782410,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000509",
+      "speakerUserId": "user-3",
+      "startMs": 8792307,
+      "endMs": 8800097,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000510",
+      "speakerUserId": "user-2",
+      "startMs": 8809615,
+      "endMs": 8817025,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000511",
+      "speakerUserId": "user-5",
+      "startMs": 8826923,
+      "endMs": 8835473,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000512",
+      "speakerUserId": "user-6",
+      "startMs": 8844230,
+      "endMs": 8850880,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000513",
+      "speakerUserId": "user-2",
+      "startMs": 8861538,
+      "endMs": 8870088,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000514",
+      "speakerUserId": "user-2",
+      "startMs": 8878846,
+      "endMs": 8885876,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000515",
+      "speakerUserId": "user-4",
+      "startMs": 8896153,
+      "endMs": 8903183,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000516",
+      "speakerUserId": "user-4",
+      "startMs": 8913461,
+      "endMs": 8920111,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000517",
+      "speakerUserId": "user-2",
+      "startMs": 8930769,
+      "endMs": 8939319,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000518",
+      "speakerUserId": "user-3",
+      "startMs": 8948076,
+      "endMs": 8955676,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000519",
+      "speakerUserId": "user-6",
+      "startMs": 8965384,
+      "endMs": 8973174,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000520",
+      "speakerUserId": "user-1",
+      "startMs": 8982692,
+      "endMs": 8990292,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000521",
+      "speakerUserId": "user-5",
+      "startMs": 9000000,
+      "endMs": 9008170,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000522",
+      "speakerUserId": "user-2",
+      "startMs": 9017307,
+      "endMs": 9024527,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000523",
+      "speakerUserId": "user-4",
+      "startMs": 9034615,
+      "endMs": 9043165,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000524",
+      "speakerUserId": "user-5",
+      "startMs": 9051923,
+      "endMs": 9059143,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000525",
+      "speakerUserId": "user-6",
+      "startMs": 9069230,
+      "endMs": 9077020,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000526",
+      "speakerUserId": "user-2",
+      "startMs": 9086538,
+      "endMs": 9093188,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000527",
+      "speakerUserId": "user-3",
+      "startMs": 9103846,
+      "endMs": 9111066,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000528",
+      "speakerUserId": "user-3",
+      "startMs": 9121153,
+      "endMs": 9128563,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000529",
+      "speakerUserId": "user-6",
+      "startMs": 9138461,
+      "endMs": 9145491,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000530",
+      "speakerUserId": "user-6",
+      "startMs": 9155769,
+      "endMs": 9163939,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000531",
+      "speakerUserId": "user-3",
+      "startMs": 9173076,
+      "endMs": 9179726,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000532",
+      "speakerUserId": "user-2",
+      "startMs": 9190384,
+      "endMs": 9198554,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000533",
+      "speakerUserId": "user-2",
+      "startMs": 9207692,
+      "endMs": 9214912,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000534",
+      "speakerUserId": "user-3",
+      "startMs": 9225000,
+      "endMs": 9232030,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000535",
+      "speakerUserId": "user-4",
+      "startMs": 9242307,
+      "endMs": 9248957,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000536",
+      "speakerUserId": "user-2",
+      "startMs": 9259615,
+      "endMs": 9266835,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000537",
+      "speakerUserId": "user-3",
+      "startMs": 9276923,
+      "endMs": 9284713,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000538",
+      "speakerUserId": "user-3",
+      "startMs": 9294230,
+      "endMs": 9301260,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000539",
+      "speakerUserId": "user-5",
+      "startMs": 9311538,
+      "endMs": 9319138,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000540",
+      "speakerUserId": "user-5",
+      "startMs": 9328846,
+      "endMs": 9336256,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000541",
+      "speakerUserId": "user-1",
+      "startMs": 9346153,
+      "endMs": 9353183,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000542",
+      "speakerUserId": "user-3",
+      "startMs": 9363461,
+      "endMs": 9372011,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000543",
+      "speakerUserId": "user-6",
+      "startMs": 9380769,
+      "endMs": 9388559,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000544",
+      "speakerUserId": "user-6",
+      "startMs": 9398076,
+      "endMs": 9405676,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000545",
+      "speakerUserId": "user-5",
+      "startMs": 9415384,
+      "endMs": 9423174,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000546",
+      "speakerUserId": "user-4",
+      "startMs": 9432692,
+      "endMs": 9440862,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000547",
+      "speakerUserId": "user-4",
+      "startMs": 9450000,
+      "endMs": 9457220,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000548",
+      "speakerUserId": "user-3",
+      "startMs": 9467307,
+      "endMs": 9474337,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000549",
+      "speakerUserId": "user-1",
+      "startMs": 9484615,
+      "endMs": 9491835,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000550",
+      "speakerUserId": "user-5",
+      "startMs": 9501923,
+      "endMs": 9508953,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000551",
+      "speakerUserId": "user-5",
+      "startMs": 9519230,
+      "endMs": 9527780,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000552",
+      "speakerUserId": "user-5",
+      "startMs": 9536538,
+      "endMs": 9543948,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000553",
+      "speakerUserId": "user-5",
+      "startMs": 9553846,
+      "endMs": 9561446,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000554",
+      "speakerUserId": "user-3",
+      "startMs": 9571153,
+      "endMs": 9578373,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000555",
+      "speakerUserId": "user-4",
+      "startMs": 9588461,
+      "endMs": 9595491,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000556",
+      "speakerUserId": "user-2",
+      "startMs": 9605769,
+      "endMs": 9612799,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000557",
+      "speakerUserId": "user-1",
+      "startMs": 9623076,
+      "endMs": 9630296,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000558",
+      "speakerUserId": "user-4",
+      "startMs": 9640384,
+      "endMs": 9647794,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000559",
+      "speakerUserId": "user-5",
+      "startMs": 9657692,
+      "endMs": 9664722,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000560",
+      "speakerUserId": "user-3",
+      "startMs": 9675000,
+      "endMs": 9682030,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000561",
+      "speakerUserId": "user-6",
+      "startMs": 9692307,
+      "endMs": 9698957,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000562",
+      "speakerUserId": "user-4",
+      "startMs": 9709615,
+      "endMs": 9717405,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000563",
+      "speakerUserId": "user-2",
+      "startMs": 9726923,
+      "endMs": 9735093,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000564",
+      "speakerUserId": "user-5",
+      "startMs": 9744230,
+      "endMs": 9751450,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000565",
+      "speakerUserId": "user-6",
+      "startMs": 9761538,
+      "endMs": 9768948,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000566",
+      "speakerUserId": "user-4",
+      "startMs": 9778846,
+      "endMs": 9786636,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000567",
+      "speakerUserId": "user-4",
+      "startMs": 9796153,
+      "endMs": 9803373,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000568",
+      "speakerUserId": "user-5",
+      "startMs": 9813461,
+      "endMs": 9820111,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000569",
+      "speakerUserId": "user-5",
+      "startMs": 9830769,
+      "endMs": 9837799,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000570",
+      "speakerUserId": "user-2",
+      "startMs": 9848076,
+      "endMs": 9856626,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000571",
+      "speakerUserId": "user-3",
+      "startMs": 9865384,
+      "endMs": 9872034,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000572",
+      "speakerUserId": "user-2",
+      "startMs": 9882692,
+      "endMs": 9889722,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000573",
+      "speakerUserId": "user-4",
+      "startMs": 9900000,
+      "endMs": 9908170,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000574",
+      "speakerUserId": "user-1",
+      "startMs": 9917307,
+      "endMs": 9924717,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000575",
+      "speakerUserId": "user-5",
+      "startMs": 9934615,
+      "endMs": 9942785,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000576",
+      "speakerUserId": "user-5",
+      "startMs": 9951923,
+      "endMs": 9958953,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000577",
+      "speakerUserId": "user-2",
+      "startMs": 9969230,
+      "endMs": 9976260,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000578",
+      "speakerUserId": "user-5",
+      "startMs": 9986538,
+      "endMs": 9993188,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000579",
+      "speakerUserId": "user-1",
+      "startMs": 10003846,
+      "endMs": 10011446,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000580",
+      "speakerUserId": "user-4",
+      "startMs": 10021153,
+      "endMs": 10027803,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000581",
+      "speakerUserId": "user-4",
+      "startMs": 10038461,
+      "endMs": 10046631,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000582",
+      "speakerUserId": "user-3",
+      "startMs": 10055769,
+      "endMs": 10062419,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000583",
+      "speakerUserId": "user-3",
+      "startMs": 10073076,
+      "endMs": 10080866,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000584",
+      "speakerUserId": "user-5",
+      "startMs": 10090384,
+      "endMs": 10097034,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000585",
+      "speakerUserId": "user-1",
+      "startMs": 10107692,
+      "endMs": 10114342,
+      "topic": "検知",
+      "text": "先ほどの検知の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000586",
+      "speakerUserId": "user-3",
+      "startMs": 10125000,
+      "endMs": 10133550,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000587",
+      "speakerUserId": "user-1",
+      "startMs": 10142307,
+      "endMs": 10149717,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000588",
+      "speakerUserId": "user-1",
+      "startMs": 10159615,
+      "endMs": 10167405,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000589",
+      "speakerUserId": "user-6",
+      "startMs": 10176923,
+      "endMs": 10184143,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000590",
+      "speakerUserId": "user-1",
+      "startMs": 10194230,
+      "endMs": 10201260,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000591",
+      "speakerUserId": "user-1",
+      "startMs": 10211538,
+      "endMs": 10219708,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000592",
+      "speakerUserId": "user-5",
+      "startMs": 10228846,
+      "endMs": 10235876,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000593",
+      "speakerUserId": "user-3",
+      "startMs": 10246153,
+      "endMs": 10253753,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000594",
+      "speakerUserId": "user-6",
+      "startMs": 10263461,
+      "endMs": 10271631,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000595",
+      "speakerUserId": "user-6",
+      "startMs": 10280769,
+      "endMs": 10289319,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000596",
+      "speakerUserId": "user-4",
+      "startMs": 10298076,
+      "endMs": 10305676,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000597",
+      "speakerUserId": "user-1",
+      "startMs": 10315384,
+      "endMs": 10322794,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000598",
+      "speakerUserId": "user-6",
+      "startMs": 10332692,
+      "endMs": 10339722,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000599",
+      "speakerUserId": "user-1",
+      "startMs": 10350000,
+      "endMs": 10357030,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000600",
+      "speakerUserId": "user-6",
+      "startMs": 10367307,
+      "endMs": 10375857,
+      "topic": "検知",
+      "text": "現時点の資料では検知の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000601",
+      "speakerUserId": "user-1",
+      "startMs": 10384615,
+      "endMs": 10392785,
+      "topic": "検知",
+      "text": "手元では検知に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000602",
+      "speakerUserId": "user-4",
+      "startMs": 10401923,
+      "endMs": 10409333,
+      "topic": "検知",
+      "text": "資料の検知の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000603",
+      "speakerUserId": "user-2",
+      "startMs": 10419230,
+      "endMs": 10427020,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000604",
+      "speakerUserId": "user-6",
+      "startMs": 10436538,
+      "endMs": 10444328,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000605",
+      "speakerUserId": "user-1",
+      "startMs": 10453846,
+      "endMs": 10460876,
+      "topic": "検知",
+      "text": "検知の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000606",
+      "speakerUserId": "user-3",
+      "startMs": 10471153,
+      "endMs": 10478943,
+      "topic": "検知",
+      "text": "ここまでの検知の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000607",
+      "speakerUserId": "user-6",
+      "startMs": 10488461,
+      "endMs": 10496061,
+      "topic": "検知",
+      "text": "検知の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000608",
+      "speakerUserId": "user-1",
+      "startMs": 10505769,
+      "endMs": 10512989,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000609",
+      "speakerUserId": "user-1",
+      "startMs": 10523076,
+      "endMs": 10530106,
+      "topic": "検知",
+      "text": "障害時に利用者へ最初の案内を出す時点は未決定です。サポートと次回詰めます。"
+    },
+    {
+      "publicId": "U000610",
+      "speakerUserId": "user-3",
+      "startMs": 10540384,
+      "endMs": 10547604,
+      "topic": "検知",
+      "text": "検知は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000611",
+      "speakerUserId": "user-5",
+      "startMs": 10557692,
+      "endMs": 10564722,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000612",
+      "speakerUserId": "user-1",
+      "startMs": 10575000,
+      "endMs": 10582030,
+      "topic": "検知",
+      "text": "検知については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000613",
+      "speakerUserId": "user-1",
+      "startMs": 10592307,
+      "endMs": 10599337,
+      "topic": "検知",
+      "text": "検知の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000614",
+      "speakerUserId": "user-5",
+      "startMs": 10609615,
+      "endMs": 10616835,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000615",
+      "speakerUserId": "user-2",
+      "startMs": 10626923,
+      "endMs": 10634333,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000616",
+      "speakerUserId": "user-1",
+      "startMs": 10644230,
+      "endMs": 10651260,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000617",
+      "speakerUserId": "user-5",
+      "startMs": 10661538,
+      "endMs": 10670088,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000618",
+      "speakerUserId": "user-5",
+      "startMs": 10678846,
+      "endMs": 10686066,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000619",
+      "speakerUserId": "user-4",
+      "startMs": 10696153,
+      "endMs": 10703943,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000620",
+      "speakerUserId": "user-4",
+      "startMs": 10713461,
+      "endMs": 10720871,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000621",
+      "speakerUserId": "user-3",
+      "startMs": 10730769,
+      "endMs": 10737799,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000622",
+      "speakerUserId": "user-2",
+      "startMs": 10748076,
+      "endMs": 10755486,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000623",
+      "speakerUserId": "user-6",
+      "startMs": 10765384,
+      "endMs": 10772414,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000624",
+      "speakerUserId": "user-5",
+      "startMs": 10782692,
+      "endMs": 10790482,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000625",
+      "speakerUserId": "user-5",
+      "startMs": 10800000,
+      "endMs": 10806650,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000626",
+      "speakerUserId": "user-1",
+      "startMs": 10817307,
+      "endMs": 10824717,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000627",
+      "speakerUserId": "user-3",
+      "startMs": 10834615,
+      "endMs": 10843165,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000628",
+      "speakerUserId": "user-2",
+      "startMs": 10851923,
+      "endMs": 10859523,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000629",
+      "speakerUserId": "user-6",
+      "startMs": 10869230,
+      "endMs": 10877780,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000630",
+      "speakerUserId": "user-6",
+      "startMs": 10886538,
+      "endMs": 10894708,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000631",
+      "speakerUserId": "user-5",
+      "startMs": 10903846,
+      "endMs": 10910496,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000632",
+      "speakerUserId": "user-4",
+      "startMs": 10921153,
+      "endMs": 10928563,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000633",
+      "speakerUserId": "user-3",
+      "startMs": 10938461,
+      "endMs": 10946631,
+      "topic": "復旧",
+      "text": "手元では復旧に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000634",
+      "speakerUserId": "user-4",
+      "startMs": 10955769,
+      "endMs": 10963179,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000635",
+      "speakerUserId": "user-5",
+      "startMs": 10973076,
+      "endMs": 10980106,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000636",
+      "speakerUserId": "user-2",
+      "startMs": 10990384,
+      "endMs": 10997794,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000637",
+      "speakerUserId": "user-2",
+      "startMs": 11007692,
+      "endMs": 11015482,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000638",
+      "speakerUserId": "user-2",
+      "startMs": 11025000,
+      "endMs": 11033550,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000639",
+      "speakerUserId": "user-6",
+      "startMs": 11042307,
+      "endMs": 11049527,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000640",
+      "speakerUserId": "user-2",
+      "startMs": 11059615,
+      "endMs": 11066645,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000641",
+      "speakerUserId": "user-4",
+      "startMs": 11076923,
+      "endMs": 11084713,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000642",
+      "speakerUserId": "user-6",
+      "startMs": 11094230,
+      "endMs": 11101260,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000643",
+      "speakerUserId": "user-1",
+      "startMs": 11111538,
+      "endMs": 11118188,
+      "topic": "復旧",
+      "text": "先ほどの復旧の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000644",
+      "speakerUserId": "user-4",
+      "startMs": 11128846,
+      "endMs": 11136446,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000645",
+      "speakerUserId": "user-2",
+      "startMs": 11146153,
+      "endMs": 11154703,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000646",
+      "speakerUserId": "user-2",
+      "startMs": 11163461,
+      "endMs": 11172011,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000647",
+      "speakerUserId": "user-1",
+      "startMs": 11180769,
+      "endMs": 11188179,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000648",
+      "speakerUserId": "user-6",
+      "startMs": 11198076,
+      "endMs": 11206626,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000649",
+      "speakerUserId": "user-3",
+      "startMs": 11215384,
+      "endMs": 11222414,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000650",
+      "speakerUserId": "user-2",
+      "startMs": 11232692,
+      "endMs": 11241242,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000651",
+      "speakerUserId": "user-2",
+      "startMs": 11250000,
+      "endMs": 11258550,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000652",
+      "speakerUserId": "user-5",
+      "startMs": 11267307,
+      "endMs": 11274337,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000653",
+      "speakerUserId": "user-2",
+      "startMs": 11284615,
+      "endMs": 11291645,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000654",
+      "speakerUserId": "user-3",
+      "startMs": 11301923,
+      "endMs": 11309143,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000655",
+      "speakerUserId": "user-3",
+      "startMs": 11319230,
+      "endMs": 11326260,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000656",
+      "speakerUserId": "user-5",
+      "startMs": 11336538,
+      "endMs": 11344138,
+      "topic": "復旧",
+      "text": "復旧の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000657",
+      "speakerUserId": "user-5",
+      "startMs": 11353846,
+      "endMs": 11360876,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000658",
+      "speakerUserId": "user-2",
+      "startMs": 11371153,
+      "endMs": 11378943,
+      "topic": "復旧",
+      "text": "ここまでの復旧の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000659",
+      "speakerUserId": "user-4",
+      "startMs": 11388461,
+      "endMs": 11397011,
+      "topic": "復旧",
+      "text": "現時点の資料では復旧の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000660",
+      "speakerUserId": "user-4",
+      "startMs": 11405769,
+      "endMs": 11412799,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000661",
+      "speakerUserId": "user-6",
+      "startMs": 11423076,
+      "endMs": 11430486,
+      "topic": "復旧",
+      "text": "資料の復旧の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000662",
+      "speakerUserId": "user-4",
+      "startMs": 11440384,
+      "endMs": 11447414,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000663",
+      "speakerUserId": "user-5",
+      "startMs": 11457692,
+      "endMs": 11464722,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000664",
+      "speakerUserId": "user-3",
+      "startMs": 11475000,
+      "endMs": 11482220,
+      "topic": "復旧",
+      "text": "復旧は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000665",
+      "speakerUserId": "user-1",
+      "startMs": 11492307,
+      "endMs": 11499337,
+      "topic": "復旧",
+      "text": "復旧の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000666",
+      "speakerUserId": "user-1",
+      "startMs": 11509615,
+      "endMs": 11516645,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000667",
+      "speakerUserId": "user-2",
+      "startMs": 11526923,
+      "endMs": 11533953,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000668",
+      "speakerUserId": "user-6",
+      "startMs": 11544230,
+      "endMs": 11551260,
+      "topic": "復旧",
+      "text": "復旧については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000669",
+      "speakerUserId": "user-4",
+      "startMs": 11561538,
+      "endMs": 11568568,
+      "topic": "復旧",
+      "text": "復旧の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000670",
+      "speakerUserId": "user-3",
+      "startMs": 11578846,
+      "endMs": 11588156,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000671",
+      "speakerUserId": "user-6",
+      "startMs": 11596153,
+      "endMs": 11603943,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000672",
+      "speakerUserId": "user-6",
+      "startMs": 11613461,
+      "endMs": 11621441,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000673",
+      "speakerUserId": "user-4",
+      "startMs": 11630769,
+      "endMs": 11638559,
+      "topic": "データベース",
+      "text": "データベースの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000674",
+      "speakerUserId": "user-2",
+      "startMs": 11648076,
+      "endMs": 11655866,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000675",
+      "speakerUserId": "user-4",
+      "startMs": 11665384,
+      "endMs": 11674694,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000676",
+      "speakerUserId": "user-1",
+      "startMs": 11682692,
+      "endMs": 11690672,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000677",
+      "speakerUserId": "user-4",
+      "startMs": 11700000,
+      "endMs": 11708550,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000678",
+      "speakerUserId": "user-2",
+      "startMs": 11717307,
+      "endMs": 11724717,
+      "topic": "データベース",
+      "text": "先ほどのデータベースの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000679",
+      "speakerUserId": "user-2",
+      "startMs": 11734615,
+      "endMs": 11743545,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000680",
+      "speakerUserId": "user-6",
+      "startMs": 11751923,
+      "endMs": 11759903,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000681",
+      "speakerUserId": "user-6",
+      "startMs": 11769230,
+      "endMs": 11778160,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000682",
+      "speakerUserId": "user-1",
+      "startMs": 11786538,
+      "endMs": 11794898,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000683",
+      "speakerUserId": "user-3",
+      "startMs": 11803846,
+      "endMs": 11811636,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000684",
+      "speakerUserId": "user-2",
+      "startMs": 11821153,
+      "endMs": 11829133,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000685",
+      "speakerUserId": "user-5",
+      "startMs": 11838461,
+      "endMs": 11847011,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000686",
+      "speakerUserId": "user-4",
+      "startMs": 11855769,
+      "endMs": 11863559,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000687",
+      "speakerUserId": "user-5",
+      "startMs": 11873076,
+      "endMs": 11881056,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000688",
+      "speakerUserId": "user-3",
+      "startMs": 11890384,
+      "endMs": 11899314,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000689",
+      "speakerUserId": "user-4",
+      "startMs": 11907692,
+      "endMs": 11915482,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000690",
+      "speakerUserId": "user-5",
+      "startMs": 11925000,
+      "endMs": 11934310,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000691",
+      "speakerUserId": "user-2",
+      "startMs": 11942307,
+      "endMs": 11950097,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000692",
+      "speakerUserId": "user-3",
+      "startMs": 11959615,
+      "endMs": 11967975,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000693",
+      "speakerUserId": "user-5",
+      "startMs": 11976923,
+      "endMs": 11984713,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000694",
+      "speakerUserId": "user-4",
+      "startMs": 11994230,
+      "endMs": 12002210,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000695",
+      "speakerUserId": "user-6",
+      "startMs": 12011538,
+      "endMs": 12019518,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000696",
+      "speakerUserId": "user-3",
+      "startMs": 12028846,
+      "endMs": 12036826,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000697",
+      "speakerUserId": "user-3",
+      "startMs": 12046153,
+      "endMs": 12055463,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000698",
+      "speakerUserId": "user-2",
+      "startMs": 12063461,
+      "endMs": 12071441,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000699",
+      "speakerUserId": "user-2",
+      "startMs": 12080769,
+      "endMs": 12088559,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000700",
+      "speakerUserId": "user-3",
+      "startMs": 12098076,
+      "endMs": 12106436,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000701",
+      "speakerUserId": "user-5",
+      "startMs": 12115384,
+      "endMs": 12123364,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000702",
+      "speakerUserId": "user-3",
+      "startMs": 12132692,
+      "endMs": 12142002,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000703",
+      "speakerUserId": "user-5",
+      "startMs": 12150000,
+      "endMs": 12157790,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000704",
+      "speakerUserId": "user-1",
+      "startMs": 12167307,
+      "endMs": 12175667,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000705",
+      "speakerUserId": "user-2",
+      "startMs": 12184615,
+      "endMs": 12193545,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000706",
+      "speakerUserId": "user-3",
+      "startMs": 12201923,
+      "endMs": 12209713,
+      "topic": "データベース",
+      "text": "データベースの議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000707",
+      "speakerUserId": "user-6",
+      "startMs": 12219230,
+      "endMs": 12228540,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000708",
+      "speakerUserId": "user-1",
+      "startMs": 12236538,
+      "endMs": 12245848,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000709",
+      "speakerUserId": "user-1",
+      "startMs": 12253846,
+      "endMs": 12262016,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000710",
+      "speakerUserId": "user-4",
+      "startMs": 12271153,
+      "endMs": 12278943,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000711",
+      "speakerUserId": "user-1",
+      "startMs": 12288461,
+      "endMs": 12296631,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000712",
+      "speakerUserId": "user-5",
+      "startMs": 12305769,
+      "endMs": 12314129,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000713",
+      "speakerUserId": "user-5",
+      "startMs": 12323076,
+      "endMs": 12332386,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000714",
+      "speakerUserId": "user-3",
+      "startMs": 12340384,
+      "endMs": 12348174,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000715",
+      "speakerUserId": "user-6",
+      "startMs": 12357692,
+      "endMs": 12365672,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000716",
+      "speakerUserId": "user-3",
+      "startMs": 12375000,
+      "endMs": 12383170,
+      "topic": "データベース",
+      "text": "資料のデータベースの箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000717",
+      "speakerUserId": "user-3",
+      "startMs": 12392307,
+      "endMs": 12400857,
+      "topic": "データベース",
+      "text": "ここまでのデータベースの論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000718",
+      "speakerUserId": "user-4",
+      "startMs": 12409615,
+      "endMs": 12417025,
+      "topic": "データベース",
+      "text": "先ほどのデータベースの説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000719",
+      "speakerUserId": "user-5",
+      "startMs": 12426923,
+      "endMs": 12434713,
+      "topic": "データベース",
+      "text": "データベースの説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000720",
+      "speakerUserId": "user-2",
+      "startMs": 12444230,
+      "endMs": 12452210,
+      "topic": "データベース",
+      "text": "データベースは窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000721",
+      "speakerUserId": "user-5",
+      "startMs": 12461538,
+      "endMs": 12470468,
+      "topic": "データベース",
+      "text": "手元ではデータベースに関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000722",
+      "speakerUserId": "user-1",
+      "startMs": 12478846,
+      "endMs": 12486636,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000723",
+      "speakerUserId": "user-3",
+      "startMs": 12496153,
+      "endMs": 12504513,
+      "topic": "データベース",
+      "text": "データベースの利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000724",
+      "speakerUserId": "user-3",
+      "startMs": 12513461,
+      "endMs": 12521251,
+      "topic": "データベース",
+      "text": "データベースについては現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000725",
+      "speakerUserId": "user-1",
+      "startMs": 12530769,
+      "endMs": 12540079,
+      "topic": "データベース",
+      "text": "現時点の資料ではデータベースの条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000726",
+      "speakerUserId": "user-4",
+      "startMs": 12548076,
+      "endMs": 12556626,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000727",
+      "speakerUserId": "user-1",
+      "startMs": 12565384,
+      "endMs": 12572794,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000728",
+      "speakerUserId": "user-4",
+      "startMs": 12582692,
+      "endMs": 12591242,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000729",
+      "speakerUserId": "user-4",
+      "startMs": 12600000,
+      "endMs": 12608930,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000730",
+      "speakerUserId": "user-6",
+      "startMs": 12617307,
+      "endMs": 12624717,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000731",
+      "speakerUserId": "user-4",
+      "startMs": 12634615,
+      "endMs": 12642785,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000732",
+      "speakerUserId": "user-6",
+      "startMs": 12651923,
+      "endMs": 12659903,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000733",
+      "speakerUserId": "user-5",
+      "startMs": 12669230,
+      "endMs": 12676830,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000734",
+      "speakerUserId": "user-6",
+      "startMs": 12686538,
+      "endMs": 12693948,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000735",
+      "speakerUserId": "user-2",
+      "startMs": 12703846,
+      "endMs": 12712776,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000736",
+      "speakerUserId": "user-3",
+      "startMs": 12721153,
+      "endMs": 12728183,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000737",
+      "speakerUserId": "user-6",
+      "startMs": 12738461,
+      "endMs": 12745871,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000738",
+      "speakerUserId": "user-6",
+      "startMs": 12755769,
+      "endMs": 12763559,
+      "topic": "再発防止",
+      "text": "資料の再発防止の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000739",
+      "speakerUserId": "user-3",
+      "startMs": 12773076,
+      "endMs": 12780866,
+      "topic": "再発防止",
+      "text": "資料の再発防止の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000740",
+      "speakerUserId": "user-4",
+      "startMs": 12790384,
+      "endMs": 12797414,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000741",
+      "speakerUserId": "user-4",
+      "startMs": 12807692,
+      "endMs": 12815862,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000742",
+      "speakerUserId": "user-3",
+      "startMs": 12825000,
+      "endMs": 12831650,
+      "topic": "再発防止",
+      "text": "復旧手順の演習は基盤担当の私が2026年10月15日までに実施します。"
+    },
+    {
+      "publicId": "U000743",
+      "speakerUserId": "user-5",
+      "startMs": 12842307,
+      "endMs": 12849717,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000744",
+      "speakerUserId": "user-5",
+      "startMs": 12859615,
+      "endMs": 12867595,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000745",
+      "speakerUserId": "user-3",
+      "startMs": 12876923,
+      "endMs": 12885473,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000746",
+      "speakerUserId": "user-3",
+      "startMs": 12894230,
+      "endMs": 12901640,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000747",
+      "speakerUserId": "user-2",
+      "startMs": 12911538,
+      "endMs": 12919138,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000748",
+      "speakerUserId": "user-1",
+      "startMs": 12928846,
+      "endMs": 12937396,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000749",
+      "speakerUserId": "user-5",
+      "startMs": 12946153,
+      "endMs": 12953563,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000750",
+      "speakerUserId": "user-4",
+      "startMs": 12963461,
+      "endMs": 12970871,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000751",
+      "speakerUserId": "user-2",
+      "startMs": 12980769,
+      "endMs": 12988179,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000752",
+      "speakerUserId": "user-5",
+      "startMs": 12998076,
+      "endMs": 13005866,
+      "topic": "再発防止",
+      "text": "資料の再発防止の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000753",
+      "speakerUserId": "user-5",
+      "startMs": 13015384,
+      "endMs": 13022984,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000754",
+      "speakerUserId": "user-1",
+      "startMs": 13032692,
+      "endMs": 13040482,
+      "topic": "再発防止",
+      "text": "資料の再発防止の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000755",
+      "speakerUserId": "user-2",
+      "startMs": 13050000,
+      "endMs": 13057410,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000756",
+      "speakerUserId": "user-3",
+      "startMs": 13067307,
+      "endMs": 13075857,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000757",
+      "speakerUserId": "user-4",
+      "startMs": 13084615,
+      "endMs": 13092785,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000758",
+      "speakerUserId": "user-2",
+      "startMs": 13101923,
+      "endMs": 13110093,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000759",
+      "speakerUserId": "user-5",
+      "startMs": 13119230,
+      "endMs": 13126640,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000760",
+      "speakerUserId": "user-4",
+      "startMs": 13136538,
+      "endMs": 13143948,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000761",
+      "speakerUserId": "user-1",
+      "startMs": 13153846,
+      "endMs": 13161256,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000762",
+      "speakerUserId": "user-4",
+      "startMs": 13171153,
+      "endMs": 13178183,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000763",
+      "speakerUserId": "user-4",
+      "startMs": 13188461,
+      "endMs": 13195491,
+      "topic": "再発防止",
+      "text": "先ほどの再発防止の説明について、例外時の扱いも考慮する必要がありそうです。"
+    },
+    {
+      "publicId": "U000764",
+      "speakerUserId": "user-6",
+      "startMs": 13205769,
+      "endMs": 13213179,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000765",
+      "speakerUserId": "user-1",
+      "startMs": 13223076,
+      "endMs": 13231626,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000766",
+      "speakerUserId": "user-5",
+      "startMs": 13240384,
+      "endMs": 13247794,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000767",
+      "speakerUserId": "user-6",
+      "startMs": 13257692,
+      "endMs": 13265102,
+      "topic": "再発防止",
+      "text": "再発防止の説明は理解しました。関連する問い合わせの傾向も資料に反映したいです。"
+    },
+    {
+      "publicId": "U000768",
+      "speakerUserId": "user-6",
+      "startMs": 13275000,
+      "endMs": 13282600,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000769",
+      "speakerUserId": "user-4",
+      "startMs": 13292307,
+      "endMs": 13299717,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    },
+    {
+      "publicId": "U000770",
+      "speakerUserId": "user-5",
+      "startMs": 13309615,
+      "endMs": 13318545,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000771",
+      "speakerUserId": "user-6",
+      "startMs": 13326923,
+      "endMs": 13335853,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000772",
+      "speakerUserId": "user-4",
+      "startMs": 13344230,
+      "endMs": 13352400,
+      "topic": "再発防止",
+      "text": "ここまでの再発防止の論点を確認します。まだ判断に必要な情報が揃っていない点があります。"
+    },
+    {
+      "publicId": "U000773",
+      "speakerUserId": "user-3",
+      "startMs": 13361538,
+      "endMs": 13369138,
+      "topic": "再発防止",
+      "text": "再発防止は窓口によって説明が違う可能性があります。実際の手順を照らし合わせます。"
+    },
+    {
+      "publicId": "U000774",
+      "speakerUserId": "user-4",
+      "startMs": 13378846,
+      "endMs": 13386256,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000775",
+      "speakerUserId": "user-2",
+      "startMs": 13396153,
+      "endMs": 13403943,
+      "topic": "再発防止",
+      "text": "資料の再発防止の箇所に注記があります。この数字の根拠を次の確認項目として残します。"
+    },
+    {
+      "publicId": "U000776",
+      "speakerUserId": "user-3",
+      "startMs": 13413461,
+      "endMs": 13420871,
+      "topic": "再発防止",
+      "text": "再発防止の議論で前提がずれないよう、対象と対象外をもう一度読み合わせましょう。"
+    },
+    {
+      "publicId": "U000777",
+      "speakerUserId": "user-4",
+      "startMs": 13430769,
+      "endMs": 13439319,
+      "topic": "再発防止",
+      "text": "手元では再発防止に関係する操作を二通り試しました。数字は確認中なので後で資料を共有します。"
+    },
+    {
+      "publicId": "U000778",
+      "speakerUserId": "user-6",
+      "startMs": 13448076,
+      "endMs": 13456056,
+      "topic": "再発防止",
+      "text": "再発防止の利用者側の影響を整理したいです。見えている課題を一覧に書き足しておきます。"
+    },
+    {
+      "publicId": "U000779",
+      "speakerUserId": "user-6",
+      "startMs": 13465384,
+      "endMs": 13474314,
+      "topic": "再発防止",
+      "text": "現時点の資料では再発防止の条件が揃っていません。関係する画面と運用手順を分けて確認したいです。"
+    },
+    {
+      "publicId": "U000780",
+      "speakerUserId": "user-3",
+      "startMs": 13482692,
+      "endMs": 13490102,
+      "topic": "再発防止",
+      "text": "再発防止については現場で起きるケースをいくつか挙げ、影響範囲を整理しましょう。"
+    }
+  ]
+}

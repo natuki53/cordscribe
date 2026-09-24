@@ -1,0 +1,122 @@
+[
+  {
+    "fixtureId": "dense-workshop",
+    "model": "qwen3.5:9b",
+    "seconds": 89,
+    "attempts": 1,
+    "promptTokens": 2683,
+    "generatedTokens": 673,
+    "schemaValid": true,
+    "anchorLinked": false,
+    "anchorPassed": false,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "incident-review",
+    "model": "qwen3.5:9b",
+    "seconds": 77,
+    "attempts": 1,
+    "promptTokens": 2593,
+    "generatedTokens": 809,
+    "schemaValid": true,
+    "anchorLinked": false,
+    "anchorPassed": false,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "operations-handoff",
+    "model": "qwen3.5:9b",
+    "seconds": 320,
+    "attempts": 2,
+    "promptTokens": 2685,
+    "generatedTokens": 1600,
+    "schemaValid": false,
+    "anchorLinked": false,
+    "anchorPassed": false,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "product-roadmap",
+    "model": "qwen3.5:9b",
+    "seconds": 77,
+    "attempts": 1,
+    "promptTokens": 2625,
+    "generatedTokens": 829,
+    "schemaValid": true,
+    "anchorLinked": true,
+    "anchorPassed": true,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "release-planning",
+    "model": "qwen3.5:9b",
+    "seconds": 54,
+    "attempts": 1,
+    "promptTokens": 2615,
+    "generatedTokens": 569,
+    "schemaValid": true,
+    "anchorLinked": true,
+    "anchorPassed": false,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "dense-workshop",
+    "model": "gemma4:e4b-it-qat",
+    "seconds": 33,
+    "attempts": 1,
+    "promptTokens": 2772,
+    "generatedTokens": 1222,
+    "schemaValid": true,
+    "anchorLinked": true,
+    "anchorPassed": true,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "incident-review",
+    "model": "gemma4:e4b-it-qat",
+    "seconds": 10,
+    "attempts": 1,
+    "promptTokens": 2696,
+    "generatedTokens": 401,
+    "schemaValid": true,
+    "anchorLinked": false,
+    "anchorPassed": false,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "operations-handoff",
+    "model": "gemma4:e4b-it-qat",
+    "seconds": 62,
+    "attempts": 2,
+    "promptTokens": 2798,
+    "generatedTokens": 1239,
+    "schemaValid": false,
+    "anchorLinked": false,
+    "anchorPassed": false,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "product-roadmap",
+    "model": "gemma4:e4b-it-qat",
+    "seconds": 19,
+    "attempts": 1,
+    "promptTokens": 2727,
+    "generatedTokens": 854,
+    "schemaValid": true,
+    "anchorLinked": false,
+    "anchorPassed": false,
+    "overviewInformative": false
+  },
+  {
+    "fixtureId": "release-planning",
+    "model": "gemma4:e4b-it-qat",
+    "seconds": 10,
+    "attempts": 1,
+    "promptTokens": 2718,
+    "generatedTokens": 403,
+    "schemaValid": true,
+    "anchorLinked": true,
+    "anchorPassed": true,
+    "overviewInformative": false
+  }
+]
