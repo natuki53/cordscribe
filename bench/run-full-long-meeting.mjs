@@ -7,6 +7,7 @@ import { OllamaSummarizer } from '../dist/summary.js';
 const root = fileURLToPath(new URL('.', import.meta.url));
 const fixtureId = process.argv[2];
 const model = process.argv[3];
+const ollamaBaseUrl = process.env.BENCH_OLLAMA_URL ?? 'http://127.0.0.1:11434';
 if (!fixtureId || !model) throw new Error('Usage: node bench/run-full-long-meeting.mjs FIXTURE MODEL');
 const fixture = JSON.parse(readFileSync(join(root, 'fixtures', `${fixtureId}.json`), 'utf8'));
 const store = new Store(':memory:');
@@ -30,7 +31,7 @@ try {
     const body = await response.clone().json().catch(() => ({}));
     const entry = {
       index: calls.length + 1,
-      stage: request.messages[1].content.includes('次の発言から事実') ? 'extract' : 'merge',
+      stage: 'overview',
       seconds: Math.round((Date.now() - started) / 1000), status: response.status,
       promptTokens: body.prompt_eval_count ?? null, generatedTokens: body.eval_count ?? null,
       allowedEvidenceIds: request.format.properties.topics.items.properties.evidenceUtteranceIds.items.enum.length,
@@ -43,7 +44,7 @@ try {
   let summary = null;
   let error = null;
   try {
-    summary = (await new OllamaSummarizer(store, 'http://127.0.0.1:11434', model, 'Asia/Tokyo').summarize(meeting)).summary;
+    summary = (await new OllamaSummarizer(store, ollamaBaseUrl, model, 'Asia/Tokyo').summarize(meeting)).summary;
   } catch (failure) {
     error = failure instanceof Error ? failure.message : String(failure);
   }

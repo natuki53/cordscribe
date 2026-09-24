@@ -22,6 +22,8 @@ interface LiveMeeting {
   lastKeepaliveAtMs: number;
 }
 
+const MAX_MEETING_MS = 8 * 60 * 60 * 1000;
+
 export class MeetingService {
   private live: LiveMeeting | null = null;
   private stopping: Promise<void> | null = null;
@@ -139,7 +141,7 @@ export class MeetingService {
     if (newState.channelId === voiceId && oldState.channelId !== voiceId && !newState.member?.user.bot) {
       const participant = this.store.join(id, newState.id, newState.member?.displayName ?? newState.id);
       if (participant.consent_status === 'ACCEPTED') live.audio.subscribe(newState.id);
-      else await live.publisher.warning(live.meeting, `${participant.display_name_snapshot}さんが参加しました。会議案内のボタンから本人が録音への同意を選んでください。`);
+      else await live.publisher.consentReminder(live.meeting, participant.display_name_snapshot);
     }
   }
 
@@ -155,6 +157,7 @@ export class MeetingService {
     const id = live.meeting.id;
     const stoppedAt = Date.now();
     live.meeting = this.store.setStatus(id, ['RECORDING'], 'DRAINING', { stoppedAt, stopReason: reason });
+    await live.publisher.closeNotice(live.meeting).catch((error) => this.logError('NOTICE_CLOSE_FAILED', error));
     await live.audio.stop();
     live.connection.destroy();
     this.store.closePresences(id, stoppedAt);
@@ -238,7 +241,7 @@ export class MeetingService {
     const humans = live.guild.voiceStates.cache.filter((state) => state.channelId === voice.id && state.id !== live.guild.client.user?.id && !state.member?.user.bot).size;
     live.emptySince = humans === 0 ? live.emptySince ?? now : null;
     if (live.emptySince !== null && now - live.emptySince >= 300_000) { await this.stop('EMPTY_AUTO_STOP'); return; }
-    if (now - (live.meeting.started_at_ms ?? now) >= 14_400_000) { await this.stop('MAX_DURATION'); return; }
+    if (now - (live.meeting.started_at_ms ?? now) >= MAX_MEETING_MS) { await this.stop('MAX_DURATION'); return; }
     const age = live.queue.oldestJobAgeMs;
     if (age > 60_000 && !live.warnedQueue) {
       live.warnedQueue = true;

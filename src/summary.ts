@@ -31,6 +31,8 @@ function date(value: string): boolean {
   return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }
 
+const uninformativeOverview = (value: string): boolean => !value.trim() || /^(?:会議の概要|概要|要約)$/.test(value.trim());
+
 export function validateSummary(raw: unknown, utterances: Utterance[], participants: Participant[]): MeetingSummary {
   const value = object(raw);
   exactKeys(value, ['schemaVersion', 'title', 'overview', 'topics', 'decisions', 'actionItems', 'openQuestions']);
@@ -61,6 +63,7 @@ export function validateSummary(raw: unknown, utterances: Utterance[], participa
     }),
     openQuestions: array(value.openQuestions).map(item),
   };
+  if (uninformativeOverview(result.overview)) throw new Error('Uninformative overview');
   return result;
 }
 
@@ -84,21 +87,125 @@ function transcriptLine(u: Utterance, names: Map<string, string>): string {
   return `[${u.public_id}] time=${Math.floor(u.started_offset_ms / 60000).toString().padStart(2, '0')}:${((u.started_offset_ms % 60000) / 1000).toFixed(3).padStart(6, '0')} user_id=${u.speaker_user_id} name=${JSON.stringify(names.get(u.speaker_user_id) ?? '不明')} text=${JSON.stringify(u.text ?? '')}`;
 }
 
-function chunks(lines: string[], maxChars = 4500): string[] {
-  const result: string[] = [];
-  let current = '';
-  for (const line of lines) {
-    if (current && current.length + line.length + 1 > maxChars) { result.push(current); current = ''; }
-    current += `${line}\n`;
+function modelLine(u: Utterance, names: Map<string, string>): string {
+  const text = u.text ?? '';
+  return transcriptLine({ ...u, text: text.length > 800 ? `${text.slice(0, 800)}（以下省略）` : text }, names);
+}
+
+type ExplicitRecords = Pick<MeetingSummary, 'decisions' | 'actionItems' | 'openQuestions'>;
+
+const unresolved = /未決定|未確認|まだ決まってい|決定せず|決まっていません|保留|断定しません|確定できません|採用は決まっていません|合意していません|決定していません|未確定|未採用/;
+const decided = /合意(?:しました|します)|決めました|決定しました|方針を変更|に変更しま|を変更し|に限定しま/;
+const cancelled = /取り消し|撤回|変更/;
+
+function explicitDue(text: string): { dueDate: string | null; dueText: string | null } {
+  const match = text.match(/(?:(\d{4})年(\d{1,2})月(\d{1,2})日|\b(\d{4})-(\d{1,2})-(\d{1,2}))までに/);
+  if (!match) {
+    const relative = text.match(/((?:今週|来週|再来週|今月|来月|明日|今日|[月火水木金土日]曜(?:日)?|\d{1,2}月\d{1,2}日)[^。、]{0,8}?)までに/);
+    return { dueDate: null, dueText: relative?.[1] ?? null };
   }
-  if (current) result.push(current);
+  const year = match[1] ?? match[4]!;
+  const month = match[2] ?? match[5]!;
+  const day = match[3] ?? match[6]!;
+  const iso = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  return { dueDate: date(iso) ? iso : null, dueText: match[0].replace(/までに$/, '') };
+}
+
+function datedNumbers(text: string): Set<string> {
+  const result = new Set<string>();
+  for (const match of text.matchAll(/(?:\d{4}年)?(\d{1,2})月(\d{1,2})日|\b(\d+)\s*(日間|分|時間)/g)) {
+    result.add(match[1] ? `${Number(match[1])}月${Number(match[2])}日` : `${match[3]}${match[4]}`);
+  }
   return result;
 }
+
+/** Retain only directly stated facts. The source text is kept verbatim so the reader can check each claim. */
+export function extractExplicitRecords(utterances: Utterance[], participants: Participant[]): ExplicitRecords {
+  const names = new Map(participants.map((p) => [p.user_id, p.display_name_snapshot]));
+  const records: ExplicitRecords = { decisions: [], actionItems: [], openQuestions: [] };
+  const decisions: { utterance: Utterance; text: string }[] = [];
+  for (const utterance of utterances) {
+    if (utterance.status !== 'TRANSCRIBED') continue;
+    const text = utterance.text?.trim();
+    if (!text) continue;
+    const ref = [utterance.public_id];
+    const sentences = text.split(/[。！!]/).map((sentence) => sentence.trim()).filter(Boolean);
+    const taskSentence = sentences.find((sentence) => {
+      const self = /(?:私|わたし|自分)が/.test(sentence);
+      const named = [...names.values()].some((name) => name.length >= 2 && sentence.includes(`${name}が`));
+      return (self || named) && /までに|担当します|引き受けます/.test(sentence) && !/かもしれません|できるか|未決定|提案段階|案です|でしょうか|[?？]/.test(sentence);
+    });
+    if (taskSentence) {
+      const assignee = /(?:私|わたし|自分)が/.test(taskSentence) ? utterance.speaker_user_id : [...names.entries()].find(([, name]) => name.length >= 2 && taskSentence.includes(`${name}が`))?.[0] ?? null;
+      const due = explicitDue(taskSentence);
+      records.actionItems.push({ task: text, assigneeUserId: assignee, assigneeDisplayName: assignee ? names.get(assignee) ?? null : null, ...due, evidenceUtteranceIds: ref });
+    }
+    if (sentences.some((sentence) => unresolved.test(sentence))) records.openQuestions.push({ text, evidenceUtteranceIds: ref });
+    if (sentences.some((sentence) => decided.test(sentence) && !unresolved.test(sentence) && !/合意しません|決定しません|[?？]/.test(sentence))) decisions.push({ utterance, text });
+  }
+  // An explicit later correction that repeats the old date/duration supersedes that earlier decision.
+  records.decisions = decisions.filter((earlier, index) => {
+    const numbers = datedNumbers(earlier.text);
+    if (!numbers.size) return true;
+    return !decisions.slice(index + 1).some((later) => cancelled.test(later.text) && /先ほど決めた|決定は取り消し|から.+に変更/.test(later.text)
+      && [...numbers].some((number) => datedNumbers(later.text).has(number)));
+  }).map(({ utterance, text }) => ({ text, evidenceUtteranceIds: [utterance.public_id] }));
+  return records;
+}
+
+function modelSample(utterances: Utterance[], records: ExplicitRecords, names: Map<string, string>): Utterance[] {
+  const priority = new Set([...records.decisions, ...records.actionItems, ...records.openQuestions]
+    .flatMap((item) => item.evidenceUtteranceIds));
+  const important = utterances.filter((utterance) => priority.has(utterance.public_id));
+  const selected = new Set<string>();
+  let size = 0;
+  const add = (utterance: Utterance) => {
+    if (selected.has(utterance.public_id)) return;
+    const line = modelLine(utterance, names);
+    if (size + line.length > 14_000) return;
+    selected.add(utterance.public_id);
+    size += line.length;
+  };
+  if (important.length) { add(important[0]!); add(important.at(-1)!); }
+  const importantStride = Math.max(1, Math.ceil(important.length / 48));
+  for (let i = 0; i < important.length; i += importantStride) add(important[i]!);
+  const stride = Math.max(1, Math.ceil(utterances.length / 48));
+  for (let i = 0; i < utterances.length; i += stride) {
+    const utterance = utterances[i]!;
+    if (!selected.has(utterance.public_id)) add(utterance);
+  }
+  const last = utterances.at(-1);
+  if (last && !selected.has(last.public_id)) add(last);
+  return utterances.filter((utterance) => selected.has(utterance.public_id));
+}
+
+function groundedOverview(title: string, records: ExplicitRecords, modelUnavailable: boolean): string {
+  const parts = [`${title}。明示された決定${records.decisions.length}件、担当作業${records.actionItems.length}件、未決事項${records.openQuestions.length}件。`];
+  const latestDecision = records.decisions.at(-1);
+  if (latestDecision) parts.push(`直近の決定: ${latestDecision.text} [${latestDecision.evidenceUtteranceIds[0]}]`);
+  const latestAction = records.actionItems.at(-1);
+  if (latestAction) parts.push(`直近の担当作業: ${latestAction.task} [${latestAction.evidenceUtteranceIds[0]}]`);
+  if (modelUnavailable) parts.push('議題の自動整理に失敗しました。各項目と全文を確認してください。');
+  return parts.join(' ');
+}
+
+function transcriptWindows(utterances: Utterance[]): { hour: number; utterances: Utterance[] }[] {
+  const windows = new Map<number, Utterance[]>();
+  for (const utterance of utterances) {
+    const hour = Math.floor(utterance.started_offset_ms / 3_600_000);
+    const group = windows.get(hour) ?? [];
+    group.push(utterance);
+    windows.set(hour, group);
+  }
+  return [...windows].sort(([a], [b]) => a - b).map(([hour, group]) => ({ hour, utterances: group }));
+}
+
+const windowLabel = (hour: number): string => `${String(hour).padStart(2, '0')}:00–${String(hour + 1).padStart(2, '0')}:00`;
 
 export class OllamaSummarizer {
   constructor(readonly store: Store, readonly baseUrl: string, readonly model: string, readonly timeZone: string) {}
 
-  private async generate(prompt: string, utterances: Utterance[], participants: Participant[]): Promise<MeetingSummary> {
+  private async generate(prompt: string, utterances: Utterance[], participants: Participant[], fallbackOverview?: string): Promise<MeetingSummary> {
     let correction = '';
     let validationError = 'unknown';
     for (let attempt = 0; attempt < 2; attempt++) {
@@ -108,15 +215,23 @@ export class OllamaSummarizer {
           model: this.model,
           messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: `${prompt}\n${correction}` }],
           format: summarySchemaFor(utterances), stream: false, think: false, keep_alive: '5m',
-          options: { num_ctx: 8192, num_predict: 1600, temperature: 0 },
+          options: { num_ctx: 8192, num_predict: 1200, temperature: 0 },
         }),
         signal: AbortSignal.timeout(600_000),
       });
       if (!response.ok) throw new Error(`OLLAMA_${response.status}`);
       const body = await response.json() as { message?: { content?: string } };
-      try { return validateSummary(JSON.parse(body.message?.content ?? ''), utterances, participants); }
+      try {
+        const parsed: unknown = JSON.parse(body.message?.content ?? '');
+        if (fallbackOverview && parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          const row = parsed as Record<string, unknown>;
+          if (typeof row.overview === 'string' && uninformativeOverview(row.overview)) row.overview = fallbackOverview;
+        }
+        return validateSummary(parsed, utterances, participants);
+      }
       catch (error) {
         validationError = error instanceof Error ? error.message : 'unknown';
+        console.warn('SUMMARY_RESPONSE_RETRY', validationError);
         correction = `前回の出力は不正でした: ${validationError}。根拠がない項目は配列から除き、提示された発言IDだけを使って再出力してください。`;
       }
     }
@@ -127,9 +242,6 @@ export class OllamaSummarizer {
     const utterances = this.store.utterances(meeting.id).filter((u) => u.status === 'TRANSCRIBED');
     const participants = this.store.participants(meeting.id);
     const names = new Map(participants.map((p) => [p.user_id, p.display_name_snapshot]));
-    const byId = new Map(utterances.map((u) => [u.public_id, u]));
-    const evidenceIn = (text: string): Utterance[] => [...new Set(text.match(/\bU\d{6,}\b/g) ?? [])]
-      .map((id) => byId.get(id)).filter((u): u is Utterance => u !== undefined);
     const lines = utterances.map((u) => transcriptLine(u, names));
     const hash = createHash('sha256').update(lines.join('\n')).digest('hex');
     this.store.setStatus(meeting.id, ['TRANSCRIBED', 'COMPLETED'], 'SUMMARIZING');
@@ -145,21 +257,38 @@ export class OllamaSummarizer {
       if (!lines.length) {
         summary = { schemaVersion: '1', title: meeting.title ?? '会議', overview: '文字起こしできた発言はありません。', topics: [], decisions: [], actionItems: [], openQuestions: [] };
       } else {
-        let parts = chunks(lines);
-        let summaries: MeetingSummary[] = [];
-        for (const part of parts) summaries.push(await this.generate(`${context}\n次の発言から事実・決定・作業・未決事項を抽出してください。\n${part}`, evidenceIn(part), participants));
-        while (summaries.length > 1) {
-          const previousCount = summaries.length;
-          parts = chunks(summaries.map((s) => JSON.stringify(s)), 5000);
-          if (parts.length >= summaries.length && summaries.length > 1) {
-            parts = [];
-            for (let i = 0; i < summaries.length; i += 2) parts.push(summaries.slice(i, i + 2).map((s) => JSON.stringify(s)).join('\n'));
+        const records = extractExplicitRecords(utterances, participants);
+        const hasExplicitRecords = records.decisions.length + records.actionItems.length + records.openQuestions.length > 0;
+        const topics: MeetingSummary['topics'] = [];
+        let modelOverview: string | null = null;
+        let modelUnavailable = false;
+        let skipModel = false;
+        for (const window of transcriptWindows(utterances)) {
+          const label = windowLabel(window.hour);
+          if (skipModel) {
+            topics.push({ title: `${label} 要確認`, summary: 'この時間帯の議題を整理できませんでした。全文を参照してください。', evidenceUtteranceIds: [window.utterances[0]!.public_id] });
+            continue;
           }
-          if (parts.length >= previousCount) throw new Error('SUMMARY_REDUCTION_STALLED');
-          summaries = [];
-          for (const part of parts) summaries.push(await this.generate(`${context}\n以下の部分抽出結果を統合し、重複を除いてください。根拠IDを維持してください。\n${part}`, evidenceIn(part), participants));
+          const sample = modelSample(window.utterances, records, names);
+          try {
+            const modelSummary = await this.generate(`${context}\n以下は${label}の発言から時系列に抽出した抜粋です。この時間帯の議題を最大4件、短く記述してください。決定・TODO・未決事項は別途原文から抽出するため、それらの配列は空にしてください。抜粋にない内容を補完しないでください。\n${sample.map((u) => modelLine(u, names)).join('\n')}`, sample, participants,
+              hasExplicitRecords ? groundedOverview(meeting.title ?? '会議', records, false) : undefined);
+            modelOverview ??= modelSummary.overview;
+            if (modelSummary.topics.length) topics.push(...modelSummary.topics.map((topic) => ({ ...topic, title: `${label} ${topic.title}` })));
+            else topics.push({ title: `${label} 要確認`, summary: 'この時間帯の議題を特定できませんでした。全文を参照してください。', evidenceUtteranceIds: [window.utterances[0]!.public_id] });
+          } catch (error) {
+            if (!hasExplicitRecords) throw error;
+            modelUnavailable = true;
+            if (error instanceof Error && (error.message.startsWith('OLLAMA_') || error.name === 'TimeoutError' || error.name === 'TypeError')) skipModel = true;
+            console.error('SUMMARY_MODEL_FALLBACK', error instanceof Error ? error.message : String(error));
+            topics.push({ title: `${label} 要確認`, summary: 'この時間帯の議題を整理できませんでした。全文を参照してください。', evidenceUtteranceIds: [window.utterances[0]!.public_id] });
+          }
         }
-        summary = summaries[0]!;
+        summary = {
+          schemaVersion: '1', title: meeting.title ?? '会議',
+          overview: hasExplicitRecords ? groundedOverview(meeting.title ?? '会議', records, modelUnavailable) : modelOverview!,
+          topics, ...records,
+        };
       }
       const markdown = renderSummary(summary, meeting, participants, this.store.utterances(meeting.id), this.timeZone);
       this.store.finishSummary(run.id, JSON.stringify(summary), markdown);
@@ -179,13 +308,14 @@ const refs = (ids: string[]) => ids.map((id) => `[${id}]`).join(' ');
 export function renderSummary(summary: MeetingSummary, meeting: Meeting, participants: Participant[], utterances: Utterance[], timeZone: string): string {
   const start = new Date(meeting.started_at_ms ?? meeting.created_at_ms).toLocaleString('ja-JP', { timeZone });
   const end = new Date(meeting.stopped_at_ms ?? Date.now()).toLocaleString('ja-JP', { timeZone });
-  const lines = [`📋 **${safe(summary.title)}**`, `${start} ～ ${end}`, `参加者: ${participants.map((p) => safe(p.display_name_snapshot)).join(' / ')}`, '', '**概要**', safe(summary.overview), '', '**議題**'];
+  const lines = [`📋 **${safe(summary.title)}**`, `${start} ～ ${end}`, `参加者: ${participants.map((p) => safe(p.display_name_snapshot)).join(' / ')}`, '', '**概要**', safe(summary.overview), '', '**時間帯ごとの議題**'];
   lines.push(...(summary.topics.length ? summary.topics.map((x) => `・${safe(x.title)}: ${safe(x.summary)} ${refs(x.evidenceUtteranceIds)}`) : ['・なし']));
-  lines.push('', '**決定事項**', ...(summary.decisions.length ? summary.decisions.map((x) => `・${safe(x.text)} ${refs(x.evidenceUtteranceIds)}`) : ['・なし']));
-  lines.push('', '**TODO**', ...(summary.actionItems.length ? summary.actionItems.map((x) => `・${safe(x.task)}（${safe(x.assigneeDisplayName ?? '担当未定')}、期限: ${safe(x.dueDate ?? x.dueText ?? '未定')}）${refs(x.evidenceUtteranceIds)}`) : ['・なし']));
-  lines.push('', '**未決事項**', ...(summary.openQuestions.length ? summary.openQuestions.map((x) => `・${safe(x.text)} ${refs(x.evidenceUtteranceIds)}`) : ['・なし']));
+  lines.push('', '**明示された決定事項**', ...(summary.decisions.length ? summary.decisions.map((x) => `・${safe(x.text)} ${refs(x.evidenceUtteranceIds)}`) : ['・なし']));
+  lines.push('', '**明示されたTODO**', ...(summary.actionItems.length ? summary.actionItems.map((x) => `・${safe(x.task)}（${safe(x.assigneeDisplayName ?? '担当未定')}、期限: ${safe(x.dueDate ?? x.dueText ?? '未定')}）${refs(x.evidenceUtteranceIds)}`) : ['・なし']));
+  lines.push('', '**未決・保留事項**', ...(summary.openQuestions.length ? summary.openQuestions.map((x) => `・${safe(x.text)} ${refs(x.evidenceUtteranceIds)}`) : ['・なし']));
   const failed = utterances.filter((u) => u.status === 'FAILED' || u.status === 'LOST').length;
   lines.push('', `発言数: ${utterances.length} / 文字起こし: ${failed ? `一部欠損 ${failed}件` : '完了'}`);
+  lines.push('自動整理された内容です。重要な判断は根拠IDの発言を全文で確認してください。');
   return lines.join('\n');
 }
 

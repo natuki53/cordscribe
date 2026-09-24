@@ -1,8 +1,9 @@
 import { existsSync } from 'node:fs';
-import { Client, GatewayIntentBits, MessageFlags, REST, Routes, SlashCommandBuilder, type ButtonInteraction, type ChatInputCommandInteraction, type TextChannel } from 'discord.js';
+import { Client, EmbedBuilder, GatewayIntentBits, MessageFlags, REST, Routes, SlashCommandBuilder, type ButtonInteraction, type ChatInputCommandInteraction, type TextChannel } from 'discord.js';
 import { loadConfig } from './config.js';
 import { Store } from './db.js';
 import { MeetingService } from './meeting.js';
+import { Publisher } from './publish.js';
 import type { ConsentStatus } from './types.js';
 
 if (existsSync('.env')) process.loadEnvFile('.env');
@@ -22,10 +23,15 @@ const commands = [new SlashCommandBuilder().setName('meeting').setDescription('V
   .addSubcommand((sub) => sub.setName('delete').setDescription('会議データとBot投稿を削除').addStringOption((option) => option.setName('id').setDescription('会議ID').setRequired(true)))
   .toJSON()];
 
+async function replyCard(interaction: ChatInputCommandInteraction | ButtonInteraction, title: string, description: string, color: number): Promise<void> {
+  const embed = new EmbedBuilder().setColor(color).setTitle(title).setDescription(description.replaceAll('@', '@\u200b'));
+  await interaction.editReply({ embeds: [embed], allowedMentions: { parse: [] } });
+}
+
 async function handleCommand(interaction: ChatInputCommandInteraction): Promise<void> {
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
   if (!service || interaction.guildId !== config.guildId || interaction.channelId !== config.meetingChannelId) {
-    await interaction.editReply('設定されたサーバーの会議チャンネルで実行してください。');
+    await replyCard(interaction, '会議チャンネルで操作してください', '設定されたサーバーの会議チャンネルから実行できます。', 0xe5a84b);
     return;
   }
   const sub = interaction.options.getSubcommand();
@@ -35,31 +41,31 @@ async function handleCommand(interaction: ChatInputCommandInteraction): Promise<
       const state = interaction.guild!.voiceStates.cache.get(interaction.user.id);
       if (!state?.channelId) throw new Error('先にVCへ参加してください');
       const meeting = await service.start(interaction.guild!, state.channelId, interaction.user.id, interaction.options.getString('title'));
-      await interaction.editReply(`会議を開始しました。ID: ${meeting.id}。参加者は案内のボタンで同意できます。`);
+      await replyCard(interaction, '会議を開始しました', `会議ID: \`${meeting.id}\`\n参加者はチャンネルに投稿された案内から同意を選べます。`, 0x22a699);
     } else if (sub === 'stop') {
       if (!store.activeMeeting(config.guildId)) throw new Error('進行中の会議はありません');
       const pending = service.stop();
       void pending.catch((error) => console.error('MEETING_STOP_FAILED', error instanceof Error ? error.message : String(error)));
-      await interaction.editReply('録音を止め、文字起こし・全文投稿・要約を進めています。結果は会議チャンネルに投稿します。');
+      await replyCard(interaction, '録音を停止しました', '文字起こしの完了後、全文と議事録をこのチャンネルに投稿します。', 0x568be3);
     } else if (sub === 'status') {
-      await interaction.editReply(service.status());
+      await replyCard(interaction, '会議の状態', service.status(), 0x568be3);
     } else if (sub === 'transcript') {
       const id = interaction.options.getString('id') ?? latest?.id;
       if (!id) throw new Error('会議が見つかりません');
       await service.transcript(id);
-      await interaction.editReply(`会議 ${id} の全文を確認しました。未投稿なら会議チャンネルに投稿しました。`);
+      await replyCard(interaction, '全文を確認しました', `会議ID: \`${id}\`\n未投稿の場合はこのチャンネルに添付しました。`, 0x568be3);
     } else if (sub === 'regenerate' || sub === 'finalize') {
       const id = interaction.options.getString('id', true);
       const pending = sub === 'regenerate' ? service.regenerate(id) : service.finalize(id);
       void pending.catch((error) => console.error(`MEETING_${sub.toUpperCase()}_FAILED`, error instanceof Error ? error.message : String(error)));
-      await interaction.editReply(`会議 ${id} の${sub === 'regenerate' ? '要約再生成' : '部分確定'}を開始しました。`);
+      await replyCard(interaction, sub === 'regenerate' ? '議事録を再生成しています' : '部分議事録を作成しています', `会議ID: \`${id}\`\n完了後にこのチャンネルへ投稿します。`, 0x568be3);
     } else if (sub === 'delete') {
       const id = interaction.options.getString('id', true);
       await service.delete(id);
-      await interaction.editReply(`会議 ${id} のDBデータとBotの投稿を削除しました。`);
+      await replyCard(interaction, '会議記録を削除しました', `会議ID: \`${id}\`\nBotに保存したデータとBotの投稿を削除しました。`, 0xe5a84b);
     }
   } catch (error) {
-    await interaction.editReply(`処理できませんでした: ${error instanceof Error ? error.message : '不明なエラー'}`);
+    await replyCard(interaction, '処理できませんでした', error instanceof Error ? error.message : '不明なエラー', 0xe55b6b);
   }
 }
 
@@ -67,12 +73,13 @@ async function handleButton(interaction: ButtonInteraction): Promise<void> {
   const match = /^consent:([0-9a-f-]{36}):(ACCEPTED|DECLINED|REVOKED)$/.exec(interaction.customId);
   if (!match) return;
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-  if (interaction.guildId !== config.guildId || !service) { await interaction.editReply('この会議は操作できません。'); return; }
+  if (interaction.guildId !== config.guildId || !service) { await replyCard(interaction, '操作できません', 'この会議は操作できません。', 0xe5a84b); return; }
   try {
     const result = await service.consent(match[1]!, interaction.user.id, match[2]! as ConsentStatus);
-    await interaction.editReply(result);
+    const status = match[2]! as ConsentStatus;
+    await replyCard(interaction, status === 'ACCEPTED' ? '✅ 同意を受け付けました' : status === 'REVOKED' ? '↩️ 同意を撤回しました' : '🚫 同意しない設定にしました', result, status === 'ACCEPTED' ? 0x22a699 : 0x568be3);
   } catch (error) {
-    await interaction.editReply(`処理できませんでした: ${error instanceof Error ? error.message : '不明なエラー'}`);
+    await replyCard(interaction, '処理できませんでした', error instanceof Error ? error.message : '不明なエラー', 0xe55b6b);
   }
 }
 
@@ -93,7 +100,10 @@ client.once('clientReady', async () => {
     await rest.put(Routes.applicationGuildCommands(config.applicationId, config.guildId), { body: commands });
     await service.reconcilePublications();
     for (const meeting of recovered) {
-      if (meeting.guild_id === config.guildId) await (channel as TextChannel).send({ content: `⚠️ 会議 ${meeting.id} はBot再起動で中断しました。未処理音声は欠損として記録しました。会議チャンネルで /meeting finalize を実行すると部分議事録を確定できます。`, allowedMentions: { parse: [] } });
+      if (meeting.guild_id !== config.guildId) continue;
+      const publisher = new Publisher(store, channel as TextChannel);
+      await publisher.closeNotice(meeting).catch((error) => console.error('NOTICE_CLOSE_FAILED', error instanceof Error ? error.message : String(error)));
+      await publisher.warning(meeting, `会議 ${meeting.id} はBot再起動で中断しました。未処理音声は欠損として記録しました。会議チャンネルで /meeting finalize を実行すると部分議事録を確定できます。`);
     }
     console.info('CORDSCRIBE_READY');
   } catch (error) {

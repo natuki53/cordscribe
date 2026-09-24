@@ -1,0 +1,355 @@
+{
+  "fixtureId": "release-planning",
+  "model": "qwen3.5:4b",
+  "seconds": 421,
+  "status": "COMPLETED",
+  "calls": [
+    {
+      "index": 1,
+      "stage": "extract",
+      "seconds": 24,
+      "status": 200,
+      "promptTokens": 2615,
+      "generatedTokens": 678,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 2,
+      "stage": "extract",
+      "seconds": 26,
+      "status": 200,
+      "promptTokens": 2608,
+      "generatedTokens": 1600,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 3,
+      "stage": "extract",
+      "seconds": 16,
+      "status": 200,
+      "promptTokens": 2643,
+      "generatedTokens": 936,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 4,
+      "stage": "extract",
+      "seconds": 18,
+      "status": 200,
+      "promptTokens": 2607,
+      "generatedTokens": 1040,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 5,
+      "stage": "extract",
+      "seconds": 15,
+      "status": 200,
+      "promptTokens": 2603,
+      "generatedTokens": 836,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 6,
+      "stage": "extract",
+      "seconds": 12,
+      "status": 200,
+      "promptTokens": 2596,
+      "generatedTokens": 636,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 7,
+      "stage": "extract",
+      "seconds": 19,
+      "status": 200,
+      "promptTokens": 2699,
+      "generatedTokens": 1078,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 8,
+      "stage": "extract",
+      "seconds": 13,
+      "status": 200,
+      "promptTokens": 2615,
+      "generatedTokens": 659,
+      "allowedEvidenceIds": 44
+    },
+    {
+      "index": 9,
+      "stage": "extract",
+      "seconds": 12,
+      "status": 200,
+      "promptTokens": 2593,
+      "generatedTokens": 640,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 10,
+      "stage": "extract",
+      "seconds": 20,
+      "status": 200,
+      "promptTokens": 2585,
+      "generatedTokens": 1172,
+      "allowedEvidenceIds": 44
+    },
+    {
+      "index": 11,
+      "stage": "extract",
+      "seconds": 12,
+      "status": 200,
+      "promptTokens": 2622,
+      "generatedTokens": 612,
+      "allowedEvidenceIds": 44
+    },
+    {
+      "index": 12,
+      "stage": "extract",
+      "seconds": 16,
+      "status": 200,
+      "promptTokens": 2033,
+      "generatedTokens": 899,
+      "allowedEvidenceIds": 33
+    },
+    {
+      "index": 13,
+      "stage": "extract",
+      "seconds": 15,
+      "status": 200,
+      "promptTokens": 2066,
+      "generatedTokens": 878,
+      "allowedEvidenceIds": 33
+    },
+    {
+      "index": 14,
+      "stage": "merge",
+      "seconds": 18,
+      "status": 200,
+      "promptTokens": 2201,
+      "generatedTokens": 1060,
+      "allowedEvidenceIds": 28
+    },
+    {
+      "index": 15,
+      "stage": "merge",
+      "seconds": 26,
+      "status": 200,
+      "promptTokens": 2170,
+      "generatedTokens": 1600,
+      "allowedEvidenceIds": 21
+    },
+    {
+      "index": 16,
+      "stage": "merge",
+      "seconds": 12,
+      "status": 200,
+      "promptTokens": 2221,
+      "generatedTokens": 734,
+      "allowedEvidenceIds": 21
+    },
+    {
+      "index": 17,
+      "stage": "merge",
+      "seconds": 26,
+      "status": 200,
+      "promptTokens": 2046,
+      "generatedTokens": 1600,
+      "allowedEvidenceIds": 25
+    },
+    {
+      "index": 18,
+      "stage": "merge",
+      "seconds": 17,
+      "status": 200,
+      "promptTokens": 2098,
+      "generatedTokens": 1065,
+      "allowedEvidenceIds": 25
+    },
+    {
+      "index": 19,
+      "stage": "merge",
+      "seconds": 22,
+      "status": 200,
+      "promptTokens": 1381,
+      "generatedTokens": 1403,
+      "allowedEvidenceIds": 18
+    },
+    {
+      "index": 20,
+      "stage": "merge",
+      "seconds": 17,
+      "status": 200,
+      "promptTokens": 1672,
+      "generatedTokens": 1060,
+      "allowedEvidenceIds": 17
+    },
+    {
+      "index": 21,
+      "stage": "merge",
+      "seconds": 26,
+      "status": 200,
+      "promptTokens": 2166,
+      "generatedTokens": 1600,
+      "allowedEvidenceIds": 32
+    },
+    {
+      "index": 22,
+      "stage": "merge",
+      "seconds": 17,
+      "status": 200,
+      "promptTokens": 2217,
+      "generatedTokens": 1057,
+      "allowedEvidenceIds": 32
+    },
+    {
+      "index": 23,
+      "stage": "merge",
+      "seconds": 21,
+      "status": 200,
+      "promptTokens": 1884,
+      "generatedTokens": 1289,
+      "allowedEvidenceIds": 24
+    }
+  ],
+  "summary": {
+    "schemaVersion": "1",
+    "title": "公開日・配布ページの論点確認会議記録 (統合)",
+    "overview": "開発部と広報部の間で、告知文（配布ページ）の条件定義や例外時の扱いについて議論が行われ、最終的に公開日が変更された。ただし、数値根拠の確認や窓口による説明の違いに関する詳細な検討は未完了である。現状では判断に必要な情報が完全には揃っておらず、追加の確認作業が必要であることが合意されました。",
+    "topics": [
+      {
+        "title": "公開日の決定と変更",
+        "summary": "当初の予定であった 10 月 5 日を撤回し、2026 年 10 月 12 日に確定した。ただし、窓口によって説明が異なる可能性について議論が続いている。",
+        "evidenceUtteranceIds": [
+          "U000303",
+          "U000313"
+        ]
+      },
+      {
+        "title": "配布ページの条件と数値根拠の確認",
+        "summary": "資料上の「配布ページ」に関連する操作や数字の根拠が不十分であるため、後日改めて確認を行う必要がある。関係する画面と運用手順を分けて検討すべきとの指摘がある。また、判断に必要な情報がまだ揃っていない状況である。",
+        "evidenceUtteranceIds": [
+          "U000276",
+          "U000309",
+          "U000314"
+        ]
+      },
+      {
+        "title": "窓口による説明の違いと例外時の扱い",
+        "summary": "配布ページや公開日の説明が窓口によって異なる可能性があり、また例外時（特殊ケース）の扱いは考慮されていない。これらを整理し、前提をずれなくする必要がある。",
+        "evidenceUtteranceIds": [
+          "U000275",
+          "U000314"
+        ]
+      },
+      {
+        "title": "配布ページの利用者側への影響と課題の整理",
+        "summary": "現場で起きるケースを挙げて、利用者側の影響範囲や見えている課題を一覧にまとめる必要がある。判断に必要な情報がまだ揃っていない状況である。",
+        "evidenceUtteranceIds": [
+          "U000287",
+          "U000314"
+        ]
+      }
+    ],
+    "decisions": [],
+    "actionItems": [
+      {
+        "task": "配布ページに関連する数値の根拠を確定させる。",
+        "assigneeUserId": null,
+        "assigneeDisplayName": null,
+        "dueDate": null,
+        "dueText": null,
+        "evidenceUtteranceIds": [
+          "U000279"
+        ]
+      },
+      {
+        "task": "窓口によって説明が異なる場合、例外時の扱いについてどうするかを確認する。",
+        "assigneeUserId": null,
+        "assigneeDisplayName": null,
+        "dueDate": null,
+        "dueText": null,
+        "evidenceUtteranceIds": [
+          "U000314"
+        ]
+      },
+      {
+        "task": "公開日の利用者側の影響の整理と課題一覧化。",
+        "assigneeUserId": null,
+        "assigneeDisplayName": null,
+        "dueDate": null,
+        "dueText": null,
+        "evidenceUtteranceIds": [
+          "U000315"
+        ]
+      },
+      {
+        "task": "公開日の窓口による説明の統一と手順照合。",
+        "assigneeUserId": null,
+        "assigneeDisplayName": null,
+        "dueDate": null,
+        "dueText": null,
+        "evidenceUtteranceIds": [
+          "U000316"
+        ]
+      },
+      {
+        "task": "例外時の扱いの考慮と条件揃い確認。",
+        "assigneeUserId": null,
+        "assigneeDisplayName": null,
+        "dueDate": null,
+        "dueText": null,
+        "evidenceUtteranceIds": [
+          "U000318"
+        ]
+      },
+      {
+        "task": "資料上の数字根拠の確認項目化。",
+        "assigneeUserId": null,
+        "assigneeDisplayName": null,
+        "dueDate": null,
+        "dueText": null,
+        "evidenceUtteranceIds": [
+          "U000321"
+        ]
+      },
+      {
+        "task": "公開日議論における前提のずれ防止と対象範囲再定義。",
+        "assigneeUserId": null,
+        "assigneeDisplayName": null,
+        "dueDate": null,
+        "dueText": null,
+        "evidenceUtteranceIds": [
+          "U000326"
+        ]
+      },
+      {
+        "task": "判断に必要な情報の不揃いによる議論の停滞への対応。",
+        "assigneeUserId": null,
+        "assigneeDisplayName": null,
+        "dueDate": null,
+        "dueText": null,
+        "evidenceUtteranceIds": [
+          "U000320"
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "text": "配布ページ・動作確認の資料における数字の根拠",
+        "evidenceUtteranceIds": [
+          "U000279",
+          "U000314"
+        ]
+      },
+      {
+        "text": "判断に必要な情報が揃っているか（条件揃っていない）",
+        "evidenceUtteranceIds": [
+          "U000287",
+          "U000315"
+        ]
+      }
+    ]
+  },
+  "error": null
+}

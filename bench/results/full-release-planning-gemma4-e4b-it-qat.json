@@ -1,55 +1,264 @@
 {
   "fixtureId": "release-planning",
   "model": "gemma4:e4b-it-qat",
-  "seconds": 114,
-  "status": "TRANSCRIBED",
+  "seconds": 55,
+  "status": "COMPLETED",
   "calls": [
     {
       "index": 1,
-      "stage": "extract",
-      "seconds": 23,
+      "stage": "overview",
+      "seconds": 17,
       "status": 200,
-      "promptTokens": 2713,
-      "generatedTokens": 1132,
-      "allowedEvidenceIds": 45
+      "promptTokens": 2507,
+      "generatedTokens": 365,
+      "allowedEvidenceIds": 40
     },
     {
       "index": 2,
-      "stage": "extract",
-      "seconds": 32,
+      "stage": "overview",
+      "seconds": 17,
       "status": 200,
-      "promptTokens": 2712,
-      "generatedTokens": 1600,
-      "allowedEvidenceIds": 45
+      "promptTokens": 2547,
+      "generatedTokens": 784,
+      "allowedEvidenceIds": 41
     },
     {
       "index": 3,
-      "stage": "extract",
-      "seconds": 29,
+      "stage": "overview",
+      "seconds": 12,
       "status": 200,
-      "promptTokens": 2765,
-      "generatedTokens": 1535,
-      "allowedEvidenceIds": 45
+      "promptTokens": 2553,
+      "generatedTokens": 529,
+      "allowedEvidenceIds": 40
     },
     {
       "index": 4,
-      "stage": "extract",
-      "seconds": 19,
+      "stage": "overview",
+      "seconds": 9,
       "status": 200,
-      "promptTokens": 2709,
-      "generatedTokens": 855,
-      "allowedEvidenceIds": 45
-    },
-    {
-      "index": 5,
-      "stage": "extract",
-      "seconds": 11,
-      "status": 200,
-      "promptTokens": 2742,
-      "generatedTokens": 519,
-      "allowedEvidenceIds": 45
+      "promptTokens": 1715,
+      "generatedTokens": 397,
+      "allowedEvidenceIds": 25
     }
   ],
-  "summary": null,
-  "error": "SUMMARY_VALIDATION_FAILED: Invalid due date"
+  "summary": {
+    "schemaVersion": "1",
+    "title": "配布ページ公開計画",
+    "overview": "配布ページ公開計画。明示された決定1件、担当作業2件、未決事項2件。 直近の決定: 公開日は2026年10月12日に変更します。先ほど決めた10月5日は取り消します。 [U000303] 直近の担当作業: 告知文の最終点検は広報担当の私が2026年10月10日までに行います。 [U000457]",
+    "topics": [
+      {
+        "title": "00:00–01:00 公開日の議論",
+        "summary": "公開日に関する前提の確認や、窓口ごとの説明の差異、条件の不足について議論された。",
+        "evidenceUtteranceIds": [
+          "U000001",
+          "U000025",
+          "U000033",
+          "U000121"
+        ]
+      },
+      {
+        "title": "00:00–01:00 配布ページの論点整理",
+        "summary": "配布ページにおける利用者側の影響や、現場で発生しうるケースへの対応について議論された。",
+        "evidenceUtteranceIds": [
+          "U000037",
+          "U000125"
+        ]
+      },
+      {
+        "title": "00:00–01:00 動作確認の論点整理",
+        "summary": "資料内の動作確認に関する注記や、前提条件の再確認が行われた。",
+        "evidenceUtteranceIds": [
+          "U000073",
+          "U000137"
+        ]
+      },
+      {
+        "title": "00:00–01:00 利用条件の確認",
+        "summary": "利用条件に関する操作や、窓口ごとの説明の差異について確認が行われた。",
+        "evidenceUtteranceIds": [
+          "U000149",
+          "U000152"
+        ]
+      },
+      {
+        "title": "01:00–02:00 利用条件の定義と影響範囲の整理",
+        "summary": "利用条件について、対象と対象外を再確認し、現場で発生するケースとその影響範囲を整理する必要があることが議論された。",
+        "evidenceUtteranceIds": [
+          "U000153",
+          "U000157",
+          "U000161",
+          "U000165",
+          "U000169"
+        ]
+      },
+      {
+        "title": "01:00–02:00 検索機能に関する論点の確認と検討",
+        "summary": "検索機能について、前提の再確認や例外時の扱いを含め、判断に必要な情報が不足している点が指摘された。",
+        "evidenceUtteranceIds": [
+          "U000173",
+          "U000177",
+          "U000181",
+          "U000185",
+          "U000193",
+          "U000197",
+          "U000201"
+        ]
+      },
+      {
+        "title": "01:00–02:00 動作確認の論点整理と情報共有",
+        "summary": "動作確認に関して、例外時の考慮や利用者側の影響整理が必要であり、一部操作結果は後日資料で共有される予定である。",
+        "evidenceUtteranceIds": [
+          "U000209",
+          "U000213",
+          "U000217",
+          "U000221",
+          "U000225"
+        ]
+      },
+      {
+        "title": "01:00–02:00 告知文および配布ページの条件整備と論点確認",
+        "summary": "告知文や配布ページについて、前提の再確認、利用者影響の整理、および資料上の注記に関する根拠確認が必要である。",
+        "evidenceUtteranceIds": [
+          "U000229",
+          "U000237",
+          "U000241",
+          "U000245",
+          "U000249",
+          "U000253",
+          "U000257",
+          "U000261",
+          "U000265",
+          "U000269",
+          "U000273",
+          "U000277",
+          "U000281",
+          "U000285",
+          "U000289",
+          "U000293",
+          "U000297",
+          "U000301",
+          "U000304"
+        ]
+      },
+      {
+        "title": "02:00–03:00 配布ページの利用者側の影響整理",
+        "summary": "配布ページの利用者側への影響を整理し、見えている課題を一覧に書き足すことが議論された。",
+        "evidenceUtteranceIds": [
+          "U000305",
+          "U000309",
+          "U000317",
+          "U000333",
+          "U000345",
+          "U000361"
+        ]
+      },
+      {
+        "title": "02:00–03:00 公開日の取り扱いと課題の洗い出し",
+        "summary": "公開日に関する例外時の扱い、利用者側の影響整理、および資料内の数値根拠の確認が必要であることが指摘された。",
+        "evidenceUtteranceIds": [
+          "U000313",
+          "U000329",
+          "U000317",
+          "U000321",
+          "U000325",
+          "U000337",
+          "U000341",
+          "U000369"
+        ]
+      },
+      {
+        "title": "02:00–03:00 利用条件に関する確認と影響整理",
+        "summary": "利用条件について、利用者側の影響を整理し、関連する画面や運用手順との整合性確認が必要であるという指摘があった。",
+        "evidenceUtteranceIds": [
+          "U000361",
+          "U000421",
+          "U000433",
+          "U000437"
+        ]
+      },
+      {
+        "title": "02:00–03:00 告知文の条件整備と論点確認",
+        "summary": "告知文について、現時点での条件が揃っていないことや、関連する論点の確認が必要であるとの指摘があった。",
+        "evidenceUtteranceIds": [
+          "U000449",
+          "U000455"
+        ]
+      },
+      {
+        "title": "03:00–04:00 資料内の注記にある数字の根拠確認",
+        "summary": "資料の告知文の箇所に記載されている数字について、その根拠を確認する必要があることが指摘された。",
+        "evidenceUtteranceIds": [
+          "U000456",
+          "U000479"
+        ]
+      },
+      {
+        "title": "03:00–04:00 告知文の利用者側への影響整理",
+        "summary": "告知文が利用者に与える影響を整理し、見えている課題を一覧に書き足すことが議論された。",
+        "evidenceUtteranceIds": [
+          "U000458"
+        ]
+      },
+      {
+        "title": "03:00–04:00 告知文の前提条件と手順の明確化",
+        "summary": "告知文に関する条件が揃っていないため、関係する画面と運用手順を分けて確認する必要があることが示された。",
+        "evidenceUtteranceIds": [
+          "U000459"
+        ]
+      },
+      {
+        "title": "03:00–04:00 告知文の対象範囲の再確認",
+        "summary": "告知文に関する議論において、前提がずれないよう、対象と対象外を再度読み合わせる必要があることが指摘された。",
+        "evidenceUtteranceIds": [
+          "U000461",
+          "U000465"
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "text": "公開日は2026年10月12日に変更します。先ほど決めた10月5日は取り消します。",
+        "evidenceUtteranceIds": [
+          "U000303"
+        ]
+      }
+    ],
+    "actionItems": [
+      {
+        "task": "公開前の動作確認は品質担当の私が2026年10月3日までに行います。",
+        "assigneeUserId": "user-3",
+        "assigneeDisplayName": "品質",
+        "dueDate": "2026-10-03",
+        "dueText": "2026年10月3日",
+        "evidenceUtteranceIds": [
+          "U000116"
+        ]
+      },
+      {
+        "task": "告知文の最終点検は広報担当の私が2026年10月10日までに行います。",
+        "assigneeUserId": "user-4",
+        "assigneeDisplayName": "広報",
+        "dueDate": "2026-10-10",
+        "dueText": "2026年10月10日",
+        "evidenceUtteranceIds": [
+          "U000457"
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "text": "検索機能を追加する案を出しますが、今日は決定せず次回検討します。",
+        "evidenceUtteranceIds": [
+          "U000202"
+        ]
+      },
+      {
+        "text": "英語版の公開範囲はまだ決まっていません。対象地域を次回確認します。",
+        "evidenceUtteranceIds": [
+          "U000375"
+        ]
+      }
+    ]
+  },
+  "error": null
 }

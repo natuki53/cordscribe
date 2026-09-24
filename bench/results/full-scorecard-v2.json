@@ -1,0 +1,564 @@
+[
+  {
+    "fixtureId": "release-planning",
+    "model": "gemma4:e4b-it-qat",
+    "durationMinutes": 190,
+    "utterances": 480,
+    "seconds": 55,
+    "calls": 4,
+    "completed": true,
+    "decisions": 1,
+    "actions": 2,
+    "questions": 2,
+    "topics": 16,
+    "windows": 4,
+    "revisitedLabels": [
+      "公開日",
+      "配布ページ",
+      "動作確認",
+      "利用条件",
+      "告知文"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000039",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000116",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000202",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000303",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U000375",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000457",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "incident-review",
+    "model": "gemma4:e4b-it-qat",
+    "durationMinutes": 225,
+    "utterances": 780,
+    "seconds": 44,
+    "calls": 4,
+    "completed": true,
+    "decisions": 2,
+    "actions": 2,
+    "questions": 2,
+    "topics": 16,
+    "windows": 4,
+    "revisitedLabels": [
+      "検知",
+      "復旧",
+      "データベース",
+      "再発防止"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000063",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000188",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000328",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000492",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U000609",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000742",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "product-roadmap",
+    "model": "gemma4:e4b-it-qat",
+    "durationMinutes": 245,
+    "utterances": 1020,
+    "seconds": 57,
+    "calls": 5,
+    "completed": true,
+    "decisions": 2,
+    "actions": 2,
+    "questions": 2,
+    "topics": 20,
+    "windows": 5,
+    "revisitedLabels": [
+      "優先順位",
+      "検索",
+      "通知",
+      "モバイル",
+      "計測"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000082",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000245",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000429",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000643",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U000796",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000970",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "operations-handoff",
+    "model": "gemma4:e4b-it-qat",
+    "durationMinutes": 210,
+    "utterances": 440,
+    "seconds": 48,
+    "calls": 4,
+    "completed": true,
+    "decisions": 2,
+    "actions": 2,
+    "questions": 2,
+    "topics": 16,
+    "windows": 4,
+    "revisitedLabels": [
+      "監視手順",
+      "夜間受付",
+      "権限",
+      "バックアップ",
+      "問い合わせ",
+      "緊急連絡"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000036",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000106",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000185",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000278",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U000344",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000419",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "dense-workshop",
+    "model": "gemma4:e4b-it-qat",
+    "durationMinutes": 310,
+    "utterances": 1500,
+    "seconds": 71,
+    "calls": 6,
+    "completed": true,
+    "decisions": 1,
+    "actions": 2,
+    "questions": 2,
+    "topics": 24,
+    "windows": 6,
+    "revisitedLabels": [
+      "互換性",
+      "認証",
+      "移行手順",
+      "性能",
+      "監視",
+      "文書"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000121",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000361",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000631",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000946",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U001171",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U001426",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "release-planning",
+    "model": "qwen3.5:9b",
+    "durationMinutes": 190,
+    "utterances": 480,
+    "seconds": 233,
+    "calls": 4,
+    "completed": true,
+    "decisions": 1,
+    "actions": 2,
+    "questions": 2,
+    "topics": 16,
+    "windows": 4,
+    "revisitedLabels": [
+      "公開日",
+      "配布ページ",
+      "動作確認",
+      "利用条件",
+      "告知文"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000039",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000116",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000202",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000303",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U000375",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000457",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "incident-review",
+    "model": "qwen3.5:9b",
+    "durationMinutes": 225,
+    "utterances": 780,
+    "seconds": 211,
+    "calls": 4,
+    "completed": true,
+    "decisions": 2,
+    "actions": 2,
+    "questions": 2,
+    "topics": 16,
+    "windows": 4,
+    "revisitedLabels": [
+      "検知",
+      "復旧",
+      "データベース",
+      "再発防止"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000063",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000188",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000328",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000492",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U000609",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000742",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "product-roadmap",
+    "model": "qwen3.5:9b",
+    "durationMinutes": 245,
+    "utterances": 1020,
+    "seconds": 248,
+    "calls": 5,
+    "completed": true,
+    "decisions": 2,
+    "actions": 2,
+    "questions": 2,
+    "topics": 20,
+    "windows": 5,
+    "revisitedLabels": [
+      "優先順位",
+      "検索",
+      "通知",
+      "モバイル",
+      "計測"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000082",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000245",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000429",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000643",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U000796",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000970",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "operations-handoff",
+    "model": "qwen3.5:9b",
+    "durationMinutes": 210,
+    "utterances": 440,
+    "seconds": 207,
+    "calls": 4,
+    "completed": true,
+    "decisions": 2,
+    "actions": 2,
+    "questions": 2,
+    "topics": 15,
+    "windows": 4,
+    "revisitedLabels": [
+      "監視手順",
+      "夜間受付",
+      "権限",
+      "バックアップ",
+      "問い合わせ",
+      "緊急連絡"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000036",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000106",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000185",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000278",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U000344",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000419",
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  {
+    "fixtureId": "dense-workshop",
+    "model": "qwen3.5:9b",
+    "durationMinutes": 310,
+    "utterances": 1500,
+    "seconds": 337,
+    "calls": 6,
+    "completed": true,
+    "decisions": 1,
+    "actions": 2,
+    "questions": 2,
+    "topics": 24,
+    "windows": 6,
+    "revisitedLabels": [
+      "互換性",
+      "認証",
+      "移行手順",
+      "性能",
+      "監視",
+      "文書"
+    ],
+    "anchorsPassed": 6,
+    "anchorsTotal": 6,
+    "anchorChecks": [
+      {
+        "kind": "decision",
+        "id": "U000121",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U000361",
+        "passed": true
+      },
+      {
+        "kind": "proposal",
+        "id": "U000631",
+        "passed": true
+      },
+      {
+        "kind": "revision",
+        "id": "U000946",
+        "passed": true
+      },
+      {
+        "kind": "openQuestion",
+        "id": "U001171",
+        "passed": true
+      },
+      {
+        "kind": "action",
+        "id": "U001426",
+        "passed": true
+      }
+    ],
+    "error": null
+  }
+]

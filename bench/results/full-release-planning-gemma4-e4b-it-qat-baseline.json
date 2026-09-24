@@ -1,0 +1,55 @@
+{
+  "fixtureId": "release-planning",
+  "model": "gemma4:e4b-it-qat",
+  "seconds": 114,
+  "status": "TRANSCRIBED",
+  "calls": [
+    {
+      "index": 1,
+      "stage": "extract",
+      "seconds": 23,
+      "status": 200,
+      "promptTokens": 2713,
+      "generatedTokens": 1132,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 2,
+      "stage": "extract",
+      "seconds": 32,
+      "status": 200,
+      "promptTokens": 2712,
+      "generatedTokens": 1600,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 3,
+      "stage": "extract",
+      "seconds": 29,
+      "status": 200,
+      "promptTokens": 2765,
+      "generatedTokens": 1535,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 4,
+      "stage": "extract",
+      "seconds": 19,
+      "status": 200,
+      "promptTokens": 2709,
+      "generatedTokens": 855,
+      "allowedEvidenceIds": 45
+    },
+    {
+      "index": 5,
+      "stage": "extract",
+      "seconds": 11,
+      "status": 200,
+      "promptTokens": 2742,
+      "generatedTokens": 519,
+      "allowedEvidenceIds": 45
+    }
+  ],
+  "summary": null,
+  "error": "SUMMARY_VALIDATION_FAILED: Invalid due date"
+}

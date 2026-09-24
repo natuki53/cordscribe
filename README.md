@@ -18,7 +18,7 @@ Discordアプリは作成済みです。導入時の操作は[Discordアプリ�
 - DiscordアプリとBotトークン、対象Guild ID、会議用テキストチャンネルID
 - RyzenホストのNVIDIA GPU、ドライバ、Ollama（ループバックの`127.0.0.1:11434`）
 - Docker Engine / Composeと、STT用のPython 3.12環境
-- Botに対象VCの`View Channel`・`Connect`、会議テキストチャンネルの`View Channel`・`Send Messages`・`Attach Files`・`Read Message History`権限
+- Botに対象VCの`View Channel`・`Connect`、会議テキストチャンネルの`View Channel`・`Send Messages`・`Attach Files`・`Read Message History`・`Embed Links`権限
 
 非公開のVCや会議テキストチャンネルでは、サーバーへのBot招待時に選んだ権限だけでは足りません。各チャンネルの権限設定でCordScribeロールを追加し、上記の権限を許可してください。
 
@@ -70,6 +70,6 @@ Botクラッシュ後は`/meeting finalize id:<会議ID>`で部分議事録を�
 
 2〜8人の同時発話と既存AIチャットBotの同時利用で、GPUメモリ不足や無告知の音声欠損がないことを確認します。代表的な1時間の会議で、停止後30分以内に全文と要約が投稿されることを公開条件とします。`qwen3.5:9b`で満たせない場合は`OLLAMA_MODEL=qwen3.5:4b`で同じ試験を行います。
 
-3時間超の会議も想定し、発言ごとの分割と段階的統合で要約します。モデルの公称コンテキスト長に全文を一括投入する構成ではありません。3時間会議の処理時間と情報保持率はまだ実測していないため、本稼働の受け入れ条件に追加しています。Gemma 4との予備比較も[受け入れ記録](docs/acceptance.md)に記載しています。
+録音は最長8時間です。3時間超の会議では、全文をモデルの入力枠に一括投入しません。1時間ごとの発言抜粋をモデルで議題に整理して時系列で残し、明示的な決定・担当作業・未決事項は全文の発言原文と根拠IDから保持します。暗黙の合意や曖昧な担当表現は取りこぼす可能性があるため、投稿された全文で確認してください。合成会議の再測定とGemma 4との比較は[長時間会議の評価](docs/long-meeting-benchmark.md)に記載しています。実VCでの3時間超の処理時間と内容は未確認です。
 
 現在の実機結果と未完了項目は[受け入れ記録](docs/acceptance.md)を参照してください。3時間超を想定した5件の合成データと分析は[長時間会議の評価](docs/long-meeting-benchmark.md)にあります。

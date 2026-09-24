@@ -1,64 +1,253 @@
 {
   "fixtureId": "release-planning",
   "model": "qwen3.5:9b",
-  "seconds": 583,
-  "status": "TRANSCRIBED",
+  "seconds": 233,
+  "status": "COMPLETED",
   "calls": [
     {
       "index": 1,
-      "stage": "extract",
-      "seconds": 133,
+      "stage": "overview",
+      "seconds": 79,
       "status": 200,
-      "promptTokens": 2615,
-      "generatedTokens": 1150,
-      "allowedEvidenceIds": 45
+      "promptTokens": 2411,
+      "generatedTokens": 610,
+      "allowedEvidenceIds": 40
     },
     {
       "index": 2,
-      "stage": "extract",
-      "seconds": 71,
+      "stage": "overview",
+      "seconds": 59,
       "status": 200,
-      "promptTokens": 2608,
-      "generatedTokens": 763,
-      "allowedEvidenceIds": 45
+      "promptTokens": 2456,
+      "generatedTokens": 630,
+      "allowedEvidenceIds": 41
     },
     {
       "index": 3,
-      "stage": "extract",
-      "seconds": 47,
+      "stage": "overview",
+      "seconds": 56,
       "status": 200,
-      "promptTokens": 2607,
-      "generatedTokens": 493,
-      "allowedEvidenceIds": 45
+      "promptTokens": 2474,
+      "generatedTokens": 580,
+      "allowedEvidenceIds": 40
     },
     {
       "index": 4,
-      "stage": "extract",
-      "seconds": 44,
+      "stage": "overview",
+      "seconds": 39,
       "status": 200,
-      "promptTokens": 2603,
-      "generatedTokens": 448,
-      "allowedEvidenceIds": 45
-    },
-    {
-      "index": 5,
-      "stage": "extract",
-      "seconds": 144,
-      "status": 200,
-      "promptTokens": 2596,
-      "generatedTokens": 1600,
-      "allowedEvidenceIds": 45
-    },
-    {
-      "index": 6,
-      "stage": "extract",
-      "seconds": 144,
-      "status": 200,
-      "promptTokens": 2648,
-      "generatedTokens": 1600,
-      "allowedEvidenceIds": 45
+      "promptTokens": 1645,
+      "generatedTokens": 419,
+      "allowedEvidenceIds": 25
     }
   ],
-  "summary": null,
-  "error": "SUMMARY_VALIDATION_FAILED: Unterminated string in JSON at position 3744 (line 136 column 16)"
+  "summary": {
+    "schemaVersion": "1",
+    "title": "配布ページ公開計画",
+    "overview": "配布ページ公開計画。明示された決定1件、担当作業2件、未決事項2件。 直近の決定: 公開日は2026年10月12日に変更します。先ほど決めた10月5日は取り消します。 [U000303] 直近の担当作業: 告知文の最終点検は広報担当の私が2026年10月10日までに行います。 [U000457]",
+    "topics": [
+      {
+        "title": "00:00–01:00 公開日の前提条件と対象範囲の読み合わせ",
+        "summary": "公開日に関する議論で前提がずれないよう、対象と対象外を再度確認する必要があるとの指摘。窓口による説明の違いや資料上の数字根拠の確認も含まれる。",
+        "evidenceUtteranceIds": [
+          "U000001",
+          "U000049",
+          "U000105",
+          "U000109",
+          "U000137"
+        ]
+      },
+      {
+        "title": "00:00–01:00 公開日の資料上の数字根拠と確認項目の残し",
+        "summary": "資料の公開日箇所に注記があり、その数字の根拠を次の確認項目として残すこと。関係する画面と運用手順を分けて確認したいとの意見も出ている。",
+        "evidenceUtteranceIds": [
+          "U000005",
+          "U000009",
+          "U000013",
+          "U000017",
+          "U000021"
+        ]
+      },
+      {
+        "title": "00:00–01:00 配布ページの利用者側影響の整理と課題一覧化",
+        "summary": "配布ページの利用者の影響を整理し、見えている課題を一覧に書き足すこと。現場で起きるケースを挙げ、影響範囲を整理する必要があるとの指摘。",
+        "evidenceUtteranceIds": [
+          "U000037",
+          "U000045",
+          "U000116"
+        ]
+      },
+      {
+        "title": "00:00–01:00 動作確認の条件整理と例外時の扱い",
+        "summary": "資料の動作確認箇所に注記があり、数字根拠の確認。前提がずれないよう対象・対象外を再読み合わせし、例外時の扱いも考慮する必要があるとの指摘。関係する画面と運用手順を分けて確認したい。",
+        "evidenceUtteranceIds": [
+          "U000073",
+          "U000077",
+          "U000081",
+          "U000085",
+          "U000089"
+        ]
+      },
+      {
+        "title": "01:00–02:00 利用条件の前提確認と影響範囲整理",
+        "summary": "対象・対象外の読み合わせ、現場でのケースによる影響範囲の整理を議題とする。検索機能や例外時の扱いについても議論する必要があることが示された。",
+        "evidenceUtteranceIds": [
+          "U000153",
+          "U000173",
+          "U000249",
+          "U000265",
+          "U000281"
+        ]
+      },
+      {
+        "title": "01:00–02:00 検索機能の追加検討と例外時の扱い",
+        "summary": "検索機能を追加する案が出されたが、今日は決定せず次回に持ち越しとなる。前提の確認や窓口による説明の違い（例外時）への対応が必要であることが指摘された。",
+        "evidenceUtteranceIds": [
+          "U000173",
+          "U000202",
+          "U000189",
+          "U000245",
+          "U000261"
+        ]
+      },
+      {
+        "title": "01:00–02:00 動作確認の条件整理と課題一覧化",
+        "summary": "現時点では動作確認の条件が揃っていないため、関係する画面と運用手順を分けて確認したい。見えている課題を一覧に書き足す必要があることが示された。",
+        "evidenceUtteranceIds": [
+          "U000213",
+          "U000245",
+          "U000269",
+          "U000285",
+          "U000297"
+        ]
+      },
+      {
+        "title": "01:00–02:00 告知文・配布ページの条件確認と公開日変更",
+        "summary": "告知文および配布ページに関する数字の根拠や、関係する画面・運用手順の確認が必要。また、公開日は 10 月 5 日から 2026 年 10 月 12 日に変更されたことが決定した。",
+        "evidenceUtteranceIds": [
+          "U000303",
+          "U000249",
+          "U000281",
+          "U000265",
+          "U000277"
+        ]
+      },
+      {
+        "title": "02:00–03:00 配布ページの利用者側影響と課題の整理",
+        "summary": "配布ページの利用者側の影響を整理し、見えている課題を一覧化する。窓口による説明の違いや実際の手順との照合が必要であることが確認された。",
+        "evidenceUtteranceIds": [
+          "U000305",
+          "U000309",
+          "U000317",
+          "U000421"
+        ]
+      },
+      {
+        "title": "02:00–03:00 公開日の条件・例外時の扱いと対象範囲の確認",
+        "summary": "資料の公開日に関する注記や数字の根拠、例外時の扱いについて議論。窓口による説明の違いがあり、実際の手順を照合する必要があることが確認された。英語版の対象地域も未確定である。",
+        "evidenceUtteranceIds": [
+          "U000313",
+          "U000325",
+          "U000349",
+          "U000375"
+        ]
+      },
+      {
+        "title": "02:00–03:00 配布ページの数字根拠と操作確認の共有",
+        "summary": "資料上の配布ページに関する注記や数字の根拠について、後で確認項目として残す。手元の操作結果（二通り）を基に数字を確認し、後に資料を共有する必要があることが示された。",
+        "evidenceUtteranceIds": [
+          "U000321",
+          "U000401",
+          "U000405"
+        ]
+      },
+      {
+        "title": "02:00–03:00 利用条件と告知文の条件確認・影響範囲整理",
+        "summary": "利用条件および告知文について、現時点では資料上の条件が揃っていない。関係する画面と運用手順を分けて確認し、現場で起きるケースや問い合わせ傾向も考慮して影響範囲を整理することになった。",
+        "evidenceUtteranceIds": [
+          "U000417",
+          "U000429",
+          "U000437",
+          "U000453"
+        ]
+      },
+      {
+        "title": "03:00–04:00 告知文の数字根拠の確認項目化",
+        "summary": "資料内の注記にある数字について、その根拠を後続の確認事項として残すこと。",
+        "evidenceUtteranceIds": [
+          "U000456",
+          "U000479"
+        ]
+      },
+      {
+        "title": "03:00–04:00 告知文の利用者側影響の整理と課題一覧化",
+        "summary": "告知文が利用者側に与える影響を整理し、見えている課題を一覧にすること。",
+        "evidenceUtteranceIds": [
+          "U000458"
+        ]
+      },
+      {
+        "title": "03:00–04:00 窓口による説明の差異と手順照合",
+        "summary": "告知文の説明が窓口によって異なる可能性があるため、実際の手順を照らし合わせること。",
+        "evidenceUtteranceIds": [
+          "U000460",
+          "U000469"
+        ]
+      },
+      {
+        "title": "03:00–04:00 対象・対象外の読み合わせと影響範囲の整理",
+        "summary": "告知文議論における前提ずれを防ぐため、対象と対象外を再確認し、現場で起きるケースから影響範囲を整理すること。",
+        "evidenceUtteranceIds": [
+          "U000461",
+          "U000465",
+          "U000472"
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "text": "公開日は2026年10月12日に変更します。先ほど決めた10月5日は取り消します。",
+        "evidenceUtteranceIds": [
+          "U000303"
+        ]
+      }
+    ],
+    "actionItems": [
+      {
+        "task": "公開前の動作確認は品質担当の私が2026年10月3日までに行います。",
+        "assigneeUserId": "user-3",
+        "assigneeDisplayName": "品質",
+        "dueDate": "2026-10-03",
+        "dueText": "2026年10月3日",
+        "evidenceUtteranceIds": [
+          "U000116"
+        ]
+      },
+      {
+        "task": "告知文の最終点検は広報担当の私が2026年10月10日までに行います。",
+        "assigneeUserId": "user-4",
+        "assigneeDisplayName": "広報",
+        "dueDate": "2026-10-10",
+        "dueText": "2026年10月10日",
+        "evidenceUtteranceIds": [
+          "U000457"
+        ]
+      }
+    ],
+    "openQuestions": [
+      {
+        "text": "検索機能を追加する案を出しますが、今日は決定せず次回検討します。",
+        "evidenceUtteranceIds": [
+          "U000202"
+        ]
+      },
+      {
+        "text": "英語版の公開範囲はまだ決まっていません。対象地域を次回確認します。",
+        "evidenceUtteranceIds": [
+          "U000375"
+        ]
+      }
+    ]
+  },
+  "error": null
 }
