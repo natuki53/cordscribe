@@ -73,3 +73,37 @@ test('Ollama receives nonempty known evidence IDs and a corrected reply complete
     assert.equal(store.getMeeting(meeting.id)?.status, 'COMPLETED');
   } finally { globalThis.fetch = originalFetch; store.close(); }
 });
+
+test('a transcript requiring more than eight reduction rounds can be summarized', async () => {
+  const store = new Store(':memory:');
+  const originalFetch = globalThis.fetch;
+  let calls = 0;
+  let firstPassCalls = 0;
+  try {
+    let meeting = store.createMeeting({ guild_id: 'long', voice_channel_id: 'v', output_channel_id: 'c', started_by_user_id: 'u1', title: '長時間会議', config_snapshot_json: '{}' });
+    meeting = store.setStatus(meeting.id, ['STARTING'], 'RECORDING', { startedAt: Date.now() });
+    store.join(meeting.id, 'u1', '話者');
+    for (let i = 0; i < 270; i++) {
+      const utterance = store.createUtterance({ meeting_id: meeting.id, speaker_user_id: 'u1', chain_id: `chain-${i}`, chain_index: 0, started_offset_ms: i * 1000, ended_offset_ms: i * 1000 + 900 });
+      store.setUtterance(utterance.id, 'TRANSCRIBED', { text: `議題${i} ${'説明'.repeat(2100)}` });
+    }
+    store.setStatus(meeting.id, ['RECORDING'], 'DRAINING', { stoppedAt: Date.now() });
+    store.finalizeTranscription(meeting.id);
+    globalThis.fetch = async (_url, init) => {
+      calls++;
+      const request = JSON.parse(String(init?.body)) as { messages: { content: string }[]; format: { properties: { topics: { items: { properties: { evidenceUtteranceIds: { items: { enum: string[] } } } } } } } };
+      const ids = request.format.properties.topics.items.properties.evidenceUtteranceIds.items.enum;
+      if (request.messages[1]?.content.includes('次の発言から事実')) firstPassCalls++;
+      return new Response(JSON.stringify({ message: { content: JSON.stringify({
+        schemaVersion: '1', title: '長時間会議', overview: '概要'.repeat(2100),
+        topics: [{ title: '議題', summary: '記録', evidenceUtteranceIds: [ids[0]] }],
+        decisions: [], actionItems: [], openQuestions: [],
+      }) } }), { status: 200 });
+    };
+    const result = await new OllamaSummarizer(store, 'http://127.0.0.1:11434', 'test-model', 'Asia/Tokyo').summarize(store.getMeeting(meeting.id)!);
+    assert.equal(store.getMeeting(meeting.id)?.status, 'COMPLETED');
+    assert.equal(firstPassCalls, 270);
+    assert.ok(calls - firstPassCalls >= 274);
+    assert.ok(result.summary.topics[0]?.evidenceUtteranceIds[0]?.startsWith('U'));
+  } finally { globalThis.fetch = originalFetch; store.close(); }
+});

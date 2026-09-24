@@ -148,14 +148,14 @@ export class OllamaSummarizer {
         let parts = chunks(lines);
         let summaries: MeetingSummary[] = [];
         for (const part of parts) summaries.push(await this.generate(`${context}\n次の発言から事実・決定・作業・未決事項を抽出してください。\n${part}`, evidenceIn(part), participants));
-        let rounds = 0;
         while (summaries.length > 1) {
-          if (++rounds > 8) throw new Error('SUMMARY_REDUCTION_LIMIT');
+          const previousCount = summaries.length;
           parts = chunks(summaries.map((s) => JSON.stringify(s)), 5000);
           if (parts.length >= summaries.length && summaries.length > 1) {
             parts = [];
             for (let i = 0; i < summaries.length; i += 2) parts.push(summaries.slice(i, i + 2).map((s) => JSON.stringify(s)).join('\n'));
           }
+          if (parts.length >= previousCount) throw new Error('SUMMARY_REDUCTION_STALLED');
           summaries = [];
           for (const part of parts) summaries.push(await this.generate(`${context}\n以下の部分抽出結果を統合し、重複を除いてください。根拠IDを維持してください。\n${part}`, evidenceIn(part), participants));
         }
