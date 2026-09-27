@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { ChannelType, type Client, type VoiceChannel } from 'discord.js';
+import { ChannelType, type Client, type Guild, type VoiceChannel } from 'discord.js';
 import { loadConfig } from '../src/config.js';
 import { Store } from '../src/db.js';
 import { MeetingService } from '../src/meeting.js';
-import type { Publisher } from '../src/publish.js';
+import type { MeetingOutputChannel, Publisher } from '../src/publish.js';
 import { renderTranscript } from '../src/summary.js';
 import type { Meeting } from '../src/types.js';
 
@@ -101,6 +101,32 @@ test('a VC chat can retain the consent notice and transcript as the meeting outp
     assert.equal(sent.length, 2);
     assert.equal(sent[0]?.embeds.length, 1);
     assert.match(sent[1]?.files[0]?.name ?? '', /\.md$/);
+  } finally {
+    await service.shutdown();
+    store.close();
+  }
+});
+
+test('music and read-aloud bots do not need consent notice access to start', async () => {
+  const store = new Store(':memory:');
+  const service = new MeetingService(loadConfig(required), store, {} as Client);
+  const human = { id: 'user', displayName: 'Person', user: { bot: false } };
+  const bot = { id: 'music', displayName: 'Music', user: { bot: true } };
+  const voice = { id: 'voice', type: ChannelType.GuildVoice, permissionsFor: () => ({ has: () => true }) };
+  const output = {
+    id: 'text', guildId: 'guild', permissionsFor: (member: { user?: { bot: boolean } }) => ({ has: () => member.user?.bot !== true }),
+  } as unknown as MeetingOutputChannel;
+  const humanState = { id: human.id, channelId: 'voice', member: human };
+  const botState = { id: bot.id, channelId: 'voice', member: null };
+  const guild = {
+    id: 'guild', client: { user: { id: 'cordscribe' } },
+    channels: { cache: new Map([['voice', voice]]) },
+    members: { me: { id: 'cordscribe' }, fetch: async (id: string) => id === bot.id ? bot : human },
+    voiceStates: { cache: { get: (id: string) => id === human.id ? humanState : botState, values: () => [humanState, botState] } },
+  } as unknown as Guild;
+  try {
+    (service as unknown as { ensureSttReady(): Promise<void> }).ensureSttReady = async () => { throw new Error('READY_MARKER'); };
+    await assert.rejects(service.start(guild, 'voice', human.id, null, output), /READY_MARKER/);
   } finally {
     await service.shutdown();
     store.close();

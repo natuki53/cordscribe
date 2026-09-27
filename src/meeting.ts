@@ -80,9 +80,11 @@ export class MeetingService {
       throw new Error('Bot needs View Channel, Send Messages, Attach Files, Read Message History, and Embed Links permissions in this channel');
     }
     for (const state of guild.voiceStates.cache.values()) {
-      if (state.channelId !== voice.id || state.id === guild.client.user?.id || state.member?.user.bot) continue;
+      if (state.channelId !== voice.id || state.id === guild.client.user?.id) continue;
       const member = state.member ?? await guild.members.fetch(state.id).catch(() => null);
-      if (!member || !output.permissionsFor(member)?.has(PermissionFlagsBits.ViewChannel)) {
+      if (!member) throw new Error('VC参加者の権限を確認できません');
+      if (member.user.bot) continue;
+      if (!output.permissionsFor(member)?.has(PermissionFlagsBits.ViewChannel)) {
         throw new Error('VC参加者全員が閲覧できるチャンネルで開始してください');
       }
     }
@@ -100,9 +102,9 @@ export class MeetingService {
       await entersState(connection, VoiceConnectionStatus.Ready, 20_000);
       meeting = this.store.setStatus(meeting.id, ['STARTING'], 'RECORDING', { startedAt: Date.now() });
       for (const state of guild.voiceStates.cache.values()) {
-        if (state.channelId === voice.id && state.id !== guild.client.user?.id && !state.member?.user.bot) {
-          this.store.join(meeting.id, state.id, state.member?.displayName ?? state.id);
-        }
+        if (state.channelId !== voice.id || state.id === guild.client.user?.id) continue;
+        const member = state.member ?? await guild.members.fetch(state.id).catch(() => null);
+        if (member && !member.user.bot) this.store.join(meeting.id, member.id, member.displayName);
       }
       const publisher = new Publisher(this.store, output, !!this.summarizer);
       const budget = new AudioBudget(() => { void this.stop('AUDIO_MEMORY_LIMIT').catch((error) => this.logError('AUTO_STOP_FAILED', error)); });
@@ -132,8 +134,10 @@ export class MeetingService {
     if (!live || live.meeting.id !== meetingId || live.meeting.status !== 'RECORDING') throw new Error('Meeting is not recording');
     const state = live.guild.voiceStates.cache.get(userId);
     if (state?.channelId !== live.meeting.voice_channel_id) throw new Error('Join the meeting voice channel first');
-    if (state.member?.user.bot || userId === live.guild.client.user?.id) throw new Error('Botの音声は記録できません');
-    if (!this.store.getParticipant(meetingId, userId)) this.store.join(meetingId, userId, state.member?.displayName ?? userId);
+    const member = state.member ?? await live.guild.members.fetch(userId).catch(() => null);
+    if (!member) throw new Error('VC参加者を確認できません');
+    if (member.user.bot || userId === live.guild.client.user?.id) throw new Error('Botの音声は記録できません');
+    if (!this.store.getParticipant(meetingId, userId)) this.store.join(meetingId, userId, member.displayName);
     if (status === 'ACCEPTED') {
       const previous = this.store.getParticipant(meetingId, userId)!.consent_status;
       this.store.setConsent(meetingId, userId, status);
@@ -155,8 +159,10 @@ export class MeetingService {
       await live.audio.unsubscribe(oldState.id, false);
       this.store.leave(id, oldState.id);
     }
-    if (newState.channelId === voiceId && oldState.channelId !== voiceId && !newState.member?.user.bot) {
-      const participant = this.store.join(id, newState.id, newState.member?.displayName ?? newState.id);
+    if (newState.channelId === voiceId && oldState.channelId !== voiceId) {
+      const member = newState.member ?? await live.guild.members.fetch(newState.id).catch(() => null);
+      if (!member || member.user.bot) return;
+      const participant = this.store.join(id, newState.id, member.displayName);
       if (participant.consent_status === 'ACCEPTED') live.audio.subscribe(newState.id);
       else await live.publisher.consentReminder(live.meeting, participant.display_name_snapshot);
     }
