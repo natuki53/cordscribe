@@ -90,7 +90,7 @@ export class MeetingService {
     let meeting = this.store.createMeeting({
       guild_id: guild.id, voice_channel_id: voice.id, output_channel_id: output.id,
       started_by_user_id: userId, title,
-      config_snapshot_json: JSON.stringify({ sttModel: 'large-v3-turbo', computeType: 'int8_float16', language: 'ja', beamSize: 1, silenceEndMs: 900, minUtteranceMs: 300, maxUtteranceMs: 28000, summaryMode: this.config.summaryMode, summaryModel: this.summarizer ? this.config.ollamaModel : null }),
+      config_snapshot_json: JSON.stringify({ sttModel: 'large-v3-turbo', computeType: 'int8_float16', language: 'ja', beamSize: 1, silenceEndMs: 900, minUtteranceMs: 300, maxUtteranceMs: 28000, sttVadMinSpeechMs: 250, summaryMode: this.config.summaryMode, summaryModel: this.summarizer ? this.config.ollamaModel : null }),
     });
     let connection: VoiceConnection | null = null;
     try {
@@ -110,7 +110,6 @@ export class MeetingService {
       const audio = new AudioReceiver(connection.receiver, meeting.id, meeting.started_at_ms!, this.store, queue, budget,
         (reason) => { this.store.event(meeting.id, reason, 'ERROR'); void this.stop(reason).catch((error) => this.logError('AUDIO_STOP_FAILED', error)); });
       this.live = { meeting, guild, connection, audio, queue, budget, publisher, emptySince: null, warnedQueue: false, criticalQueue: false, lastKeepaliveAtMs: Date.now() };
-      await this.consent(meeting.id, userId, 'ACCEPTED');
       await publisher.notice(meeting);
       connection.on('stateChange', (_old, state) => {
         if (state.status !== VoiceConnectionStatus.Disconnected || !this.live || this.live.meeting.id !== meeting.id) return;
@@ -133,6 +132,7 @@ export class MeetingService {
     if (!live || live.meeting.id !== meetingId || live.meeting.status !== 'RECORDING') throw new Error('Meeting is not recording');
     const state = live.guild.voiceStates.cache.get(userId);
     if (state?.channelId !== live.meeting.voice_channel_id) throw new Error('Join the meeting voice channel first');
+    if (state.member?.user.bot || userId === live.guild.client.user?.id) throw new Error('Botの音声は記録できません');
     if (!this.store.getParticipant(meetingId, userId)) this.store.join(meetingId, userId, state.member?.displayName ?? userId);
     if (status === 'ACCEPTED') {
       const previous = this.store.getParticipant(meetingId, userId)!.consent_status;

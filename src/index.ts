@@ -15,7 +15,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 let service: MeetingService | null = null;
 
 const command = new SlashCommandBuilder().setName('meeting').setDescription('VC会議記録')
-  .addSubcommand((sub) => sub.setName('start').setDescription('参加中のVCを記録開始（実行者は録音に同意）').addStringOption((option) => option.setName('title').setDescription('会議名').setMaxLength(100)))
+  .addSubcommand((sub) => sub.setName('start').setDescription('参加中のVCで会議記録を開始').addStringOption((option) => option.setName('title').setDescription('会議名').setMaxLength(100)))
   .addSubcommand((sub) => sub.setName('stop').setDescription('会議を停止して文字起こしを確定'))
   .addSubcommand((sub) => sub.setName('status').setDescription('会議の状態を表示'))
   .addSubcommand((sub) => sub.setName('transcript').setDescription('全文を投稿').addStringOption((option) => option.setName('id').setDescription('会議ID')))
@@ -47,7 +47,7 @@ async function handleCommand(interaction: ChatInputCommandInteraction): Promise<
       const state = interaction.guild!.voiceStates.cache.get(interaction.user.id);
       if (!state?.channelId) throw new Error('先にVCへ参加してください');
       const meeting = await service.start(interaction.guild!, state.channelId, interaction.user.id, interaction.options.getString('title'), interaction.channel as MeetingOutputChannel);
-      await replyCard(interaction, '会議を開始しました', `会議ID: \`${meeting.id}\`\nあなたの録音同意は記録済みです。ほかの参加者はこのチャンネルの案内から各自で同意を選べます。`, 0x22a699);
+      await replyCard(interaction, '会議を開始しました', `会議ID: \`${meeting.id}\`\n開始したあなたも、ほかの参加者も、このチャンネルの案内から各自で録音への同意を選んでください。同意するまで音声は取得しません。`, 0x22a699);
     } else if (sub === 'stop') {
       const active = store.activeMeeting(config.guildId);
       if (!active) throw new Error('進行中の会議はありません');
@@ -86,6 +86,7 @@ async function handleButton(interaction: ButtonInteraction): Promise<void> {
   if (!match) return;
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
   if (interaction.guildId !== config.guildId || !service) { await replyCard(interaction, '操作できません', 'この会議は操作できません。', 0xe5a84b); return; }
+  if (interaction.user.bot) { await replyCard(interaction, '操作できません', 'Botの音声は記録できません。', 0xe5a84b); return; }
   try {
     const result = await service.consent(match[1]!, interaction.user.id, match[2]! as ConsentStatus);
     const status = match[2]! as ConsentStatus;

@@ -41,8 +41,8 @@ test('consent and long minutes are sent as readable cards without mentions', asy
     await publisher.notice(meeting);
     const notice = sent[0]!;
     assert.match(notice.content, /CS:.*:NOTICE:1:0/);
-    assert.match(notice.embeds[0]!.toJSON().fields?.map((field) => field.value).join(' ') ?? '', /同意前に音声を取得しません/);
-    assert.match(notice.embeds[0]!.toJSON().description ?? '', /開始者はコマンド実行時に同意済み/);
+    assert.match(notice.embeds[0]!.toJSON().fields?.map((field) => field.value).join(' ') ?? '', /ボタンを押す前の音声は取得しません/);
+    assert.match(notice.embeds[0]!.toJSON().description ?? '', /開始者を含むVC参加者全員/);
     assert.doesNotMatch(notice.embeds[0]!.toJSON().fields?.map((field) => field.value).join(' ') ?? '', /AI要約/);
     assert.equal(notice.components?.[0]?.toJSON().components.length, 3);
     assert.deepEqual(notice.allowedMentions.parse, []);

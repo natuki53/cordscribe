@@ -12,15 +12,23 @@ from typing import Any
 import numpy as np
 from fastapi import FastAPI, Header, HTTPException, Request
 from faster_whisper import WhisperModel
+from faster_whisper.vad import VadOptions, collect_chunks, get_speech_timestamps
 
 
 MODEL_NAME = os.getenv("STT_MODEL", "turbo")
 COMPUTE_TYPE = os.getenv("STT_COMPUTE_TYPE", "int8_float16")
-INITIAL_PROMPT = os.getenv(
-    "STT_INITIAL_PROMPT", "VRChat、VRCosme、ぶいなび、Pulsoid、OSC、Poiyomi、lilToon"
-)
+# A vocabulary prompt can turn weak audio into plausible-looking invented text.
+# Keep it opt-in even when an older environment file still defines the prompt.
+INITIAL_PROMPT = (
+    os.getenv("STT_INITIAL_PROMPT", "").strip() or None
+) if os.getenv("STT_INITIAL_PROMPT_ENABLED", "false").lower() == "true" else None
 MAX_AUDIO_BYTES = 28 * 16000 * 2
 IDLE_UNLOAD_SECONDS = int(os.getenv("STT_IDLE_UNLOAD_SECONDS", "300"))
+VAD_OPTIONS = VadOptions(
+    min_speech_duration_ms=250,
+    min_silence_duration_ms=500,
+    speech_pad_ms=150,
+)
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 _lock = threading.RLock()
@@ -51,6 +59,21 @@ def _idle_unload() -> None:
     while True:
         time.sleep(min(30, max(1, IDLE_UNLOAD_SECONDS / 2)))
         _idle_unload_once()
+
+
+def _transcribe_samples(samples: np.ndarray) -> tuple[str, str, float]:
+    # RMS on the Bot only rejects quiet PCM. Voice activity detection here keeps
+    # background noise from reaching Whisper, which may invent words on silence.
+    speech_chunks = get_speech_timestamps(samples, VAD_OPTIONS)
+    if not speech_chunks:
+        return "", "ja", 0.0
+    speech_audio = np.concatenate(collect_chunks(samples, speech_chunks)[0])
+    assert _model is not None
+    segments, info = _model.transcribe(
+        speech_audio, language="ja", beam_size=1, initial_prompt=INITIAL_PROMPT,
+        vad_filter=False, condition_on_previous_text=False, task="transcribe"
+    )
+    return "".join(segment.text for segment in segments).strip(), info.language, float(info.language_probability)
 
 
 @app.on_event("startup")
@@ -122,17 +145,13 @@ async def transcribe(
         _last_use = time.monotonic()
         try:
             samples = np.frombuffer(data, dtype="<i2").astype(np.float32) / 32768.0
-            segments, info = _model.transcribe(
-                samples, language="ja", beam_size=1, initial_prompt=INITIAL_PROMPT,
-                vad_filter=False, condition_on_previous_text=False, task="transcribe"
-            )
-            text = "".join(segment.text for segment in segments).strip()
+            text, language, language_probability = _transcribe_samples(samples)
         except Exception as exc:
             logging.exception("STT_TRANSCRIPTION_FAILED")
             raise HTTPException(503, "transcription_failed") from exc
     return {
         "text": text,
-        "language": info.language,
-        "languageProbability": float(info.language_probability),
+        "language": language,
+        "languageProbability": language_probability,
         "durationMs": round(len(samples) / 16),
     }
