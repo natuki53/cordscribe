@@ -1,7 +1,7 @@
 import { joinVoiceChannel, entersState, VoiceConnectionStatus, type VoiceConnection } from '@discordjs/voice';
 import { ChannelType, PermissionFlagsBits, type Client, type Guild, type VoiceState } from 'discord.js';
 import type { Config } from './config.js';
-import { AudioReceiver } from './audio.js';
+import { AudioReceiver, SILENCE_END_MS } from './audio.js';
 import { Store } from './db.js';
 import { Publisher, type MeetingOutputChannel } from './publish.js';
 import { OllamaSummarizer, renderTranscript } from './summary.js';
@@ -92,7 +92,7 @@ export class MeetingService {
     let meeting = this.store.createMeeting({
       guild_id: guild.id, voice_channel_id: voice.id, output_channel_id: output.id,
       started_by_user_id: userId, title,
-      config_snapshot_json: JSON.stringify({ sttModel: 'large-v3-turbo', computeType: 'int8_float16', language: 'ja', beamSize: 1, silenceEndMs: 900, minUtteranceMs: 300, maxUtteranceMs: 28000, sttVadMinSpeechMs: 250, summaryMode: this.config.summaryMode, summaryModel: this.summarizer ? this.config.ollamaModel : null }),
+      config_snapshot_json: JSON.stringify({ sttModel: 'large-v3-turbo', computeType: 'int8_float16', language: 'ja', beamSize: 1, silenceEndMs: SILENCE_END_MS, minUtteranceMs: 300, maxUtteranceMs: 28000, sttVadMinSpeechMs: 250, summaryMode: this.config.summaryMode, summaryModel: this.summarizer ? this.config.ollamaModel : null }),
     });
     let connection: VoiceConnection | null = null;
     try {

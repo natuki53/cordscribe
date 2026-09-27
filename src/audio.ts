@@ -6,11 +6,13 @@ import prism from 'prism-media';
 import type { Store } from './db.js';
 import { AudioBudget, SttQueue } from './stt.js';
 
-export const SILENCE_END_MS = 900;
+export const SILENCE_END_MS = 1400;
 export const MAX_UTTERANCE_MS = 28_000;
 export const MIN_UTTERANCE_MS = 300;
 export const MAX_CONSENTED_SPEAKERS = 8;
 const VOICE_RMS_THRESHOLD = 180;
+const PCM_FRAME_BYTES = 640; // 20 ms at 16 kHz, mono, s16le.
+const PCM_FRAME_MS = 20;
 
 function voiced(chunk: Buffer): boolean {
   let sum = 0;
@@ -21,6 +23,29 @@ function voiced(chunk: Buffer): boolean {
     count++;
   }
   return count > 0 && Math.sqrt(sum / count) >= VOICE_RMS_THRESHOLD;
+}
+
+export class PcmFrameSplitter {
+  private pending: Buffer = Buffer.alloc(0);
+  private nextFrameAtMs: number | null = null;
+
+  constructor(readonly onFrame: (frame: Buffer, atMs: number) => void) {}
+
+  push(chunk: Buffer, receivedAtMs: number): void {
+    const pcm = this.pending.length ? Buffer.concat([this.pending, chunk]) : chunk;
+    const frameCount = Math.floor(pcm.length / PCM_FRAME_BYTES);
+    this.pending = pcm.subarray(frameCount * PCM_FRAME_BYTES);
+    if (!frameCount) return;
+    const batchStartAtMs = Math.max(
+      receivedAtMs - frameCount * PCM_FRAME_MS,
+      this.nextFrameAtMs ?? Number.NEGATIVE_INFINITY,
+    );
+    for (let index = 0; index < frameCount; index++) {
+      const frame = pcm.subarray(index * PCM_FRAME_BYTES, (index + 1) * PCM_FRAME_BYTES);
+      this.onFrame(frame, batchStartAtMs + index * PCM_FRAME_MS);
+    }
+    this.nextFrameAtMs = batchStartAtMs + frameCount * PCM_FRAME_MS;
+  }
 }
 
 export class Segmenter {
@@ -59,8 +84,9 @@ export class Segmenter {
       this.budget.add(part.byteLength);
       this.chunks.push(part);
       this.bytes += part.byteLength;
-      this.lastAudioAtMs = partAtMs;
-      if (hasVoice) this.lastVoicedAtMs = partAtMs;
+      const partEndAtMs = partAtMs + part.byteLength / 32;
+      this.lastAudioAtMs = partEndAtMs;
+      if (hasVoice) this.lastVoicedAtMs = partEndAtMs;
       offset += size;
       if (this.bytes === MAX_UTTERANCE_MS * 32) this.finalize(true);
     }
@@ -118,11 +144,13 @@ class SpeakerPipe {
   readonly opus: ReturnType<VoiceReceiver['subscribe']>;
   readonly decoder: prism.opus.Decoder;
   readonly ffmpeg: ChildProcessWithoutNullStreams;
+  readonly pcmFrames: PcmFrameSplitter;
   private closed = false;
   private closing = false;
 
   constructor(receiver: VoiceReceiver, meetingId: string, userId: string, startedAtMs: number, store: Store, queue: SttQueue, budget: AudioBudget, onFatal: (reason: string) => void) {
     this.segmenter = new Segmenter(meetingId, userId, startedAtMs, store, queue, budget);
+    this.pcmFrames = new PcmFrameSplitter((frame, atMs) => this.segmenter.push(frame, atMs, voiced(frame)));
     this.decoder = new prism.opus.Decoder({ rate: 48000, channels: 2, frameSize: 960 });
     this.ffmpeg = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-f', 's16le', '-ar', '48000', '-ac', '2', '-i', 'pipe:0', '-f', 's16le', '-ar', '16000', '-ac', '1', 'pipe:1'], { stdio: ['pipe', 'pipe', 'pipe'] });
     try {
@@ -135,7 +163,7 @@ class SpeakerPipe {
     }
     this.ffmpeg.stdout.on('data', (chunk: Buffer) => {
       if (this.closed) return;
-      try { this.segmenter.push(chunk, Date.now(), voiced(chunk)); }
+      try { this.pcmFrames.push(chunk, Date.now()); }
       catch { onFatal('AUDIO_MEMORY_OR_DB_FAILED'); }
     });
     this.ffmpeg.stderr.on('data', () => { /* Never log audio or raw decoder output. */ });

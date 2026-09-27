@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Segmenter } from '../src/audio.js';
+import { PcmFrameSplitter, Segmenter, SILENCE_END_MS } from '../src/audio.js';
 import { Store } from '../src/db.js';
 import { AudioBudget, type SttQueue } from '../src/stt.js';
 
@@ -20,7 +20,7 @@ test('short click is ignored and memory is released', () => {
   const { store, meeting, jobs, budget, segmenter } = setup();
   try {
     segmenter.push(Buffer.alloc(200 * 32), 1000);
-    segmenter.tick(1901);
+    segmenter.tick(1000 + 200 + SILENCE_END_MS + 1);
     assert.equal(jobs.length, 0);
     assert.equal(store.utterances(meeting.id).length, 0);
     assert.equal(budget.bytes, 0);
@@ -85,15 +85,29 @@ test('revoke discards active PCM but retains already queued utterances', () => {
   } finally { store.close(); }
 });
 
-test('900 ms of PCM silence splits utterances', () => {
+test('a short pause keeps speech together and a 1400 ms pause splits without overlapping timestamps', () => {
   const { store, meeting, jobs, segmenter } = setup();
   try {
     segmenter.push(Buffer.alloc(500 * 32), 1000, true);
-    segmenter.push(Buffer.alloc(400 * 32), 1500, false);
-    segmenter.push(Buffer.alloc(400 * 32), 2000, false);
-    segmenter.push(Buffer.alloc(500 * 32), 2500, true);
+    segmenter.push(Buffer.alloc(900 * 32), 1500, false);
+    segmenter.push(Buffer.alloc(500 * 32), 2400, true);
+    segmenter.push(Buffer.alloc(1400 * 32), 2900, false);
+    segmenter.push(Buffer.alloc(500 * 32), 4300, true);
     segmenter.finalize();
     assert.equal(jobs.length, 2);
-    assert.equal(store.utterances(meeting.id).length, 2);
+    const utterances = store.utterances(meeting.id);
+    assert.equal(utterances.length, 2);
+    assert.ok(utterances[0]!.ended_offset_ms <= utterances[1]!.started_offset_ms);
   } finally { store.close(); }
+});
+
+test('PCM frames stay 20 ms long across arbitrary ffmpeg output chunks', () => {
+  const frames: { atMs: number; data: Buffer }[] = [];
+  const splitter = new PcmFrameSplitter((data, atMs) => frames.push({ data, atMs }));
+  const source = Buffer.from(Array.from({ length: 1280 }, (_, index) => index % 256));
+  splitter.push(source.subarray(0, 1000), 1000);
+  splitter.push(source.subarray(1000), 1020);
+  assert.deepEqual(frames.map((frame) => frame.atMs), [980, 1000]);
+  assert.ok(frames.every((frame) => frame.data.length === 640));
+  assert.deepEqual(Buffer.concat(frames.map((frame) => frame.data)), source);
 });
