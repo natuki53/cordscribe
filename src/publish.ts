@@ -68,8 +68,8 @@ export class Publisher {
     const embed = new EmbedBuilder().setColor(COLORS.recording).setTitle('🔴 会議記録への同意')
       .setDescription(`**${safe(meeting.title ?? '会議')}**\n開始者はコマンド実行時に同意済みです。ほかのVC参加者は、下のボタンで録音への意思を選んでください。`)
       .addFields(
-        { name: '🎙️ 記録する音声', value: '「同意して参加」を押した人の音声だけを取得し、文字起こしします。同意前は取得しません。' },
-        { name: '↩️ 途中で撤回する', value: '撤回後の取得を止め、未確定の音声を破棄します。撤回前に確定した発言は議事録に残ります。' },
+        { name: '🎙️ 記録する音声', value: '開始者と「録音に同意」を押した人の音声だけを文字起こしします。ほかの人は同意前に音声を取得しません。' },
+        { name: '↩️ 途中で撤回する', value: '撤回後の取得を止め、未確定の音声を破棄します。撤回前に確定した発言は会議記録に残ります。' },
         { name: '📄 投稿と保存', value: `${this.summaryEnabled ? '文字起こしデータとAI要約' : '文字起こしデータ'}をこのチャンネルに投稿します。Bot内の本文は30日後に削除します。Discordへの投稿は自動削除しません。` },
       ).setFooter({ text: `会議ID: ${meeting.id}` });
     await this.send(this.store.delivery(meeting.id, 'NOTICE', 1, 0), '会議記録の同意を選んでください。', undefined, [consentButtons(meeting)], embed);
