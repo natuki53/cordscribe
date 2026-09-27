@@ -1,8 +1,9 @@
 import { existsSync } from 'node:fs';
-import { ChannelType, Client, EmbedBuilder, GatewayIntentBits, MessageFlags, REST, Routes, SlashCommandBuilder, type ButtonInteraction, type ChatInputCommandInteraction, type TextChannel } from 'discord.js';
+import { ChannelType, Client, EmbedBuilder, GatewayIntentBits, MessageFlags, REST, Routes, SlashCommandBuilder, type ButtonInteraction, type ChatInputCommandInteraction } from 'discord.js';
 import { loadConfig } from './config.js';
 import { Store } from './db.js';
 import { MeetingService } from './meeting.js';
+import type { MeetingOutputChannel } from './publish.js';
 import type { ConsentStatus } from './types.js';
 import type { Meeting } from './types.js';
 
@@ -30,8 +31,8 @@ async function replyCard(interaction: ChatInputCommandInteraction | ButtonIntera
 
 async function handleCommand(interaction: ChatInputCommandInteraction): Promise<void> {
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-  if (!service || interaction.guildId !== config.guildId || interaction.channel?.type !== ChannelType.GuildText) {
-    await replyCard(interaction, 'サーバーのテキストチャンネルで操作してください', '対象サーバー内のテキストチャンネルから実行できます。', 0xe5a84b);
+  if (!service || interaction.guildId !== config.guildId || (interaction.channel?.type !== ChannelType.GuildText && interaction.channel?.type !== ChannelType.GuildVoice)) {
+    await replyCard(interaction, 'サーバーのチャンネルで操作してください', '対象サーバー内のテキストチャンネルかVCチャットから実行できます。', 0xe5a84b);
     return;
   }
   const sub = interaction.options.getSubcommand();
@@ -45,7 +46,7 @@ async function handleCommand(interaction: ChatInputCommandInteraction): Promise<
     if (sub === 'start') {
       const state = interaction.guild!.voiceStates.cache.get(interaction.user.id);
       if (!state?.channelId) throw new Error('先にVCへ参加してください');
-      const meeting = await service.start(interaction.guild!, state.channelId, interaction.user.id, interaction.options.getString('title'), interaction.channel as TextChannel);
+      const meeting = await service.start(interaction.guild!, state.channelId, interaction.user.id, interaction.options.getString('title'), interaction.channel as MeetingOutputChannel);
       await replyCard(interaction, '会議を開始しました', `会議ID: \`${meeting.id}\`\nあなたの録音同意は記録済みです。ほかの参加者はこのチャンネルの案内から各自で同意を選べます。`, 0x22a699);
     } else if (sub === 'stop') {
       const active = store.activeMeeting(config.guildId);

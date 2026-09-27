@@ -10,7 +10,7 @@ Discord VCの参加者別音声を、本人が同意した時点から文字起�
 - 一部欠損・Bot再起動の記録と、部分会議記録の確定
 - LLM連携は`SUMMARY_MODE=ollama`で明示的に有効化でき、既定では完全に無効
 
-Discordに投稿済みの添付は、30日後も自動削除しません。開始コマンドを実行するテキストチャンネルはVC参加者が閲覧できる場所を選んでください。
+Discordに投稿済みの添付は、30日後も自動削除しません。開始コマンドを実行する通常テキストチャンネルまたはVCチャットは、VC参加者が閲覧できる場所を選んでください。
 
 Discordアプリは作成済みです。導入時の操作は[Discordアプリの初期設定](docs/discord-setup.md)を参照してください。
 
@@ -19,11 +19,11 @@ Discordアプリは作成済みです。導入時の操作は[Discordアプリ�
 - DiscordアプリとBotトークン、対象Guild ID
 - RyzenホストのNVIDIA GPUとドライバ
 - Docker Engine / Composeと、STT用のPython 3.12環境
-- Botに対象VCの`View Channel`・`Connect`、開始コマンドを実行するテキストチャンネルの`View Channel`・`Send Messages`・`Attach Files`・`Read Message History`・`Embed Links`権限
+- Botに対象VCの`View Channel`・`Connect`、開始コマンドを実行する通常テキストチャンネルまたはVCチャットの`View Channel`・`Send Messages`・`Attach Files`・`Read Message History`・`Embed Links`権限
 
 非公開のVCや会議テキストチャンネルでは、サーバーへのBot招待時に選んだ権限だけでは足りません。各チャンネルの権限設定でCordScribeロールを追加し、上記の権限を許可してください。
 
-Discordアプリを`bot`と`applications.commands`で対象Guildに追加します。Bot Gateway Intentは`Guilds`と`GuildVoiceStates`だけで、Message Content Intentは不要です。`/meeting`の操作ロールは不要です。開始は対象Guild内の任意の通常テキストチャンネルから行えます。以後の操作と会議記録の投稿先は開始チャンネルです。
+Discordアプリを`bot`と`applications.commands`で対象Guildに追加します。Bot Gateway Intentは`Guilds`と`GuildVoiceStates`だけで、Message Content Intentは不要です。`/meeting`の操作ロールは不要です。開始は対象Guild内の通常テキストチャンネルまたはVCチャットから行えます。以後の操作と会議記録の投稿先は開始チャンネルです。
 
 ## ローカル開発
 
@@ -56,7 +56,7 @@ STTは起動時にGPUへロードし、会議がなければ5分後に自動解�
 
 ## 操作
 
-VC参加者が、対象Guild内の任意の通常テキストチャンネルで`/meeting start`を実行します。記録対象は実行者が参加中のVCです。開始時点のVC参加者全員が閲覧できるチャンネルを選んでください。コマンド実行者は開始時に同意済みとなり、ほかの参加者は同じテキストチャンネルに出る案内のボタンで同意・拒否・撤回を選びます。停止は開始チャンネルから`/meeting stop`です。停止後の処理は非同期で、同じチャンネルの`/meeting status`で待ち行列を確認できます。
+VC参加者が、対象Guild内の通常テキストチャンネルまたはVCチャットで`/meeting start`を実行します。記録対象は実行者が参加中のVCです。開始時点のVC参加者全員が閲覧できるチャンネルを選んでください。コマンド実行者は開始時に同意済みとなり、ほかの参加者は同じチャンネルに出る案内のボタンで同意・拒否・撤回を選びます。停止は開始チャンネルから`/meeting stop`です。停止後の処理は非同期で、同じチャンネルの`/meeting status`で待ち行列を確認できます。
 
 Botクラッシュ後は`/meeting finalize id:<会議ID>`で欠損を明示した部分会議記録を作成します。投稿済みファイルは`/meeting transcript`で確認できます。`/meeting delete`はBotの投稿を削除したうえで会議DBを削除します。Discordの利用者が既にダウンロードした添付ファイルは回収できません。
 

@@ -1,10 +1,12 @@
-import { AttachmentBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, EmbedBuilder, type TextChannel } from 'discord.js';
+import { AttachmentBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, EmbedBuilder, type TextChannel, type VoiceChannel } from 'discord.js';
 import type { Store, Delivery } from './db.js';
 import type { Meeting } from './types.js';
 
 const MENTIONS = { parse: [] as [] };
 const COLORS = { recording: 0xe55b6b, summary: 0x22a699, transcript: 0x568be3, warning: 0xe5a84b };
 const safe = (value: string) => value.replaceAll('@', '@\u200b').replaceAll('`', 'ˋ');
+
+export type MeetingOutputChannel = TextChannel | VoiceChannel;
 
 function consentButtons(meeting: Meeting, disabled = false): ActionRowBuilder<ButtonBuilder> {
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
@@ -45,7 +47,7 @@ function splitUtf8(text: string, maxBytes: number): Buffer[] {
 }
 
 export class Publisher {
-  constructor(readonly store: Store, readonly channel: TextChannel, readonly summaryEnabled = false) {}
+  constructor(readonly store: Store, readonly channel: MeetingOutputChannel, readonly summaryEnabled = false) {}
 
   private async existing(delivery: Delivery): Promise<string | undefined> {
     if (delivery.message_id) {

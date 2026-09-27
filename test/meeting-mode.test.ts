@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import type { Client } from 'discord.js';
+import { ChannelType, type Client, type VoiceChannel } from 'discord.js';
 import { loadConfig } from '../src/config.js';
 import { Store } from '../src/db.js';
 import { MeetingService } from '../src/meeting.js';
@@ -80,4 +80,29 @@ test('Markdown transcript keeps evidence IDs, three-hour offsets, and gaps', () 
 test('Ollama mode requires an explicit switch and loopback endpoint', () => {
   assert.throws(() => loadConfig({ ...required, SUMMARY_MODE: 'ollama', OLLAMA_BASE_URL: 'https://example.com' }), /local HTTP/);
   assert.equal(loadConfig({ ...required, SUMMARY_MODE: 'ollama' }).summaryMode, 'ollama');
+});
+
+test('a VC chat can retain the consent notice and transcript as the meeting output', async () => {
+  const store = new Store(':memory:');
+  const sent: { files: { name: string }[]; embeds: unknown[] }[] = [];
+  const channel = {
+    id: 'voice', guildId: 'guild', type: ChannelType.GuildVoice,
+    client: { user: { id: 'bot' } },
+    messages: { fetch: async () => ({ find: () => undefined }) },
+    send: async (payload: typeof sent[number]) => { sent.push(payload); return { id: `message-${sent.length}` }; },
+  } as unknown as VoiceChannel;
+  const client = { channels: { fetch: async (id: string) => id === 'voice' ? channel : null } } as unknown as Client;
+  const service = new MeetingService(loadConfig(required), store, client);
+  try {
+    const meeting = store.createMeeting({ guild_id: 'guild', voice_channel_id: 'voice', output_channel_id: 'voice', started_by_user_id: 'user', title: 'VCチャット試験', config_snapshot_json: '{}' });
+    const publisher = await service.publisherFor(meeting);
+    await publisher.notice(meeting);
+    await publisher.transcript(meeting, '# 会議記録データ');
+    assert.equal(sent.length, 2);
+    assert.equal(sent[0]?.embeds.length, 1);
+    assert.match(sent[1]?.files[0]?.name ?? '', /\.md$/);
+  } finally {
+    await service.shutdown();
+    store.close();
+  }
 });

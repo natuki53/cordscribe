@@ -1,9 +1,9 @@
 import { joinVoiceChannel, entersState, VoiceConnectionStatus, type VoiceConnection } from '@discordjs/voice';
-import { ChannelType, PermissionFlagsBits, type Client, type Guild, type TextChannel, type VoiceState } from 'discord.js';
+import { ChannelType, PermissionFlagsBits, type Client, type Guild, type VoiceState } from 'discord.js';
 import type { Config } from './config.js';
 import { AudioReceiver } from './audio.js';
 import { Store } from './db.js';
-import { Publisher } from './publish.js';
+import { Publisher, type MeetingOutputChannel } from './publish.js';
 import { OllamaSummarizer, renderTranscript } from './summary.js';
 import { AudioBudget, SttClient, SttQueue } from './stt.js';
 import type { ConsentStatus, Meeting } from './types.js';
@@ -57,13 +57,13 @@ export class MeetingService {
 
   async publisherFor(meeting: Meeting): Promise<Publisher> {
     const channel = await this.client.channels.fetch(meeting.output_channel_id);
-    if (!channel || channel.type !== ChannelType.GuildText || channel.guildId !== meeting.guild_id) {
-      throw new Error('会議を開始したテキストチャンネルが見つかりません');
+    if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildVoice) || channel.guildId !== meeting.guild_id) {
+      throw new Error('会議を開始したチャンネルが見つかりません');
     }
     return new Publisher(this.store, channel, !!this.summarizer);
   }
 
-  async start(guild: Guild, voiceChannelId: string, userId: string, title: string | null, output: TextChannel): Promise<Meeting> {
+  async start(guild: Guild, voiceChannelId: string, userId: string, title: string | null, output: MeetingOutputChannel): Promise<Meeting> {
     if (this.live || this.store.activeMeeting(guild.id)) throw new Error('A meeting is already active');
     const voice = guild.channels.cache.get(voiceChannelId);
     if (!voice || voice.type !== ChannelType.GuildVoice) throw new Error('Join a voice channel before starting');
@@ -73,17 +73,17 @@ export class MeetingService {
     if (permissions && (!permissions.has(PermissionFlagsBits.ViewChannel) || !permissions.has(PermissionFlagsBits.Connect))) {
       throw new Error('Bot needs View Channel and Connect permissions in this voice channel');
     }
-    if (output.guildId !== guild.id) throw new Error('このサーバーのテキストチャンネルで開始してください');
+    if (output.guildId !== guild.id) throw new Error('このサーバーのチャンネルで開始してください');
     const outputPermissions = botMember && output.permissionsFor(botMember);
     if (outputPermissions && [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.EmbedLinks]
       .some((permission) => !outputPermissions.has(permission))) {
-      throw new Error('Bot needs View Channel, Send Messages, Attach Files, Read Message History, and Embed Links permissions in this text channel');
+      throw new Error('Bot needs View Channel, Send Messages, Attach Files, Read Message History, and Embed Links permissions in this channel');
     }
     for (const state of guild.voiceStates.cache.values()) {
       if (state.channelId !== voice.id || state.id === guild.client.user?.id || state.member?.user.bot) continue;
       const member = state.member ?? await guild.members.fetch(state.id).catch(() => null);
       if (!member || !output.permissionsFor(member)?.has(PermissionFlagsBits.ViewChannel)) {
-        throw new Error('VC参加者全員が閲覧できるテキストチャンネルで開始してください');
+        throw new Error('VC参加者全員が閲覧できるチャンネルで開始してください');
       }
     }
     await this.ensureSttReady();
