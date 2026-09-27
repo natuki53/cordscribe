@@ -1,5 +1,5 @@
 import { joinVoiceChannel, entersState, VoiceConnectionStatus, type VoiceConnection } from '@discordjs/voice';
-import { ChannelType, PermissionFlagsBits, type Guild, type TextChannel, type VoiceState } from 'discord.js';
+import { ChannelType, PermissionFlagsBits, type Client, type Guild, type TextChannel, type VoiceState } from 'discord.js';
 import type { Config } from './config.js';
 import { AudioReceiver } from './audio.js';
 import { Store } from './db.js';
@@ -29,11 +29,11 @@ export class MeetingService {
   private stopping: Promise<void> | null = null;
   private monitor: NodeJS.Timeout;
   readonly stt: SttClient;
-  readonly summarizer: OllamaSummarizer;
+  readonly summarizer: OllamaSummarizer | null;
 
-  constructor(readonly config: Config, readonly store: Store, readonly output: TextChannel) {
+  constructor(readonly config: Config, readonly store: Store, readonly client: Client) {
     this.stt = new SttClient(config.sttBaseUrl);
-    this.summarizer = new OllamaSummarizer(store, config.ollamaBaseUrl, config.ollamaModel, config.timeZone);
+    this.summarizer = config.summaryMode === 'ollama' ? new OllamaSummarizer(store, config.ollamaBaseUrl, config.ollamaModel, config.timeZone) : null;
     this.monitor = setInterval(() => { void this.monitorMeeting().catch((error) => this.logError('MONITOR_FAILED', error)); }, 5000);
   }
 
@@ -43,7 +43,7 @@ export class MeetingService {
 
   private async ensureSttReady(): Promise<void> {
     // An active chat request may be delayed; meetings own the shared GPU first.
-    try {
+    if (this.summarizer) try {
       const response = await fetch(`${this.config.ollamaBaseUrl}/api/generate`, {
         method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ model: this.config.ollamaModel, prompt: '', keep_alive: 0, stream: false }),
@@ -55,7 +55,15 @@ export class MeetingService {
     if (!(await this.stt.ready())) throw new Error('STT is not ready');
   }
 
-  async start(guild: Guild, voiceChannelId: string, userId: string, title: string | null): Promise<Meeting> {
+  async publisherFor(meeting: Meeting): Promise<Publisher> {
+    const channel = await this.client.channels.fetch(meeting.output_channel_id);
+    if (!channel || channel.type !== ChannelType.GuildText || channel.guildId !== meeting.guild_id) {
+      throw new Error('会議を開始したテキストチャンネルが見つかりません');
+    }
+    return new Publisher(this.store, channel, !!this.summarizer);
+  }
+
+  async start(guild: Guild, voiceChannelId: string, userId: string, title: string | null, output: TextChannel): Promise<Meeting> {
     if (this.live || this.store.activeMeeting(guild.id)) throw new Error('A meeting is already active');
     const voice = guild.channels.cache.get(voiceChannelId);
     if (!voice || voice.type !== ChannelType.GuildVoice) throw new Error('Join a voice channel before starting');
@@ -65,16 +73,24 @@ export class MeetingService {
     if (permissions && (!permissions.has(PermissionFlagsBits.ViewChannel) || !permissions.has(PermissionFlagsBits.Connect))) {
       throw new Error('Bot needs View Channel and Connect permissions in this voice channel');
     }
-    const outputPermissions = botMember && this.output.permissionsFor(botMember);
-    if (outputPermissions && [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.ReadMessageHistory]
+    if (output.guildId !== guild.id) throw new Error('このサーバーのテキストチャンネルで開始してください');
+    const outputPermissions = botMember && output.permissionsFor(botMember);
+    if (outputPermissions && [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.AttachFiles, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.EmbedLinks]
       .some((permission) => !outputPermissions.has(permission))) {
-      throw new Error('Bot needs View Channel, Send Messages, Attach Files, and Read Message History permissions in the meeting channel');
+      throw new Error('Bot needs View Channel, Send Messages, Attach Files, Read Message History, and Embed Links permissions in this text channel');
+    }
+    for (const state of guild.voiceStates.cache.values()) {
+      if (state.channelId !== voice.id || state.id === guild.client.user?.id || state.member?.user.bot) continue;
+      const member = state.member ?? await guild.members.fetch(state.id).catch(() => null);
+      if (!member || !output.permissionsFor(member)?.has(PermissionFlagsBits.ViewChannel)) {
+        throw new Error('VC参加者全員が閲覧できるテキストチャンネルで開始してください');
+      }
     }
     await this.ensureSttReady();
     let meeting = this.store.createMeeting({
-      guild_id: guild.id, voice_channel_id: voice.id, output_channel_id: this.output.id,
+      guild_id: guild.id, voice_channel_id: voice.id, output_channel_id: output.id,
       started_by_user_id: userId, title,
-      config_snapshot_json: JSON.stringify({ sttModel: 'large-v3-turbo', computeType: 'int8_float16', language: 'ja', beamSize: 1, silenceEndMs: 900, minUtteranceMs: 300, maxUtteranceMs: 28000, summaryModel: this.config.ollamaModel }),
+      config_snapshot_json: JSON.stringify({ sttModel: 'large-v3-turbo', computeType: 'int8_float16', language: 'ja', beamSize: 1, silenceEndMs: 900, minUtteranceMs: 300, maxUtteranceMs: 28000, summaryMode: this.config.summaryMode, summaryModel: this.summarizer ? this.config.ollamaModel : null }),
     });
     let connection: VoiceConnection | null = null;
     try {
@@ -88,12 +104,13 @@ export class MeetingService {
           this.store.join(meeting.id, state.id, state.member?.displayName ?? state.id);
         }
       }
-      const publisher = new Publisher(this.store, this.output);
+      const publisher = new Publisher(this.store, output, !!this.summarizer);
       const budget = new AudioBudget(() => { void this.stop('AUDIO_MEMORY_LIMIT').catch((error) => this.logError('AUTO_STOP_FAILED', error)); });
       const queue = new SttQueue(this.store, this.stt, budget);
       const audio = new AudioReceiver(connection.receiver, meeting.id, meeting.started_at_ms!, this.store, queue, budget,
         (reason) => { this.store.event(meeting.id, reason, 'ERROR'); void this.stop(reason).catch((error) => this.logError('AUDIO_STOP_FAILED', error)); });
       this.live = { meeting, guild, connection, audio, queue, budget, publisher, emptySince: null, warnedQueue: false, criticalQueue: false, lastKeepaliveAtMs: Date.now() };
+      await this.consent(meeting.id, userId, 'ACCEPTED');
       await publisher.notice(meeting);
       connection.on('stateChange', (_old, state) => {
         if (state.status !== VoiceConnectionStatus.Disconnected || !this.live || this.live.meeting.id !== meeting.id) return;
@@ -165,12 +182,16 @@ export class MeetingService {
     this.live = null;
     this.store.finalizeTranscription(id);
     await this.stt.unload().catch((error) => this.logError('STT_UNLOAD_FAILED', error));
-    await this.publishAndSummarize(this.store.getMeeting(id)!, live.publisher);
+    await this.publishResults(this.store.getMeeting(id)!, live.publisher);
   }
 
-  private async publishAndSummarize(meeting: Meeting, publisher: Publisher): Promise<void> {
+  private async publishResults(meeting: Meeting, publisher: Publisher): Promise<void> {
     const utterances = this.store.utterances(meeting.id);
-    await publisher.transcript(meeting, renderTranscript(meeting, this.store.participants(meeting.id), utterances));
+    await publisher.transcript(meeting, renderTranscript(meeting, this.store.participants(meeting.id), utterances, this.config.timeZone));
+    if (!this.summarizer) {
+      this.store.setStatus(meeting.id, ['TRANSCRIBED'], 'COMPLETED');
+      return;
+    }
     try {
       const result = await this.summarizer.summarize(meeting);
       await publisher.summary(this.store.getMeeting(meeting.id)!, result.markdown, result.version);
@@ -185,14 +206,15 @@ export class MeetingService {
     if (!meeting || !['INTERRUPTED', 'TRANSCRIBED'].includes(meeting.status)) throw new Error('Meeting is not ready for finalization');
     if (meeting.status === 'INTERRUPTED') this.store.finalizeTranscription(meeting.id);
     await this.stt.unload().catch(() => null);
-    await this.publishAndSummarize(this.store.getMeeting(meeting.id)!, new Publisher(this.store, this.output));
+    await this.publishResults(this.store.getMeeting(meeting.id)!, await this.publisherFor(meeting));
   }
 
   async regenerate(meetingId: string): Promise<void> {
+    if (!this.summarizer) throw new Error('LLM要約は無効です。会議記録の添付ファイルを手動でAIへ渡してください。');
     const meeting = this.store.getMeeting(meetingId);
     if (!meeting) throw new Error('会議データが見つかりません。30日後に削除されたデータは再要約できません。');
     if (!['TRANSCRIBED', 'COMPLETED'].includes(meeting.status)) throw new Error('Meeting is not transcribed');
-    const publisher = new Publisher(this.store, this.output);
+    const publisher = await this.publisherFor(meeting);
     const result = await this.summarizer.summarize(meeting);
     await publisher.summary(this.store.getMeeting(meeting.id)!, result.markdown, result.version);
   }
@@ -200,23 +222,24 @@ export class MeetingService {
   async transcript(meetingId: string): Promise<void> {
     const meeting = this.store.getMeeting(meetingId);
     if (!meeting || !['TRANSCRIBED', 'SUMMARIZING', 'COMPLETED'].includes(meeting.status)) throw new Error('No transcript is available');
-    await new Publisher(this.store, this.output).transcript(meeting, renderTranscript(meeting, this.store.participants(meeting.id), this.store.utterances(meeting.id)));
+    await (await this.publisherFor(meeting)).transcript(meeting, renderTranscript(meeting, this.store.participants(meeting.id), this.store.utterances(meeting.id), this.config.timeZone));
   }
 
   async delete(meetingId: string): Promise<void> {
     const meeting = this.store.getMeeting(meetingId);
     if (!meeting || meeting.guild_id !== this.config.guildId) throw new Error('Meeting not found');
     if (['STARTING', 'RECORDING', 'DRAINING', 'SUMMARIZING'].includes(meeting.status)) throw new Error('Stop the meeting first');
-    await new Publisher(this.store, this.output).deletePosts(meeting.id);
+    await (await this.publisherFor(meeting)).deletePosts(meeting.id);
     this.store.deleteMeeting(meeting.id);
   }
 
   async reconcilePublications(): Promise<void> {
-    const publisher = new Publisher(this.store, this.output);
     for (const meeting of this.store.recentFinished()) {
       try {
-        await publisher.transcript(meeting, renderTranscript(meeting, this.store.participants(meeting.id), this.store.utterances(meeting.id)));
-        for (const run of this.store.completedSummaries(meeting.id)) await publisher.summary(meeting, run.markdown, run.version);
+        const publisher = await this.publisherFor(meeting);
+        await publisher.transcript(meeting, renderTranscript(meeting, this.store.participants(meeting.id), this.store.utterances(meeting.id), this.config.timeZone));
+        if (this.summarizer) for (const run of this.store.completedSummaries(meeting.id)) await publisher.summary(meeting, run.markdown, run.version);
+        if (!this.summarizer && meeting.status === 'TRANSCRIBED') this.store.setStatus(meeting.id, ['TRANSCRIBED'], 'COMPLETED');
       } catch (error) { this.logError('PUBLICATION_RETRY_FAILED', error); }
     }
   }

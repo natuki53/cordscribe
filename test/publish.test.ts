@@ -28,7 +28,7 @@ test('consent and long minutes are sent as readable cards without mentions', asy
   const store = new Store(':memory:');
   try {
     const meeting = store.createMeeting({ guild_id: 'g', voice_channel_id: 'v', output_channel_id: 'c', started_by_user_id: 'u', title: '公開計画', config_snapshot_json: '{}' });
-    const sent: { content: string; embeds: { toJSON: () => { title?: string; description?: string; fields?: { name: string; value: string }[] } }[]; components?: { toJSON: () => { components: { custom_id?: string }[] } }[]; allowedMentions: { parse: string[] } }[] = [];
+    const sent: { content: string; embeds: { toJSON: () => { title?: string; description?: string; fields?: { name: string; value: string }[] } }[]; components?: { toJSON: () => { components: { custom_id?: string }[] } }[]; files?: { name: string }[]; allowedMentions: { parse: string[] } }[] = [];
     const edits: { content: string; embeds: { toJSON: () => { title?: string } }[]; components: { toJSON: () => { components: { disabled?: boolean }[] } }[] }[] = [];
     const channel = {
       client: { user: { id: 'bot' } },
@@ -42,15 +42,19 @@ test('consent and long minutes are sent as readable cards without mentions', asy
     const notice = sent[0]!;
     assert.match(notice.content, /CS:.*:NOTICE:1:0/);
     assert.match(notice.embeds[0]!.toJSON().fields?.map((field) => field.value).join(' ') ?? '', /同意前は取得しません/);
+    assert.match(notice.embeds[0]!.toJSON().description ?? '', /開始者はコマンド実行時に同意済み/);
+    assert.doesNotMatch(notice.embeds[0]!.toJSON().fields?.map((field) => field.value).join(' ') ?? '', /AI要約/);
     assert.equal(notice.components?.[0]?.toJSON().components.length, 3);
     assert.deepEqual(notice.allowedMentions.parse, []);
     await publisher.closeNotice(meeting);
     assert.match(edits[0]?.embeds[0]?.toJSON().title ?? '', /終了しました/);
     assert.match(edits[0]?.content ?? '', /CS:.*:NOTICE:1:0/);
     assert.ok(edits[0]?.components[0]?.toJSON().components.every((button) => button.disabled));
+    await publisher.transcript(meeting, '# 会議記録データ');
+    assert.match(sent[1]?.files?.[0]?.name ?? '', /\.md$/);
     await publisher.summary(meeting, `**議題**\n${'あ'.repeat(7000)}`, 1);
-    assert.ok(sent.length > 2);
-    for (const page of sent.slice(1)) {
+    assert.ok(sent.length > 3);
+    for (const page of sent.slice(2)) {
       const embed = page.embeds[0]!.toJSON();
       assert.match(embed.title ?? '', /議事録 v1/);
       assert.ok((embed.description?.length ?? 0) <= 3300);

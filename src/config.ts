@@ -2,9 +2,9 @@ export interface Config {
   discordToken: string;
   applicationId: string;
   guildId: string;
-  meetingChannelId: string;
   dbPath: string;
   sttBaseUrl: string;
+  summaryMode: 'off' | 'ollama';
   ollamaBaseUrl: string;
   ollamaModel: string;
   timeZone: string;
@@ -27,14 +27,16 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   };
   const timeZone = env.TZ || 'Asia/Tokyo';
   new Intl.DateTimeFormat('ja-JP', { timeZone });
+  const summaryMode = env.SUMMARY_MODE?.trim() || 'off';
+  if (summaryMode !== 'off' && summaryMode !== 'ollama') throw new Error('SUMMARY_MODE must be off or ollama');
   return {
     discordToken: required('DISCORD_TOKEN'),
     applicationId: required('DISCORD_APPLICATION_ID'),
     guildId: required('DISCORD_GUILD_ID'),
-    meetingChannelId: required('MEETING_CHANNEL_ID'),
     dbPath: env.DB_PATH || '/var/lib/cordscribe/cordscribe.sqlite',
     sttBaseUrl: url('STT_BASE_URL', 'http://127.0.0.1:8765'),
-    ollamaBaseUrl: url('OLLAMA_BASE_URL', 'http://127.0.0.1:11434'),
+    summaryMode,
+    ollamaBaseUrl: summaryMode === 'ollama' ? url('OLLAMA_BASE_URL', 'http://127.0.0.1:11434') : '',
     ollamaModel: env.OLLAMA_MODEL || 'qwen3.5:9b',
     timeZone,
   };

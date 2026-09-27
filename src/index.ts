@@ -1,10 +1,10 @@
 import { existsSync } from 'node:fs';
-import { Client, EmbedBuilder, GatewayIntentBits, MessageFlags, REST, Routes, SlashCommandBuilder, type ButtonInteraction, type ChatInputCommandInteraction, type TextChannel } from 'discord.js';
+import { ChannelType, Client, EmbedBuilder, GatewayIntentBits, MessageFlags, REST, Routes, SlashCommandBuilder, type ButtonInteraction, type ChatInputCommandInteraction, type TextChannel } from 'discord.js';
 import { loadConfig } from './config.js';
 import { Store } from './db.js';
 import { MeetingService } from './meeting.js';
-import { Publisher } from './publish.js';
 import type { ConsentStatus } from './types.js';
+import type { Meeting } from './types.js';
 
 if (existsSync('.env')) process.loadEnvFile('.env');
 const config = loadConfig();
@@ -13,15 +13,15 @@ const recovered = store.recover();
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 let service: MeetingService | null = null;
 
-const commands = [new SlashCommandBuilder().setName('meeting').setDescription('VC議事録')
-  .addSubcommand((sub) => sub.setName('start').setDescription('参加中のVCで議事録を開始').addStringOption((option) => option.setName('title').setDescription('会議名').setMaxLength(100)))
+const command = new SlashCommandBuilder().setName('meeting').setDescription('VC会議記録')
+  .addSubcommand((sub) => sub.setName('start').setDescription('参加中のVCを記録開始（実行者は録音に同意）').addStringOption((option) => option.setName('title').setDescription('会議名').setMaxLength(100)))
   .addSubcommand((sub) => sub.setName('stop').setDescription('会議を停止して文字起こしを確定'))
   .addSubcommand((sub) => sub.setName('status').setDescription('会議の状態を表示'))
   .addSubcommand((sub) => sub.setName('transcript').setDescription('全文を投稿').addStringOption((option) => option.setName('id').setDescription('会議ID')))
-  .addSubcommand((sub) => sub.setName('regenerate').setDescription('要約を再生成').addStringOption((option) => option.setName('id').setDescription('会議ID').setRequired(true)))
   .addSubcommand((sub) => sub.setName('finalize').setDescription('中断した会議を部分確定').addStringOption((option) => option.setName('id').setDescription('会議ID').setRequired(true)))
-  .addSubcommand((sub) => sub.setName('delete').setDescription('会議データとBot投稿を削除').addStringOption((option) => option.setName('id').setDescription('会議ID').setRequired(true)))
-  .toJSON()];
+  .addSubcommand((sub) => sub.setName('delete').setDescription('会議データとBot投稿を削除').addStringOption((option) => option.setName('id').setDescription('会議ID').setRequired(true)));
+if (config.summaryMode === 'ollama') command.addSubcommand((sub) => sub.setName('regenerate').setDescription('AI要約を再生成').addStringOption((option) => option.setName('id').setDescription('会議ID').setRequired(true)));
+const commands = [command.toJSON()];
 
 async function replyCard(interaction: ChatInputCommandInteraction | ButtonInteraction, title: string, description: string, color: number): Promise<void> {
   const embed = new EmbedBuilder().setColor(color).setTitle(title).setDescription(description.replaceAll('@', '@\u200b'));
@@ -30,37 +30,48 @@ async function replyCard(interaction: ChatInputCommandInteraction | ButtonIntera
 
 async function handleCommand(interaction: ChatInputCommandInteraction): Promise<void> {
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-  if (!service || interaction.guildId !== config.guildId || interaction.channelId !== config.meetingChannelId) {
-    await replyCard(interaction, '会議チャンネルで操作してください', '設定されたサーバーの会議チャンネルから実行できます。', 0xe5a84b);
+  if (!service || interaction.guildId !== config.guildId || interaction.channel?.type !== ChannelType.GuildText) {
+    await replyCard(interaction, 'サーバーのテキストチャンネルで操作してください', '対象サーバー内のテキストチャンネルから実行できます。', 0xe5a84b);
     return;
   }
   const sub = interaction.options.getSubcommand();
   const latest = store.latestMeeting(config.guildId);
   try {
+    const requireStartChannel = (meeting: Meeting | undefined) => {
+      if (meeting && interaction.channelId !== meeting.output_channel_id) {
+        throw new Error(`この会議は開始した <#${meeting.output_channel_id}> から操作してください`);
+      }
+    };
     if (sub === 'start') {
       const state = interaction.guild!.voiceStates.cache.get(interaction.user.id);
       if (!state?.channelId) throw new Error('先にVCへ参加してください');
-      const meeting = await service.start(interaction.guild!, state.channelId, interaction.user.id, interaction.options.getString('title'));
-      await replyCard(interaction, '会議を開始しました', `会議ID: \`${meeting.id}\`\n参加者はチャンネルに投稿された案内から同意を選べます。`, 0x22a699);
+      const meeting = await service.start(interaction.guild!, state.channelId, interaction.user.id, interaction.options.getString('title'), interaction.channel as TextChannel);
+      await replyCard(interaction, '会議を開始しました', `会議ID: \`${meeting.id}\`\nあなたの録音同意は記録済みです。ほかの参加者はこのチャンネルの案内から各自で同意を選べます。`, 0x22a699);
     } else if (sub === 'stop') {
-      if (!store.activeMeeting(config.guildId)) throw new Error('進行中の会議はありません');
+      const active = store.activeMeeting(config.guildId);
+      if (!active) throw new Error('進行中の会議はありません');
+      requireStartChannel(active);
       const pending = service.stop();
       void pending.catch((error) => console.error('MEETING_STOP_FAILED', error instanceof Error ? error.message : String(error)));
-      await replyCard(interaction, '録音を停止しました', '文字起こしの完了後、全文と議事録をこのチャンネルに投稿します。', 0x568be3);
+      await replyCard(interaction, '録音を停止しました', `文字起こし後、会議を開始した <#${active.output_channel_id}> に会議記録データを投稿します。`, 0x568be3);
     } else if (sub === 'status') {
+      requireStartChannel(latest);
       await replyCard(interaction, '会議の状態', service.status(), 0x568be3);
     } else if (sub === 'transcript') {
       const id = interaction.options.getString('id') ?? latest?.id;
       if (!id) throw new Error('会議が見つかりません');
+      requireStartChannel(store.getMeeting(id));
       await service.transcript(id);
-      await replyCard(interaction, '全文を確認しました', `会議ID: \`${id}\`\n未投稿の場合はこのチャンネルに添付しました。`, 0x568be3);
+      await replyCard(interaction, '会議記録データを確認しました', `会議ID: \`${id}\`\n未投稿の場合は会議を開始したチャンネルに添付しました。`, 0x568be3);
     } else if (sub === 'regenerate' || sub === 'finalize') {
       const id = interaction.options.getString('id', true);
+      requireStartChannel(store.getMeeting(id));
       const pending = sub === 'regenerate' ? service.regenerate(id) : service.finalize(id);
       void pending.catch((error) => console.error(`MEETING_${sub.toUpperCase()}_FAILED`, error instanceof Error ? error.message : String(error)));
-      await replyCard(interaction, sub === 'regenerate' ? '議事録を再生成しています' : '部分議事録を作成しています', `会議ID: \`${id}\`\n完了後にこのチャンネルへ投稿します。`, 0x568be3);
+      await replyCard(interaction, sub === 'regenerate' ? 'AI要約を再生成しています' : '部分会議記録を作成しています', `会議ID: \`${id}\`\n完了後に会議を開始したチャンネルへ投稿します。`, 0x568be3);
     } else if (sub === 'delete') {
       const id = interaction.options.getString('id', true);
+      requireStartChannel(store.getMeeting(id));
       await service.delete(id);
       await replyCard(interaction, '会議記録を削除しました', `会議ID: \`${id}\`\nBotに保存したデータとBotの投稿を削除しました。`, 0xe5a84b);
     }
@@ -92,16 +103,14 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 });
 client.once('clientReady', async () => {
   try {
-    const guild = await client.guilds.fetch(config.guildId);
-    const channel = await guild.channels.fetch(config.meetingChannelId);
-    if (!channel?.isTextBased() || !('send' in channel)) throw new Error('MEETING_CHANNEL_ID must be a text channel');
-    service = new MeetingService(config, store, channel as TextChannel);
+    await client.guilds.fetch(config.guildId);
+    service = new MeetingService(config, store, client);
     const rest = new REST().setToken(config.discordToken);
     await rest.put(Routes.applicationGuildCommands(config.applicationId, config.guildId), { body: commands });
     await service.reconcilePublications();
     for (const meeting of recovered) {
       if (meeting.guild_id !== config.guildId) continue;
-      const publisher = new Publisher(store, channel as TextChannel);
+      const publisher = await service.publisherFor(meeting);
       await publisher.closeNotice(meeting).catch((error) => console.error('NOTICE_CLOSE_FAILED', error instanceof Error ? error.message : String(error)));
       await publisher.warning(meeting, `会議 ${meeting.id} はBot再起動で中断しました。未処理音声は欠損として記録しました。会議チャンネルで /meeting finalize を実行すると部分議事録を確定できます。`);
     }

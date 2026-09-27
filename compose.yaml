@@ -4,6 +4,8 @@ services:
     image: cordscribe-bot:local
     network_mode: host
     env_file: ./runtime/bot.env
+    environment:
+      SUMMARY_MODE: "off"
     user: "1000:1000"
     volumes:
       - ./data:/var/lib/cordscribe

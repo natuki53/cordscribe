@@ -45,7 +45,7 @@ function splitUtf8(text: string, maxBytes: number): Buffer[] {
 }
 
 export class Publisher {
-  constructor(readonly store: Store, readonly channel: TextChannel) {}
+  constructor(readonly store: Store, readonly channel: TextChannel, readonly summaryEnabled = false) {}
 
   private async existing(delivery: Delivery): Promise<string | undefined> {
     if (delivery.message_id) {
@@ -59,18 +59,18 @@ export class Publisher {
   private async send(delivery: Delivery, content: string, file?: Buffer, components?: ActionRowBuilder<ButtonBuilder>[], embed?: EmbedBuilder): Promise<void> {
     const existing = await this.existing(delivery);
     if (existing) { this.store.delivered(delivery.id, existing); return; }
-    const attachment = file ? [new AttachmentBuilder(file, { name: `CordScribe-全文-${delivery.meeting_id}-${delivery.part + 1}.txt` })] : [];
+    const attachment = file ? [new AttachmentBuilder(file, { name: `CordScribe-会議記録-${delivery.meeting_id}-${delivery.part + 1}.md` })] : [];
     const sent = await this.channel.send({ content: `${content}\n-# ${delivery.marker}`, files: attachment, components, embeds: embed ? [embed] : [], allowedMentions: MENTIONS });
     this.store.delivered(delivery.id, sent.id);
   }
 
   async notice(meeting: Meeting): Promise<void> {
     const embed = new EmbedBuilder().setColor(COLORS.recording).setTitle('🔴 会議記録への同意')
-      .setDescription(`**${safe(meeting.title ?? '会議')}**\nVCにいる本人が、下のボタンで録音への意思を選んでください。`)
+      .setDescription(`**${safe(meeting.title ?? '会議')}**\n開始者はコマンド実行時に同意済みです。ほかのVC参加者は、下のボタンで録音への意思を選んでください。`)
       .addFields(
         { name: '🎙️ 記録する音声', value: '「同意して参加」を押した人の音声だけを取得し、文字起こしします。同意前は取得しません。' },
         { name: '↩️ 途中で撤回する', value: '撤回後の取得を止め、未確定の音声を破棄します。撤回前に確定した発言は議事録に残ります。' },
-        { name: '📄 投稿と保存', value: '全文と議事録はこのチャンネルに投稿します。Bot内の本文は30日後に削除します。Discordへの投稿は自動削除しません。' },
+        { name: '📄 投稿と保存', value: `${this.summaryEnabled ? '文字起こしデータとAI要約' : '文字起こしデータ'}をこのチャンネルに投稿します。Bot内の本文は30日後に削除します。Discordへの投稿は自動削除しません。` },
       ).setFooter({ text: `会議ID: ${meeting.id}` });
     await this.send(this.store.delivery(meeting.id, 'NOTICE', 1, 0), '会議記録の同意を選んでください。', undefined, [consentButtons(meeting)], embed);
   }
@@ -81,7 +81,7 @@ export class Publisher {
     const message = await this.channel.messages.fetch(delivery.message_id).catch(() => null);
     if (!message) return;
     const embed = new EmbedBuilder().setColor(COLORS.transcript).setTitle('⏹️ 会議記録は終了しました')
-      .setDescription(`**${safe(meeting.title ?? '会議')}**\n録音と同意の受付を終了しました。全文と議事録はこのチャンネルに投稿します。`)
+      .setDescription(`**${safe(meeting.title ?? '会議')}**\n録音と同意の受付を終了しました。${this.summaryEnabled ? '文字起こしデータとAI要約' : '文字起こしデータ'}をこのチャンネルに投稿します。`)
       .setFooter({ text: `会議ID: ${meeting.id}` });
     await message.edit({ content: `会議記録を終了しました。\n-# ${delivery.marker}`, embeds: [embed], components: [consentButtons(meeting, true)], allowedMentions: MENTIONS });
   }
@@ -90,11 +90,11 @@ export class Publisher {
     const parts = splitUtf8(text, 7 * 1024 * 1024);
     for (let i = 0; i < parts.length; i++) {
       const partial = meeting.transcription_result === 'PARTIAL';
-      const embed = new EmbedBuilder().setColor(COLORS.transcript).setTitle(`📄 文字起こし全文 ${i + 1}/${parts.length}`)
-        .setDescription(`${safe(meeting.title ?? '会議')}の発言を、時刻・話者・根拠ID付きのテキストにまとめました。下の添付ファイルから確認できます。`)
+      const embed = new EmbedBuilder().setColor(COLORS.transcript).setTitle(`📄 会議記録データ ${i + 1}/${parts.length}`)
+        .setDescription(`${safe(meeting.title ?? '会議')}の発言を、時刻・話者・発言ID付きのMarkdownにまとめました。添付ファイルを確認するか、手動でAIへ渡せます。`)
         .addFields({ name: '文字起こしの状態', value: partial ? '一部の音声を文字起こしできませんでした。欠損箇所は添付内に表示しています。' : '完了' })
         .setFooter({ text: `会議ID: ${meeting.id}` });
-      await this.send(this.store.delivery(meeting.id, 'TRANSCRIPT', 1, i), `全文 ${i + 1}/${parts.length}`, parts[i], undefined, embed);
+      await this.send(this.store.delivery(meeting.id, 'TRANSCRIPT', 1, i), `会議記録データ ${i + 1}/${parts.length}`, parts[i], undefined, embed);
     }
   }
 

@@ -319,8 +319,39 @@ export function renderSummary(summary: MeetingSummary, meeting: Meeting, partici
   return lines.join('\n');
 }
 
-export function renderTranscript(meeting: Meeting, participants: Participant[], utterances: Utterance[]): string {
+export function renderTranscript(meeting: Meeting, participants: Participant[], utterances: Utterance[], timeZone = 'Asia/Tokyo'): string {
   const names = new Map(participants.map((p) => [p.user_id, p.display_name_snapshot]));
-  const lineSafe = (value: string) => value.replaceAll('\r', '\\r').replaceAll('\n', '\\n');
-  return [`CordScribe Transcript / meeting=${meeting.id}`, `title=${lineSafe(meeting.title ?? '会議')}`, `result=${meeting.transcription_result ?? '不明'}`, '', ...utterances.map((u) => `[${u.public_id}] ${Math.floor(u.started_offset_ms / 60000).toString().padStart(2, '0')}:${((u.started_offset_ms % 60000) / 1000).toFixed(3).padStart(6, '0')} ${lineSafe(names.get(u.speaker_user_id) ?? '不明')}: ${u.status === 'TRANSCRIBED' ? lineSafe(u.text ?? '') : u.status === 'IGNORED' ? '(音声のみ)' : `(欠損: ${u.status})`}`)].join('\n');
+  const speakerIds = new Map(participants.map((p, index) => [p.user_id, `P${String(index + 1).padStart(2, '0')}`]));
+  const lineSafe = (value: string) => value.replaceAll('\\', '\\\\').replaceAll('\r', '\\r').replaceAll('\n', '\\n').replaceAll('`', '\\`').replaceAll('*', '\\*');
+  const offset = (ms: number) => {
+    const hours = Math.floor(ms / 3_600_000).toString().padStart(2, '0');
+    const minutes = Math.floor(ms / 60_000 % 60).toString().padStart(2, '0');
+    const seconds = Math.floor(ms / 1000 % 60).toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}.${(ms % 1000).toString().padStart(3, '0')}`;
+  };
+  const date = (ms: number | null) => ms === null ? '不明' : new Date(ms).toLocaleString('ja-JP', { timeZone });
+  const missing = utterances.filter((u) => u.status === 'FAILED' || u.status === 'LOST').length;
+  const lines = [
+    `# ${lineSafe(meeting.title ?? '会議')} — 会議記録データ`,
+    '',
+    `- 会議ID: ${meeting.id}`,
+    `- 開始: ${date(meeting.started_at_ms)} (${timeZone})`,
+    `- 終了: ${date(meeting.stopped_at_ms)} (${timeZone})`,
+    `- 文字起こし: ${meeting.transcription_result === 'PARTIAL' ? `一部欠損 (${missing}件)` : meeting.transcription_result === 'COMPLETE' ? '完了' : '未確定'}`,
+    `- 発言区間: ${utterances.length}件`,
+    '',
+    '## 参加者',
+    '',
+    ...(participants.length ? participants.map((p) => `- ${speakerIds.get(p.user_id)}: ${lineSafe(p.display_name_snapshot)}`) : ['- なし']),
+    '',
+    '## 発言記録',
+    '',
+    '時刻は会議開始からの経過時間です。発言IDは元の発言を参照するための番号です。欠損は内容を推測せず明示しています。',
+    '',
+    ...utterances.map((u) => {
+      const body = u.status === 'TRANSCRIBED' ? lineSafe(u.text ?? '') : u.status === 'IGNORED' ? '（短い音声などのため文字起こしなし）' : `（文字起こし欠損: ${u.status}）`;
+      return `- [${u.public_id}] ${offset(u.started_offset_ms)} ${speakerIds.get(u.speaker_user_id) ?? 'P??'} ${lineSafe(names.get(u.speaker_user_id) ?? '不明')}: ${body}`;
+    }),
+  ];
+  return lines.join('\n');
 }
