@@ -4,7 +4,9 @@
 
 2026-09-29の複数サーバー対応: `DISCORD_GUILD_IDS`の各Guildにコマンドを登録し、開始準備から録音・文字起こし・投稿まで全Guild合計1会議に制限する。STT準備待ちの間に別Guildから開始しても拒否し、開始失敗後は予約を解放する。会議IDを指定した取得・停止・部分確定・削除・同意、状態表示、VC参加イベントは会議のGuildに限定する。別会議の録音中には部分確定・再要約を拒否し、STTモデルを解放しないことを自動試験で確認した。
 
-ぶいなびへのBot招待はDiscord画面とBot APIで確認済み。進行中の会議が0件であることを確認してから、実装`50f1508`をRyzen機へ配置した。`runtime/bot.env`の`DISCORD_GUILD_IDS`は上記2件、権限`0600`を維持し、トークン値は表示していない。起動後の`CORDSCRIBE_READY`、両Guildへの`start / stop / status / transcript / finalize / delete`登録、`SUMMARY_MODE=off`、STTのsystemd `active`と`/health` HTTP 200を確認した。`/ready=false`はアイドル時のモデル解放による。ぶいなびの非公開VCのアクセス権限設定と実VC試験は、この時点では未完了。
+ぶいなびへのBot招待はDiscord画面とBot APIで確認済み。進行中の会議が0件であることを確認してから、実装`50f1508`をRyzen機へ配置した。`runtime/bot.env`の`DISCORD_GUILD_IDS`は上記2件、権限`0600`を維持し、トークン値は表示していない。起動後の`CORDSCRIBE_READY`、両Guildへの`start / stop / status / transcript / finalize / delete`登録、`SUMMARY_MODE=off`、STTのsystemd `active`と`/health` HTTP 200を確認した。`/ready=false`はアイドル時のモデル解放による。
+
+同日、利用者の承認を受けて、ぶいなびの「作業VC ①」「作業VC ②」「限界作業部屋」と、ぶいなび運営の「雑談」「共有用」にCordScribeロールを個別追加した。Bot APIで5件すべての閲覧・送信・添付・履歴閲覧・埋め込みリンクと、3件のVCの接続権限が有効であることを確認した。対象外のチャンネルとカテゴリにはCordScribeの個別上書きを追加していない。各対象チャンネルはカテゴリ権限と非同期になっているため、将来同期し直す場合はBot権限を再確認する。ぶいなびでの実VC会議による録音とMarkdown投稿は未検証。
 
 2026-09-27の仕様変更: 以下のOllama・要約に関する確認済み結果は旧構成の履歴である。現行構成は`SUMMARY_MODE=off`で自動要約せず、通常テキストチャンネルまたはVCチャットから開始し、開始者を含む参加者全員がボタンで同意した後に各人の音声を取得する。Markdownの会議記録データだけを開始チャンネルへ投稿し、後続操作もそこで行う。短い実VC会議で開始者のボタン同意と投稿を確認したが、転写精度は未達である。
 
