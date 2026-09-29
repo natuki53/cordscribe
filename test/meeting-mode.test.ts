@@ -25,7 +25,7 @@ test('default mode ignores Ollama settings and makes no Ollama request', async (
     service.stt.ready = async () => true;
     await (service as unknown as { ensureSttReady(): Promise<void> }).ensureSttReady();
     assert.equal(calls, 0);
-    await assert.rejects(service.regenerate('missing'), /LLM要約は無効/);
+    assert.throws(() => service.regenerate('guild', 'missing'), /LLM要約は無効/);
   } finally {
     globalThis.fetch = originalFetch;
     await service.shutdown();

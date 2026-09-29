@@ -26,6 +26,8 @@ const MAX_MEETING_MS = 8 * 60 * 60 * 1000;
 
 export class MeetingService {
   private live: LiveMeeting | null = null;
+  private starting = false;
+  private resultProcessing = false;
   private stopping: Promise<void> | null = null;
   private monitor: NodeJS.Timeout;
   readonly stt: SttClient;
@@ -56,6 +58,7 @@ export class MeetingService {
   }
 
   async publisherFor(meeting: Meeting): Promise<Publisher> {
+    if (!this.config.guildIds.includes(meeting.guild_id)) throw new Error('会議が見つかりません');
     const channel = await this.client.channels.fetch(meeting.output_channel_id);
     if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildVoice) || channel.guildId !== meeting.guild_id) {
       throw new Error('会議を開始したチャンネルが見つかりません');
@@ -64,7 +67,15 @@ export class MeetingService {
   }
 
   async start(guild: Guild, voiceChannelId: string, userId: string, title: string | null, output: MeetingOutputChannel): Promise<Meeting> {
-    if (this.live || this.store.activeMeeting(guild.id)) throw new Error('A meeting is already active');
+    if (!this.config.guildIds.includes(guild.id)) throw new Error('このサーバーでは利用できません');
+    if (this.starting || this.live || this.stopping || this.resultProcessing) throw new Error('別の会議が録音または処理中です。終了後に開始してください。');
+    if (this.store.activeMeeting(guild.id)) throw new Error('このサーバーには処理中の会議があります');
+    this.starting = true;
+    try { return await this.startInternal(guild, voiceChannelId, userId, title, output); }
+    finally { this.starting = false; }
+  }
+
+  private async startInternal(guild: Guild, voiceChannelId: string, userId: string, title: string | null, output: MeetingOutputChannel): Promise<Meeting> {
     const voice = guild.channels.cache.get(voiceChannelId);
     if (!voice || voice.type !== ChannelType.GuildVoice) throw new Error('Join a voice channel before starting');
     if (guild.voiceStates.cache.get(userId)?.channelId !== voice.id) throw new Error('Only a participant in the voice channel may start');
@@ -129,9 +140,9 @@ export class MeetingService {
     }
   }
 
-  async consent(meetingId: string, userId: string, status: ConsentStatus): Promise<string> {
+  async consent(guildId: string, meetingId: string, userId: string, status: ConsentStatus): Promise<string> {
     const live = this.live;
-    if (!live || live.meeting.id !== meetingId || live.meeting.status !== 'RECORDING') throw new Error('Meeting is not recording');
+    if (!live || live.meeting.guild_id !== guildId || live.meeting.id !== meetingId || live.meeting.status !== 'RECORDING') throw new Error('Meeting is not recording');
     const state = live.guild.voiceStates.cache.get(userId);
     if (state?.channelId !== live.meeting.voice_channel_id) throw new Error('Join the meeting voice channel first');
     const member = state.member ?? await live.guild.members.fetch(userId).catch(() => null);
@@ -152,7 +163,7 @@ export class MeetingService {
 
   async voiceState(oldState: VoiceState, newState: VoiceState): Promise<void> {
     const live = this.live;
-    if (!live || live.meeting.status !== 'RECORDING') return;
+    if (!live || newState.guild.id !== live.meeting.guild_id || live.meeting.status !== 'RECORDING') return;
     const id = live.meeting.id;
     const voiceId = live.meeting.voice_channel_id;
     if (oldState.channelId === voiceId && newState.channelId !== voiceId) {
@@ -174,6 +185,11 @@ export class MeetingService {
     if (!live) throw new Error('No active meeting');
     this.stopping = this.stopInternal(live, reason).finally(() => { this.stopping = null; });
     return this.stopping;
+  }
+
+  stopForGuild(guildId: string): Promise<void> {
+    if (this.live?.meeting.guild_id !== guildId) throw new Error('進行中の会議はありません');
+    return this.stop();
   }
 
   private async stopInternal(live: LiveMeeting, reason: string): Promise<void> {
@@ -207,33 +223,53 @@ export class MeetingService {
     }
   }
 
-  async finalize(meetingId: string): Promise<void> {
+  private requireMeeting(guildId: string, meetingId: string): Meeting {
     const meeting = this.store.getMeeting(meetingId);
-    if (!meeting || !['INTERRUPTED', 'TRANSCRIBED'].includes(meeting.status)) throw new Error('Meeting is not ready for finalization');
+    if (!this.config.guildIds.includes(guildId) || !meeting || meeting.guild_id !== guildId) throw new Error('会議が見つかりません');
+    return meeting;
+  }
+
+  private reserveResultProcessing(): void {
+    if (this.starting || this.live || this.stopping || this.resultProcessing) throw new Error('別の会議が録音または処理中です。終了後に実行してください。');
+    this.resultProcessing = true;
+  }
+
+  finalize(guildId: string, meetingId: string): Promise<void> {
+    const meeting = this.requireMeeting(guildId, meetingId);
+    if (!['INTERRUPTED', 'TRANSCRIBED'].includes(meeting.status)) throw new Error('Meeting is not ready for finalization');
+    this.reserveResultProcessing();
+    return this.finalizeInternal(meeting).finally(() => { this.resultProcessing = false; });
+  }
+
+  private async finalizeInternal(meeting: Meeting): Promise<void> {
     if (meeting.status === 'INTERRUPTED') this.store.finalizeTranscription(meeting.id);
-    await this.stt.unload().catch(() => null);
+    if (this.summarizer) await this.stt.unload().catch(() => null);
     await this.publishResults(this.store.getMeeting(meeting.id)!, await this.publisherFor(meeting));
   }
 
-  async regenerate(meetingId: string): Promise<void> {
+  regenerate(guildId: string, meetingId: string): Promise<void> {
     if (!this.summarizer) throw new Error('LLM要約は無効です。会議記録の添付ファイルを手動でAIへ渡してください。');
-    const meeting = this.store.getMeeting(meetingId);
-    if (!meeting) throw new Error('会議データが見つかりません。30日後に削除されたデータは再要約できません。');
+    const meeting = this.requireMeeting(guildId, meetingId);
     if (!['TRANSCRIBED', 'COMPLETED'].includes(meeting.status)) throw new Error('Meeting is not transcribed');
+    this.reserveResultProcessing();
+    return this.regenerateInternal(meeting).finally(() => { this.resultProcessing = false; });
+  }
+
+  private async regenerateInternal(meeting: Meeting): Promise<void> {
+    await this.stt.unload().catch(() => null);
     const publisher = await this.publisherFor(meeting);
-    const result = await this.summarizer.summarize(meeting);
+    const result = await this.summarizer!.summarize(meeting);
     await publisher.summary(this.store.getMeeting(meeting.id)!, result.markdown, result.version);
   }
 
-  async transcript(meetingId: string): Promise<void> {
-    const meeting = this.store.getMeeting(meetingId);
-    if (!meeting || !['TRANSCRIBED', 'SUMMARIZING', 'COMPLETED'].includes(meeting.status)) throw new Error('No transcript is available');
+  async transcript(guildId: string, meetingId: string): Promise<void> {
+    const meeting = this.requireMeeting(guildId, meetingId);
+    if (!['TRANSCRIBED', 'SUMMARIZING', 'COMPLETED'].includes(meeting.status)) throw new Error('No transcript is available');
     await (await this.publisherFor(meeting)).transcript(meeting, renderTranscript(meeting, this.store.participants(meeting.id), this.store.utterances(meeting.id), this.config.timeZone));
   }
 
-  async delete(meetingId: string): Promise<void> {
-    const meeting = this.store.getMeeting(meetingId);
-    if (!meeting || meeting.guild_id !== this.config.guildId) throw new Error('Meeting not found');
+  async delete(guildId: string, meetingId: string): Promise<void> {
+    const meeting = this.requireMeeting(guildId, meetingId);
     if (['STARTING', 'RECORDING', 'DRAINING', 'SUMMARIZING'].includes(meeting.status)) throw new Error('Stop the meeting first');
     await (await this.publisherFor(meeting)).deletePosts(meeting.id);
     this.store.deleteMeeting(meeting.id);
@@ -241,6 +277,7 @@ export class MeetingService {
 
   async reconcilePublications(): Promise<void> {
     for (const meeting of this.store.recentFinished()) {
+      if (!this.config.guildIds.includes(meeting.guild_id)) continue;
       try {
         const publisher = await this.publisherFor(meeting);
         await publisher.transcript(meeting, renderTranscript(meeting, this.store.participants(meeting.id), this.store.utterances(meeting.id), this.config.timeZone));
@@ -250,10 +287,11 @@ export class MeetingService {
     }
   }
 
-  status(): string {
-    const meeting = this.live?.meeting ?? this.store.latestMeeting(this.config.guildId);
+  status(guildId: string): string {
+    if (!this.config.guildIds.includes(guildId)) throw new Error('このサーバーでは利用できません');
+    const live = this.live?.meeting.guild_id === guildId ? this.live : null;
+    const meeting = live?.meeting ?? this.store.latestMeeting(guildId);
     if (!meeting) return '会議記録はまだありません。';
-    const live = this.live;
     return `会議ID: ${meeting.id}\n状態: ${this.store.getMeeting(meeting.id)?.status}\n同意済み: ${this.store.participants(meeting.id).filter((p) => p.consent_status === 'ACCEPTED').length}人\nSTT待ち: ${live?.queue.pendingJobs ?? 0}件 / 最古: ${Math.round((live?.queue.oldestJobAgeMs ?? 0) / 1000)}秒 / 音声RAM: ${Math.round((live?.budget.bytes ?? 0) / 1024 / 1024)}MiB`;
   }
 

@@ -1,7 +1,7 @@
 export interface Config {
   discordToken: string;
   applicationId: string;
-  guildId: string;
+  guildIds: string[];
   dbPath: string;
   sttBaseUrl: string;
   summaryMode: 'off' | 'ollama';
@@ -29,10 +29,13 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   new Intl.DateTimeFormat('ja-JP', { timeZone });
   const summaryMode = env.SUMMARY_MODE?.trim() || 'off';
   if (summaryMode !== 'off' && summaryMode !== 'ollama') throw new Error('SUMMARY_MODE must be off or ollama');
+  const guildIds = [...new Set((env.DISCORD_GUILD_IDS?.trim() || required('DISCORD_GUILD_ID'))
+    .split(',').map((id) => id.trim()).filter(Boolean))];
+  if (!guildIds.length) throw new Error('Missing DISCORD_GUILD_IDS');
   return {
     discordToken: required('DISCORD_TOKEN'),
     applicationId: required('DISCORD_APPLICATION_ID'),
-    guildId: required('DISCORD_GUILD_ID'),
+    guildIds,
     dbPath: env.DB_PATH || '/var/lib/cordscribe/cordscribe.sqlite',
     sttBaseUrl: url('STT_BASE_URL', 'http://127.0.0.1:8765'),
     summaryMode,

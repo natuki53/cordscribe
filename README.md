@@ -23,7 +23,9 @@ Discordアプリは作成済みです。導入時の操作は[Discordアプリ�
 
 非公開のVCや会議テキストチャンネルでは、サーバーへのBot招待時に選んだ権限だけでは足りません。各チャンネルの権限設定でCordScribeロールを追加し、上記の権限を許可してください。
 
-Discordアプリを`bot`と`applications.commands`で対象Guildに追加します。Bot Gateway Intentは`Guilds`と`GuildVoiceStates`だけで、Message Content Intentは不要です。`/meeting`の操作ロールは不要です。開始は対象Guild内の通常テキストチャンネルまたはVCチャットから行えます。以後の操作と会議記録の投稿先は開始チャンネルです。
+Discordアプリを`bot`と`applications.commands`で各対象Guildに追加します。`DISCORD_GUILD_IDS`にサーバーIDをカンマ区切りで設定すると、それぞれに`/meeting`を登録します。従来の`DISCORD_GUILD_ID`も単一サーバー用として利用できます。GPUと音声キューを共用するため、録音開始から投稿までの会議処理は全サーバー合計1件です。ほかの会議が録音・処理中の場合は新しい開始を受け付けません。会議の状態確認・取得・削除・同意は、その会議が属するサーバーに限定します。
+
+Bot Gateway Intentは`Guilds`と`GuildVoiceStates`だけで、Message Content Intentは不要です。`/meeting`の操作ロールは不要です。開始は対象Guild内の通常テキストチャンネルまたはVCチャットから行えます。以後の操作と会議記録の投稿先は開始チャンネルです。
 
 ## ローカル開発
 
@@ -42,7 +44,7 @@ Node.js 24が必要です。テストはDiscordやGPUに接続しません。音
 
 1. Python 3.12と`uv`を公式配布元から用意し、`uv python install 3.12`を実行します。
 2. `mkdir -p runtime data models`で保存先を作り、`chmod 700 runtime data models`、`uv venv --python 3.12 stt/.venv`、`uv pip install --python stt/.venv/bin/python -r stt/requirements.txt`を実行します。GPU用cuBLASとcuDNN 9もこの環境に入ります。Pythonの版を変えた場合はsystemdの`LD_LIBRARY_PATH`を合わせてください。
-3. `stt/env.example`を`runtime/stt.env`に、`.env.example`を`runtime/bot.env`にコピーします。後者へBotトークンとApplication ID・Guild IDを入力し、`SUMMARY_MODE=off`を維持して両ファイルを`chmod 600`にします。これらはGitへ追加しません。
+3. `stt/env.example`を`runtime/stt.env`に、`.env.example`を`runtime/bot.env`にコピーします。後者へBotトークンとApplication ID・`DISCORD_GUILD_IDS`（カンマ区切り）を入力し、`SUMMARY_MODE=off`を維持して両ファイルを`chmod 600`にします。これらはGitへ追加しません。
 4. `deploy/cordscribe-stt.service`を`/etc/systemd/system/cordscribe-stt.service`へ配置し、`sudo systemctl daemon-reload && sudo systemctl enable --now cordscribe-stt`を実行します。初回はWhisperモデルの取得が必要です。
 5. `curl http://127.0.0.1:8765/ready`で`ready: true`を確認します。
 6. `docker compose up -d --build`でBotを起動し、`docker compose logs --tail=100 bot`に`CORDSCRIBE_READY`があることを確認します。
