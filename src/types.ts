@@ -46,6 +46,16 @@ export interface Utterance {
   language_probability: number | null;
   stt_attempts: number;
   stt_latency_ms: number | null;
+  asr_avg_logprob: number | null;
+  asr_no_speech_prob: number | null;
+  asr_compression_ratio: number | null;
+  audio_rms_dbfs: number | null;
+  audio_peak: number | null;
+  audio_clipping_ratio: number | null;
+  speech_duration_ms: number | null;
+  asr_confidence: 'none' | 'low' | 'medium' | 'high' | null;
+  suspected_hallucination: number;
+  hallucination_reasons_json: string | null;
   error_code: string | null;
   created_at_ms: number;
   updated_at_ms: number;

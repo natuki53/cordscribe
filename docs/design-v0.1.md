@@ -34,7 +34,7 @@ BotはNode.js 24、`discord.js`、`@discordjs/voice`、`prism-media`、`ffmpeg`�
 | `/meeting finalize id` | 会議を開始したチャンネル、中断または全文確定済み | 欠損を明示した部分全文を投稿 |
 | `/meeting delete id` | 会議を開始したチャンネル、停止済み | Botの投稿を削除してからDBの会議データを削除 |
 
-STTサービスは`GET /health`、`GET /ready`、`POST /v1/transcribe`を127.0.0.1:8765に提供する。POSTの本文は16kHz、mono、signed 16bit little endianの生PCMで、28秒以下。`X-Audio-Format=s16le`、`X-Sample-Rate=16000`、`X-Channels=1`、`X-Language=ja`を検証する。結果は`text`、`language`、`languageProbability`、`durationMs`。内部管理用の`POST /admin/load`と`/admin/unload`はGPUの使用時間を切り替える。外部公開しない。
+STTサービスは`GET /health`、`GET /ready`、`POST /v1/transcribe`を127.0.0.1:8765に提供する。POSTの本文は16kHz、mono、signed 16bit little endianの生PCMで、28秒以下。`X-Audio-Format=s16le`、`X-Sample-Rate=16000`、`X-Channels=1`、`X-Language=ja`を検証する。結果は`text`、`language`、`languageProbability`、`durationMs`に加え、`asr`内に平均log probability、no-speech probability、最大compression ratio、RMS dBFS、peak、clipping率、VAD後の音声長、confidence、hallucination疑いと理由を返す。内部管理用の`POST /admin/load`と`/admin/unload`はGPUの使用時間を切り替える。外部公開しない。
 
 ## データと状態
 
@@ -46,9 +46,13 @@ SQLiteの時刻はUnix epochミリ秒、発言位置は会議開始からのミ�
 
 ## 音声・STTの境界
 
-話者ごとにOpusをデコードし、`ffmpeg`で16kHz monoへ変換する。`ffmpeg`の出力チャンクは長さが一定でないため、PCMを20msフレームに揃えてからRMSを判定する。RMSが180未満のフレームを無音として扱い、最後の有音フレームから無音1400msで発言確定、28秒で強制分割、300ms未満はSTTへ送らない。話者の短い間を一つの発言に保つため、当初の900msから1400msに変更した。強制分割された発言は同じ`chain_id`と増分`chain_index`を持つ。メモリ上限256MiBには話者の未確定バッファ、キュー、処理中のPCMをすべて含める。上限接近時は会議を自動停止し、処理できたものを排出する。
+話者ごとにOpusをデコードし、`ffmpeg`の`speechnorm`で最大3倍の弱い音声正規化を適用してから16kHz monoへ変換する。`ffmpeg`の出力チャンクは長さが一定でないため、PCMを20msフレームに揃えてからRMSを判定する。小声の取りこぼしを減らすためRMSが120未満のフレームを無音として扱う。未開始時の直前300msを話者別ring bufferに保持し、最初の有音フレームでpre-rollとして発言へ移す。最後の有音フレームから無音1400msで発言確定し、この間のPCMがpost-rollになる。28秒で強制分割し、100ms未満はSTTへ送らない。強制分割された発言は同じ`chain_id`と増分`chain_index`を持つ。ring bufferを含むPCMは256MiBの共通メモリ上限で数え、同意撤回時は未確定発言とpre-rollを破棄する。
 
-STTは起動時にモデルをロードし、会議がないまま5分経つとGPUメモリを自動解放する。録音中はBotが1分ごとに保持通知を送り、停止後は即座に解放する。STT側でSilero VADを使い、250ms未満の音声らしい区間と音声が検出されない入力はWhisperへ渡さず、空の結果として扱う。VADの無音分割は500ms、前後の余白は150ms。専門用語の初期プロンプトは既定で無効とし、明示設定時のみ使用する。STT Workerは1件ずつ処理し、試行回数は最大3回。接続障害、タイムアウト、HTTP 429/5xxは500msと2000msの間隔で再試行し、無効な音声などの4xxは再試行しない。キュー最古が60秒を超えると通知、180秒超ではイベントに重大状態を記録する。音声そのものはSQLite・通常ログ・ディスクに保存しない。
+STT側のSilero VADは小声向けにしきい値0.35、最小発話100ms、前後パディング250msとする。Sileroで抽出済みのPCMを渡すため、faster-whisper側の`vad_filter`は無効にし、二重切断を避ける。略語と固有名詞は`hotwords`またはJSON用語ファイルで候補を補助し、強制置換しない。初期プロンプトと`condition_on_previous_text`はhallucination伝播を避けるため既定で無効とする。
+
+STTは起動時にモデルをロードし、会議がないまま5分経つとGPUメモリを自動解放する。録音中はBotが1分ごとに保持通知を送り、停止後は即座に解放する。Sileroの音声区間がない入力はWhisperへ渡さず、空の結果として扱う。Whisperは日本語・transcribe・temperature 0を明示し、beam、best-of、no-speech、logprob、compression ratio、repetition penaltyを環境設定から変更できる。STT Workerは1件ずつ処理し、試行回数は最大3回。接続障害、タイムアウト、HTTP 429/5xxは500msと2000msの間隔で再試行し、無効な音声などの4xxは再試行しない。キュー最古が60秒を超えると通知、180秒超ではイベントに重大状態を記録する。通常運用では音声をディスクへ保存せず、デバッグWAVは明示設定時だけ件数制限と`0600`で一時保存する。
+
+hallucination候補は本文を変更せず、既知の定型文に加えて低RMS、短いVAD音声、高いno-speech probability、低いavg log probability、高いcompression ratioを組み合わせて判定する。同じ定型文が5分以内に3回以上出た場合も理由を追加する。本文と品質値はSQLiteへ保存し、Markdownでは低confidenceとhallucination疑いだけを注記する。後段AIが原文と品質情報を使って判断できる状態を優先する。
 
 ## 会議記録と任意の要約
 

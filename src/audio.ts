@@ -8,13 +8,15 @@ import { AudioBudget, SttQueue } from './stt.js';
 
 export const SILENCE_END_MS = 1400;
 export const MAX_UTTERANCE_MS = 28_000;
-export const MIN_UTTERANCE_MS = 300;
+export const MIN_UTTERANCE_MS = 100;
+export const PRE_ROLL_MS = 300;
 export const MAX_CONSENTED_SPEAKERS = 8;
-const VOICE_RMS_THRESHOLD = 180;
+export const VOICE_RMS_THRESHOLD = 120;
+export const SPEECH_NORMALIZATION_FILTER = 'speechnorm=e=3:r=0.001:l=1';
 const PCM_FRAME_BYTES = 640; // 20 ms at 16 kHz, mono, s16le.
 const PCM_FRAME_MS = 20;
 
-function voiced(chunk: Buffer): boolean {
+export function voiced(chunk: Buffer): boolean {
   let sum = 0;
   let count = 0;
   for (let offset = 0; offset + 1 < chunk.length; offset += 8) {
@@ -49,6 +51,8 @@ export class PcmFrameSplitter {
 }
 
 export class Segmenter {
+  private preRoll: { chunk: Buffer; atMs: number }[] = [];
+  private preRollBytes = 0;
   private chunks: Buffer[] = [];
   private bytes = 0;
   private startedAtMs: number | null = null;
@@ -66,18 +70,41 @@ export class Segmenter {
     readonly budget: AudioBudget,
   ) {}
 
+  private rememberPreRoll(chunk: Buffer, atMs: number): void {
+    this.budget.add(chunk.byteLength);
+    this.preRoll.push({ chunk, atMs });
+    this.preRollBytes += chunk.byteLength;
+    const limit = PRE_ROLL_MS * 32;
+    while (this.preRollBytes > limit && this.preRoll.length) {
+      const removed = this.preRoll.shift()!;
+      this.preRollBytes -= removed.chunk.byteLength;
+      this.budget.release(removed.chunk.byteLength);
+    }
+  }
+
+  private beginFromPreRoll(atMs: number): void {
+    this.startedAtMs = this.preRoll[0]?.atMs ?? atMs;
+    this.chainId ??= randomUUID();
+    for (const item of this.preRoll) this.chunks.push(item.chunk);
+    this.bytes = this.preRollBytes;
+    this.preRoll = [];
+    this.preRollBytes = 0;
+  }
+
   push(chunk: Buffer, atMs = Date.now(), hasVoice = true): void {
     if (!chunk.length) return;
     if (chunk.byteLength % 2) throw new Error('INVALID_PCM_LENGTH');
     if (this.lastVoicedAtMs !== null && atMs - this.lastVoicedAtMs >= SILENCE_END_MS) this.finalize(false);
-    if (!hasVoice && this.startedAtMs === null) return;
+    if (!hasVoice && this.startedAtMs === null) {
+      this.rememberPreRoll(chunk, atMs);
+      return;
+    }
     let offset = 0;
     while (offset < chunk.byteLength) {
       const partAtMs = atMs + Math.round(offset / 32);
       if (this.startedAtMs !== null && partAtMs - this.startedAtMs >= MAX_UTTERANCE_MS) this.finalize(true);
       if (this.startedAtMs === null) {
-        this.startedAtMs = partAtMs;
-        this.chainId ??= randomUUID();
+        this.beginFromPreRoll(partAtMs);
       }
       const size = Math.min(chunk.byteLength - offset, MAX_UTTERANCE_MS * 32 - this.bytes);
       const part = chunk.subarray(offset, offset + size);
@@ -119,7 +146,7 @@ export class Segmenter {
         started_offset_ms: Math.max(0, startedAt - this.meetingStartedAtMs),
         ended_offset_ms: Math.max(0, Math.max(lastAt - this.meetingStartedAtMs, startedAt - this.meetingStartedAtMs + Math.round(bytes / 32))),
       });
-      this.queue.enqueue({ utteranceId: utterance.id, meetingId: this.meetingId, audio: Buffer.concat(chunks, bytes), enqueuedAtMs: Date.now() });
+      this.queue.enqueue({ utteranceId: utterance.id, meetingId: this.meetingId, publicId: utterance.public_id, audio: Buffer.concat(chunks, bytes), enqueuedAtMs: Date.now() });
     } catch (error) {
       this.budget.release(bytes);
       this.store.event(this.meetingId, 'AUDIO_ENQUEUE_FAILED', 'ERROR');
@@ -128,7 +155,9 @@ export class Segmenter {
   }
 
   drop(): void {
-    this.budget.release(this.bytes);
+    this.budget.release(this.bytes + this.preRollBytes);
+    this.preRoll = [];
+    this.preRollBytes = 0;
     this.chunks = [];
     this.bytes = 0;
     this.startedAtMs = null;
@@ -152,7 +181,11 @@ class SpeakerPipe {
     this.segmenter = new Segmenter(meetingId, userId, startedAtMs, store, queue, budget);
     this.pcmFrames = new PcmFrameSplitter((frame, atMs) => this.segmenter.push(frame, atMs, voiced(frame)));
     this.decoder = new prism.opus.Decoder({ rate: 48000, channels: 2, frameSize: 960 });
-    this.ffmpeg = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-f', 's16le', '-ar', '48000', '-ac', '2', '-i', 'pipe:0', '-f', 's16le', '-ar', '16000', '-ac', '1', 'pipe:1'], { stdio: ['pipe', 'pipe', 'pipe'] });
+    this.ffmpeg = spawn('ffmpeg', [
+      '-hide_banner', '-loglevel', 'error', '-f', 's16le', '-ar', '48000', '-ac', '2', '-i', 'pipe:0',
+      '-af', SPEECH_NORMALIZATION_FILTER,
+      '-f', 's16le', '-ar', '16000', '-ac', '1', 'pipe:1',
+    ], { stdio: ['pipe', 'pipe', 'pipe'] });
     try {
       this.opus = receiver.subscribe(userId, { end: { behavior: EndBehaviorType.Manual } });
       this.opus.pipe(this.decoder).pipe(this.ffmpeg.stdin);

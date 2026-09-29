@@ -11,3 +11,6 @@ data/
 runtime/
 models/
 .tools/
+stt/fixtures/asr/audio/
+stt/fixtures/asr/manifest.json
+stt/fixtures/asr/result*.json

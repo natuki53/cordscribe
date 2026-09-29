@@ -1,4 +1,9 @@
 import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import { existsSync, unlinkSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
 import { Store } from '../src/db.js';
 
@@ -36,4 +41,36 @@ test('retention deletes local data after 30 days', () => {
     store.deleteMeeting(meeting.id);
     assert.equal(store.getMeeting(meeting.id), undefined);
   } finally { store.close(); }
+});
+
+test('opening an existing database adds ASR quality columns without dropping rows', () => {
+  const path = join(tmpdir(), `cordscribe-migration-${randomUUID()}.sqlite`);
+  const legacy = new DatabaseSync(path);
+  legacy.exec(`CREATE TABLE utterances (
+    id TEXT PRIMARY KEY, meeting_id TEXT NOT NULL, speaker_user_id TEXT NOT NULL,
+    sequence INTEGER NOT NULL, public_id TEXT NOT NULL, chain_id TEXT NOT NULL, chain_index INTEGER NOT NULL,
+    started_offset_ms INTEGER NOT NULL, ended_offset_ms INTEGER NOT NULL, status TEXT NOT NULL,
+    text TEXT, language TEXT, language_probability REAL, stt_attempts INTEGER NOT NULL DEFAULT 0,
+    stt_latency_ms INTEGER, error_code TEXT, created_at_ms INTEGER NOT NULL, updated_at_ms INTEGER NOT NULL,
+    UNIQUE(meeting_id,sequence), UNIQUE(meeting_id,public_id)
+  );
+  INSERT INTO utterances VALUES (
+    'legacy-u','legacy-m','legacy-s',1,'U000001','legacy-chain',0,0,1000,'TRANSCRIBED',
+    '既存の発言','ja',0.9,1,250,NULL,1,1
+  );`);
+  legacy.close();
+
+  const store = new Store(path);
+  try {
+    const columns = new Set((store.db.prepare('PRAGMA table_info(utterances)').all() as { name: string }[]).map((column) => column.name));
+    assert.ok(columns.has('asr_avg_logprob'));
+    assert.ok(columns.has('suspected_hallucination'));
+    assert.equal(store.getUtterance('legacy-u')?.text, '既存の発言');
+  } finally {
+    store.close();
+    for (const suffix of ['', '-wal', '-shm']) {
+      const target = `${path}${suffix}`;
+      if (existsSync(target)) unlinkSync(target);
+    }
+  }
 });

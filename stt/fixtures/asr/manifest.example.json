@@ -1,0 +1,25 @@
+{
+  "samples": [
+    {
+      "id": "normal-ja-001",
+      "audio": "audio/normal-ja-001.wav",
+      "speaker": "P01",
+      "kind": "speech",
+      "reference": "Google Search Consoleの権限を確認します"
+    },
+    {
+      "id": "short-ja-001",
+      "audio": "audio/short-ja-001.wav",
+      "speaker": "P02",
+      "kind": "short-speech",
+      "reference": "はい"
+    },
+    {
+      "id": "silence-001",
+      "audio": "audio/silence-001.wav",
+      "speaker": null,
+      "kind": "silence",
+      "reference": ""
+    }
+  ]
+}

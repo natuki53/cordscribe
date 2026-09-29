@@ -58,7 +58,11 @@ export class Store {
         started_offset_ms INTEGER NOT NULL, ended_offset_ms INTEGER NOT NULL,
         status TEXT NOT NULL CHECK (status IN ('QUEUED','PROCESSING','TRANSCRIBED','IGNORED','FAILED','LOST')),
         text TEXT, language TEXT, language_probability REAL, stt_attempts INTEGER NOT NULL DEFAULT 0,
-        stt_latency_ms INTEGER, error_code TEXT, created_at_ms INTEGER NOT NULL, updated_at_ms INTEGER NOT NULL,
+        stt_latency_ms INTEGER, asr_avg_logprob REAL, asr_no_speech_prob REAL,
+        asr_compression_ratio REAL, audio_rms_dbfs REAL, audio_peak REAL,
+        audio_clipping_ratio REAL, speech_duration_ms INTEGER, asr_confidence TEXT,
+        suspected_hallucination INTEGER NOT NULL DEFAULT 0, hallucination_reasons_json TEXT,
+        error_code TEXT, created_at_ms INTEGER NOT NULL, updated_at_ms INTEGER NOT NULL,
         UNIQUE(meeting_id,sequence), UNIQUE(meeting_id,public_id),
         FOREIGN KEY (meeting_id,speaker_user_id) REFERENCES participants(meeting_id,user_id) ON DELETE CASCADE
       );
@@ -87,6 +91,18 @@ export class Store {
         FOREIGN KEY (meeting_id) REFERENCES meetings(id) ON DELETE CASCADE
       );
     `);
+    const utteranceColumns = new Set((this.db.prepare('PRAGMA table_info(utterances)').all() as { name: string }[]).map((column) => column.name));
+    const additions: [string, string][] = [
+      ['asr_avg_logprob', 'REAL'], ['asr_no_speech_prob', 'REAL'],
+      ['asr_compression_ratio', 'REAL'], ['audio_rms_dbfs', 'REAL'],
+      ['audio_peak', 'REAL'], ['audio_clipping_ratio', 'REAL'],
+      ['speech_duration_ms', 'INTEGER'], ['asr_confidence', 'TEXT'],
+      ['suspected_hallucination', 'INTEGER NOT NULL DEFAULT 0'],
+      ['hallucination_reasons_json', 'TEXT'],
+    ];
+    for (const [name, definition] of additions) {
+      if (!utteranceColumns.has(name)) this.db.exec(`ALTER TABLE utterances ADD COLUMN ${name} ${definition}`);
+    }
   }
 
   close(): void { this.db.close(); }
@@ -197,12 +213,29 @@ export class Store {
     return this.db.prepare('SELECT * FROM utterances WHERE meeting_id=? ORDER BY started_offset_ms,sequence').all(meetingId) as unknown as Utterance[];
   }
 
-  setUtterance(id: string, status: UtteranceStatus, fields: { text?: string; language?: string; probability?: number; latencyMs?: number; errorCode?: string; attempts?: number } = {}): void {
+  setUtterance(id: string, status: UtteranceStatus, fields: {
+    text?: string; language?: string; probability?: number; latencyMs?: number;
+    errorCode?: string; attempts?: number; avgLogprob?: number | null;
+    noSpeechProbability?: number | null; compressionRatio?: number | null;
+    rmsDbfs?: number; peak?: number; clippingRatio?: number;
+    speechDurationMs?: number; asrConfidence?: 'none' | 'low' | 'medium' | 'high';
+    suspectedHallucination?: boolean; hallucinationReasons?: string[];
+  } = {}): void {
     this.db.prepare(`UPDATE utterances SET status=?,text=COALESCE(?,text),language=COALESCE(?,language),
       language_probability=COALESCE(?,language_probability),stt_latency_ms=COALESCE(?,stt_latency_ms),
+      asr_avg_logprob=COALESCE(?,asr_avg_logprob),asr_no_speech_prob=COALESCE(?,asr_no_speech_prob),
+      asr_compression_ratio=COALESCE(?,asr_compression_ratio),audio_rms_dbfs=COALESCE(?,audio_rms_dbfs),
+      audio_peak=COALESCE(?,audio_peak),audio_clipping_ratio=COALESCE(?,audio_clipping_ratio),
+      speech_duration_ms=COALESCE(?,speech_duration_ms),asr_confidence=COALESCE(?,asr_confidence),
+      suspected_hallucination=COALESCE(?,suspected_hallucination),hallucination_reasons_json=COALESCE(?,hallucination_reasons_json),
       error_code=?,stt_attempts=COALESCE(?,stt_attempts),updated_at_ms=? WHERE id=?`).run(
       status, fields.text ?? null, fields.language ?? null, fields.probability ?? null,
-      fields.latencyMs ?? null, fields.errorCode ?? null, fields.attempts ?? null, Date.now(), id,
+      fields.latencyMs ?? null, fields.avgLogprob ?? null, fields.noSpeechProbability ?? null,
+      fields.compressionRatio ?? null, fields.rmsDbfs ?? null, fields.peak ?? null,
+      fields.clippingRatio ?? null, fields.speechDurationMs ?? null, fields.asrConfidence ?? null,
+      fields.suspectedHallucination === undefined ? null : Number(fields.suspectedHallucination),
+      fields.hallucinationReasons ? JSON.stringify(fields.hallucinationReasons) : null,
+      fields.errorCode ?? null, fields.attempts ?? null, Date.now(), id,
     );
   }
 

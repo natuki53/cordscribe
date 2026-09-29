@@ -1,7 +1,10 @@
 import { joinVoiceChannel, entersState, VoiceConnectionStatus, type VoiceConnection } from '@discordjs/voice';
 import { ChannelType, PermissionFlagsBits, type Client, type Guild, type VoiceState } from 'discord.js';
 import type { Config } from './config.js';
-import { AudioReceiver, SILENCE_END_MS } from './audio.js';
+import {
+  AudioReceiver, MAX_UTTERANCE_MS, MIN_UTTERANCE_MS, PRE_ROLL_MS,
+  SILENCE_END_MS, SPEECH_NORMALIZATION_FILTER, VOICE_RMS_THRESHOLD,
+} from './audio.js';
 import { Store } from './db.js';
 import { Publisher, type MeetingOutputChannel } from './publish.js';
 import { OllamaSummarizer, renderTranscript } from './summary.js';
@@ -103,7 +106,7 @@ export class MeetingService {
     let meeting = this.store.createMeeting({
       guild_id: guild.id, voice_channel_id: voice.id, output_channel_id: output.id,
       started_by_user_id: userId, title,
-      config_snapshot_json: JSON.stringify({ sttModel: 'large-v3-turbo', computeType: 'int8_float16', language: 'ja', beamSize: 1, silenceEndMs: SILENCE_END_MS, minUtteranceMs: 300, maxUtteranceMs: 28000, sttVadMinSpeechMs: 250, summaryMode: this.config.summaryMode, summaryModel: this.summarizer ? this.config.ollamaModel : null }),
+      config_snapshot_json: JSON.stringify({ sttModel: 'service-environment', language: 'ja', task: 'transcribe', silenceEndMs: SILENCE_END_MS, preRollMs: PRE_ROLL_MS, voiceRmsThreshold: VOICE_RMS_THRESHOLD, speechNormalization: SPEECH_NORMALIZATION_FILTER, minUtteranceMs: MIN_UTTERANCE_MS, maxUtteranceMs: MAX_UTTERANCE_MS, sttVadThreshold: 0.35, sttVadMinSpeechMs: 100, sttVadSpeechPadMs: 250, conditionOnPreviousText: false, summaryMode: this.config.summaryMode, summaryModel: this.summarizer ? this.config.ollamaModel : null }),
     });
     let connection: VoiceConnection | null = null;
     try {
@@ -119,7 +122,7 @@ export class MeetingService {
       }
       const publisher = new Publisher(this.store, output, !!this.summarizer);
       const budget = new AudioBudget(() => { void this.stop('AUDIO_MEMORY_LIMIT').catch((error) => this.logError('AUTO_STOP_FAILED', error)); });
-      const queue = new SttQueue(this.store, this.stt, budget);
+      const queue = new SttQueue(this.store, this.stt, budget, this.config.transcriptionDebugLog);
       const audio = new AudioReceiver(connection.receiver, meeting.id, meeting.started_at_ms!, this.store, queue, budget,
         (reason) => { this.store.event(meeting.id, reason, 'ERROR'); void this.stop(reason).catch((error) => this.logError('AUDIO_STOP_FAILED', error)); });
       this.live = { meeting, guild, connection, audio, queue, budget, publisher, emptySince: null, warnedQueue: false, criticalQueue: false, lastKeepaliveAtMs: Date.now() };

@@ -36,7 +36,7 @@ npm run check
 
 Node.js 24が必要です。テストはDiscordやGPUに接続しません。音声受信の実機試験は別途行ってください。
 
-ホスト上では`test/audio-smoke.mjs`でOpus変換と撤回時の破棄を確認できます。`test/ollama-smoke.mjs`と`test/gpu-handoff-smoke.mjs`は、将来LLM連携を有効にする場合だけ手動で実行する検証スクリプトです。
+ホスト上では`test/audio-smoke.mjs`でOpus変換、小音量正規化、同意と撤回時の破棄を確認できます。STT単体試験は`python -m unittest discover -s stt -p 'test_*.py' -v`です。`test/ollama-smoke.mjs`と`test/gpu-handoff-smoke.mjs`は、将来LLM連携を有効にする場合だけ手動で実行する検証スクリプトです。
 
 ## Ryzenホストへの配置
 
@@ -60,7 +60,13 @@ STTは起動時にGPUへロードし、会議がなければ5分後に自動解�
 
 VC参加者が、対象Guild内の通常テキストチャンネルまたはVCチャットで`/meeting start`を実行します。記録対象は実行者が参加中のVCです。開始時点のVC参加者全員が閲覧できるチャンネルを選んでください。開始者を含む参加者全員が、同じチャンネルに出る案内のボタンで同意・拒否・撤回を選びます。Botは同意するまで各人の音声を取得しません。停止は開始チャンネルから`/meeting stop`です。停止後の処理は非同期で、同じチャンネルの`/meeting status`で待ち行列を確認できます。
 
-STTはSilero VADで音声が検出されない区間を無視します。咳・くしゃみを発話と誤認識する場合があり、公開音声での比較結果と限界を[STT予備評価](docs/stt-public-audio-evaluation.md)に記録しています。専門用語を渡す`STT_INITIAL_PROMPT`は誤認識を増やすことがあるため既定で無効です。必要な場合だけ`STT_INITIAL_PROMPT_ENABLED=true`と併せて設定してください。
+話者ごとの音声はFFmpegの弱い音声正規化（最大3倍）を通し、声量差をならしてからSilero VADへ渡します。RMSゲートの直前300msをRAM内ring bufferに保持し、文頭を含めます。小声と100ms級の短い発話を拾うためVADの既定値は`threshold=0.35`、`min_speech=100ms`、前後余白250msです。環境ノイズまで拾う場合は`STT_VAD_THRESHOLD`を`0.40`、`0.45`の順に上げて、評価manifestで空転写とhallucination件数を比較してください。咳・くしゃみを発話と誤認識する場合があり、公開音声での比較結果と限界を[STT予備評価](docs/stt-public-audio-evaluation.md)に記録しています。
+
+略語・固有名詞は`STT_HOTWORDS`またはJSON配列の`STT_TERMS_FILE`で認識候補を補助します。文字列の強制置換は行いません。`STT_INITIAL_PROMPT`は弱い音声から用語を創作する可能性があるため既定で無効のままです。`condition_on_previous_text`も話者間・発言間のhallucination伝播を避けるため既定で無効です。定型文を本文だけで削除せず、音量・音声長・`no_speech_prob`・`avg_logprob`・`compression_ratio`・短時間の反復を組み合わせて疑いフラグを付け、本文はSQLiteとMarkdownに保持します。
+
+`TRANSCRIPTION_DEBUG_LOG=true`では本文を出さず、発言ID、音声指標、ASR品質値、文字数をログへ出します。`TRANSCRIPTION_DEBUG_AUDIO=true`の場合だけ、Whisper入力前後の16kHz mono WAVを権限`0600`で`TRANSCRIPTION_DEBUG_AUDIO_DIR`へ保存します。既定はOFFで、最大件数を超えた古いWAVは削除します。実会議音声を含むため、調査後は保存先を削除して設定をOFFへ戻してください。
+
+再現評価は[ASR調整記録](docs/asr-accuracy.md)と`stt/benchmark.py`を使用します。評価用音声と正解文は[フィクスチャ手順](stt/fixtures/asr/README.md)に従ってGit管理外へ置きます。
 
 音楽Botや読み上げBotの音声ストリームは購読しません。ただし参加者のマイクがスピーカーの音や仮想オーディオ出力を拾った場合、その音は参加者のストリームに含まれます。特に読み上げ音声は発話として検出され得るため、ヘッドホンやマイクの入力設定で混入を防いでください。
 

@@ -8,6 +8,7 @@ export interface Config {
   ollamaBaseUrl: string;
   ollamaModel: string;
   timeZone: string;
+  transcriptionDebugLog: boolean;
 }
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
@@ -42,5 +43,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     ollamaBaseUrl: summaryMode === 'ollama' ? url('OLLAMA_BASE_URL', 'http://127.0.0.1:11434') : '',
     ollamaModel: env.OLLAMA_MODEL || 'qwen3.5:9b',
     timeZone,
+    transcriptionDebugLog: env.TRANSCRIPTION_DEBUG_LOG?.trim().toLowerCase() === 'true',
   };
 }

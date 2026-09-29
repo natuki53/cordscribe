@@ -3,6 +3,29 @@ import type { Store } from './db.js';
 export const AUDIO_MEMORY_LIMIT = 256 * 1024 * 1024;
 const WARNING_RESERVE = 8 * 1024 * 1024;
 
+export interface AsrMetrics {
+  avgLogprob: number | null;
+  noSpeechProbability: number | null;
+  compressionRatio: number | null;
+  rmsDbfs: number;
+  peak: number;
+  clippingRatio: number;
+  speechDurationMs: number;
+  confidence: 'none' | 'low' | 'medium' | 'high';
+  suspectedHallucination: boolean;
+  hallucinationReasons: string[];
+  hallucinationPhraseMatch: boolean;
+  debugAudioId: string | null;
+}
+
+export interface TranscriptionResult {
+  text: string;
+  language: string;
+  languageProbability: number;
+  durationMs: number;
+  asr: AsrMetrics;
+}
+
 export class AudioBudget {
   bytes = 0;
   private warned = false;
@@ -34,7 +57,7 @@ export class SttClient {
     try { return (await this.json('/ready')).ready === true; } catch { return false; }
   }
 
-  async transcribe(audio: Buffer): Promise<{ text: string; language: string; languageProbability: number; durationMs: number }> {
+  async transcribe(audio: Buffer): Promise<TranscriptionResult> {
     const response = await fetch(`${this.baseUrl}/v1/transcribe`, {
       method: 'POST',
       headers: {
@@ -55,14 +78,23 @@ export class SttClient {
     const result: unknown = await response.json();
     if (!result || typeof result !== 'object') throw new Error('STT_INVALID_RESPONSE');
     const value = result as Record<string, unknown>;
-    if (typeof value.text !== 'string' || typeof value.language !== 'string' || typeof value.languageProbability !== 'number' || typeof value.durationMs !== 'number') {
+    const asr = value.asr as Record<string, unknown> | undefined;
+    const nullableNumber = (input: unknown) => input === null || typeof input === 'number';
+    const confidence = asr?.confidence;
+    if (typeof value.text !== 'string' || typeof value.language !== 'string' || typeof value.languageProbability !== 'number' || typeof value.durationMs !== 'number'
+      || !asr || !nullableNumber(asr.avgLogprob) || !nullableNumber(asr.noSpeechProbability) || !nullableNumber(asr.compressionRatio)
+      || typeof asr.rmsDbfs !== 'number' || typeof asr.peak !== 'number' || typeof asr.clippingRatio !== 'number'
+      || typeof asr.speechDurationMs !== 'number' || !['none', 'low', 'medium', 'high'].includes(String(confidence))
+      || typeof asr.suspectedHallucination !== 'boolean' || !Array.isArray(asr.hallucinationReasons)
+      || asr.hallucinationReasons.some((reason) => typeof reason !== 'string') || typeof asr.hallucinationPhraseMatch !== 'boolean'
+      || !(asr.debugAudioId === null || typeof asr.debugAudioId === 'string')) {
       throw new Error('STT_INVALID_RESPONSE');
     }
-    return value as { text: string; language: string; languageProbability: number; durationMs: number };
+    return value as unknown as TranscriptionResult;
   }
 }
 
-interface Job { utteranceId: string; meetingId: string; audio: Buffer; enqueuedAtMs: number }
+interface Job { utteranceId: string; meetingId: string; publicId?: string; audio: Buffer; enqueuedAtMs: number }
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export class SttQueue {
@@ -70,8 +102,9 @@ export class SttQueue {
   private processing = false;
   private active: Job | null = null;
   private waiters: (() => void)[] = [];
+  private recentPhrases = new Map<string, number[]>();
 
-  constructor(readonly store: Store, readonly client: SttClient, readonly budget: AudioBudget) {}
+  constructor(readonly store: Store, readonly client: SttClient, readonly budget: AudioBudget, readonly debugLog = false) {}
 
   enqueue(job: Job): void {
     this.jobs.push(job);
@@ -92,6 +125,20 @@ export class SttQueue {
   }
 
   private wake(): void { this.waiters.splice(0).forEach((resolve) => resolve()); }
+
+  private applyRepetitionEvidence(job: Job, result: TranscriptionResult): void {
+    if (!result.asr.hallucinationPhraseMatch || !result.text.trim()) return;
+    const normalized = result.text.normalize('NFKC').replace(/[\s。．.!！?？、，]+/g, '');
+    const key = `${job.meetingId}\0${normalized}`;
+    const cutoff = job.enqueuedAtMs - 5 * 60_000;
+    const timestamps = (this.recentPhrases.get(key) ?? []).filter((timestamp) => timestamp >= cutoff);
+    timestamps.push(job.enqueuedAtMs);
+    this.recentPhrases.set(key, timestamps);
+    if (timestamps.length < 3) return;
+    result.asr.suspectedHallucination = true;
+    result.asr.confidence = 'low';
+    if (!result.asr.hallucinationReasons.includes('repeated_phrase')) result.asr.hallucinationReasons.push('repeated_phrase');
+  }
 
   private async run(): Promise<void> {
     if (this.processing) return;
@@ -125,10 +172,36 @@ export class SttQueue {
     for (let attempt = 1; attempt <= 3; attempt++) {
       try {
         const result = await this.client.transcribe(job.audio);
+        this.applyRepetitionEvidence(job, result);
         const text = result.text.trim();
         this.store.setUtterance(job.utteranceId, text ? 'TRANSCRIBED' : 'IGNORED', {
           text, language: result.language, probability: result.languageProbability,
           latencyMs: Date.now() - started, attempts: attempt,
+          avgLogprob: result.asr.avgLogprob,
+          noSpeechProbability: result.asr.noSpeechProbability,
+          compressionRatio: result.asr.compressionRatio,
+          rmsDbfs: result.asr.rmsDbfs,
+          peak: result.asr.peak,
+          clippingRatio: result.asr.clippingRatio,
+          speechDurationMs: result.asr.speechDurationMs,
+          asrConfidence: result.asr.confidence,
+          suspectedHallucination: result.asr.suspectedHallucination,
+          hallucinationReasons: result.asr.hallucinationReasons,
+          errorCode: text ? undefined : result.asr.speechDurationMs === 0 ? 'VAD_NO_SPEECH' : 'ASR_EMPTY',
+        });
+        if (this.debugLog) console.info('ASR_RESULT', {
+          utteranceId: job.publicId ?? job.utteranceId,
+          durationMs: result.durationMs,
+          speechDurationMs: result.asr.speechDurationMs,
+          rmsDbfs: result.asr.rmsDbfs,
+          peak: result.asr.peak,
+          clippingRatio: result.asr.clippingRatio,
+          avgLogprob: result.asr.avgLogprob,
+          noSpeechProbability: result.asr.noSpeechProbability,
+          compressionRatio: result.asr.compressionRatio,
+          confidence: result.asr.confidence,
+          suspectedHallucination: result.asr.suspectedHallucination,
+          textLength: text.length,
         });
         return;
       } catch (error) {

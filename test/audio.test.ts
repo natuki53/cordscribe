@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { PcmFrameSplitter, Segmenter, SILENCE_END_MS } from '../src/audio.js';
+import { PcmFrameSplitter, PRE_ROLL_MS, Segmenter, SILENCE_END_MS, VOICE_RMS_THRESHOLD, voiced } from '../src/audio.js';
 import { Store } from '../src/db.js';
 import { AudioBudget, type SttQueue } from '../src/stt.js';
 
@@ -19,11 +19,22 @@ function setup() {
 test('short click is ignored and memory is released', () => {
   const { store, meeting, jobs, budget, segmenter } = setup();
   try {
-    segmenter.push(Buffer.alloc(200 * 32), 1000);
-    segmenter.tick(1000 + 200 + SILENCE_END_MS + 1);
+    segmenter.push(Buffer.alloc(20 * 32), 1000);
+    segmenter.tick(1000 + 20 + SILENCE_END_MS + 1);
     assert.equal(jobs.length, 0);
     assert.equal(store.utterances(meeting.id).length, 0);
     assert.equal(budget.bytes, 0);
+  } finally { store.close(); }
+});
+
+test('a 100 ms voiced utterance reaches VAD instead of being discarded by the Bot', () => {
+  const { store, meeting, jobs, segmenter } = setup();
+  try {
+    segmenter.push(Buffer.alloc(100 * 32), 1000, true);
+    segmenter.finalize();
+    assert.equal(jobs.length, 1);
+    assert.equal(jobs[0]?.audio.length, 100 * 32);
+    assert.equal(store.utterances(meeting.id).length, 1);
   } finally { store.close(); }
 });
 
@@ -110,4 +121,40 @@ test('PCM frames stay 20 ms long across arbitrary ffmpeg output chunks', () => {
   assert.deepEqual(frames.map((frame) => frame.atMs), [980, 1000]);
   assert.ok(frames.every((frame) => frame.data.length === 640));
   assert.deepEqual(Buffer.concat(frames.map((frame) => frame.data)), source);
+});
+
+test('voice gate uses the lowered threshold for quiet normalized speech', () => {
+  const frame = (amplitude: number) => {
+    const pcm = Buffer.alloc(640);
+    for (let offset = 0; offset < pcm.length; offset += 2) pcm.writeInt16LE(amplitude, offset);
+    return pcm;
+  };
+  assert.equal(voiced(frame(VOICE_RMS_THRESHOLD - 1)), false);
+  assert.equal(voiced(frame(VOICE_RMS_THRESHOLD)), true);
+});
+
+test('speech starts with a bounded pre-roll and releases older buffered PCM', () => {
+  const { store, meeting, jobs, budget, segmenter } = setup();
+  try {
+    for (let index = 0; index < 20; index++) {
+      segmenter.push(Buffer.alloc(20 * 32, index + 1), 1000 + index * 20, false);
+    }
+    assert.equal(budget.bytes, PRE_ROLL_MS * 32);
+    const voice = Buffer.alloc(200 * 32, 99);
+    segmenter.push(voice, 1400, true);
+    segmenter.finalize();
+    assert.equal(jobs.length, 1);
+    assert.equal(jobs[0]?.audio.length, (PRE_ROLL_MS + 200) * 32);
+    assert.equal(store.utterances(meeting.id)[0]?.started_offset_ms, 100);
+  } finally { store.close(); }
+});
+
+test('revocation releases pre-roll that has not started an utterance', () => {
+  const { store, budget, segmenter } = setup();
+  try {
+    segmenter.push(Buffer.alloc(100 * 32), 1000, false);
+    assert.equal(budget.bytes, 100 * 32);
+    segmenter.drop();
+    assert.equal(budget.bytes, 0);
+  } finally { store.close(); }
 });

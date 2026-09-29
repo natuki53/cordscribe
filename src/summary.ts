@@ -346,10 +346,15 @@ export function renderTranscript(meeting: Meeting, participants: Participant[], 
     '',
     '## 発言記録',
     '',
-    '時刻は会議開始からの経過時間です。発言IDは元の発言を参照するための番号です。欠損は内容を推測せず明示しています。',
+    '時刻は会議開始からの経過時間です。発言IDは元の発言を参照するための番号です。欠損とASR品質フラグは内容を推測せず明示しています。',
     '',
     ...utterances.map((u) => {
-      const body = u.status === 'TRANSCRIBED' ? lineSafe(u.text ?? '') : u.status === 'IGNORED' ? '（短い音声などのため文字起こしなし）' : `（文字起こし欠損: ${u.status}）`;
+      const flags = u.status === 'TRANSCRIBED' ? [
+        u.asr_confidence === 'low' ? 'ASR品質: low' : null,
+        u.suspected_hallucination ? 'hallucination疑い' : null,
+      ].filter(Boolean) : [];
+      const suffix = flags.length ? ` （${flags.join(' / ')}）` : '';
+      const body = u.status === 'TRANSCRIBED' ? `${lineSafe(u.text ?? '')}${suffix}` : u.status === 'IGNORED' ? '（短い音声などのため文字起こしなし）' : `（文字起こし欠損: ${u.status}）`;
       return `- [${u.public_id}] ${offset(u.started_offset_ms)} ${speakerIds.get(u.speaker_user_id) ?? 'P??'} ${lineSafe(names.get(u.speaker_user_id) ?? '不明')}: ${body}`;
     }),
   ];

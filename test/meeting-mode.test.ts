@@ -63,7 +63,7 @@ test('Markdown transcript keeps evidence IDs, three-hour offsets, and gaps', () 
     const meeting = store.createMeeting({ guild_id: 'guild', voice_channel_id: 'voice', output_channel_id: 'text', started_by_user_id: 'user', title: '長時間会議', config_snapshot_json: '{}' });
     store.join(meeting.id, 'user', '話者A');
     const first = store.createUtterance({ meeting_id: meeting.id, speaker_user_id: 'user', chain_id: 'a', chain_index: 0, started_offset_ms: 3 * 3_600_000 + 5_023, ended_offset_ms: 3 * 3_600_000 + 8_000 });
-    store.setUtterance(first.id, 'TRANSCRIBED', { text: '再訪した話題' });
+    store.setUtterance(first.id, 'TRANSCRIBED', { text: '再訪した話題', asrConfidence: 'low', suspectedHallucination: true, hallucinationReasons: ['low_average_log_probability'] });
     const second = store.createUtterance({ meeting_id: meeting.id, speaker_user_id: 'user', chain_id: 'b', chain_index: 0, started_offset_ms: 3 * 3_600_000 + 9_000, ended_offset_ms: 3 * 3_600_000 + 12_000 });
     store.setUtterance(second.id, 'LOST');
     store.setStatus(meeting.id, ['STARTING'], 'RECORDING');
@@ -72,6 +72,7 @@ test('Markdown transcript keeps evidence IDs, three-hour offsets, and gaps', () 
     const text = renderTranscript(store.getMeeting(meeting.id)!, store.participants(meeting.id), store.utterances(meeting.id));
     assert.match(text, /一部欠損 \(1件\)/);
     assert.match(text, /\[U000001\] 03:00:05\.023 P01 話者A: 再訪した話題/);
+    assert.match(text, /ASR品質: low \/ hallucination疑い/);
     assert.match(text, /\[U000002\] 03:00:09\.000 P01 話者A: （文字起こし欠損: LOST）/);
     assert.doesNotMatch(text, /Discord ID:/);
   } finally { store.close(); }

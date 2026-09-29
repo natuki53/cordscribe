@@ -20,12 +20,16 @@ const audio = new AudioReceiver(receiver, meeting.id, Date.now(), store, queue, 
 assert.equal(subscriptions, 0, 'no audio subscription before consent');
 audio.subscribe('u');
 const opus = new OpusScript(48000, 2, OpusScript.Application.AUDIO);
-const tone = Buffer.alloc(960 * 2 * 2);
-for (let i = 0; i < 960; i++) {
-  const sample = Math.round(Math.sin(i * 2 * Math.PI * 440 / 48000) * 4000);
-  tone.writeInt16LE(sample, i * 4);
-  tone.writeInt16LE(sample, i * 4 + 2);
-}
+const makeTone = (amplitude) => {
+  const result = Buffer.alloc(960 * 2 * 2);
+  for (let i = 0; i < 960; i++) {
+    const sample = Math.round(Math.sin(i * 2 * Math.PI * 440 / 48000) * amplitude);
+    result.writeInt16LE(sample, i * 4);
+    result.writeInt16LE(sample, i * 4 + 2);
+  }
+  return result;
+};
+const tone = makeTone(4000);
 for (let i = 0; i < 50; i++) stream.write(opus.encode(tone, 960));
 await new Promise((resolve) => setTimeout(resolve, 200));
 await audio.stop();
@@ -41,5 +45,13 @@ await new Promise((resolve) => setTimeout(resolve, 200));
 await second.unsubscribe('u', true);
 await second.stop();
 assert.equal(jobs.length, beforeRevoke, 'revoked active PCM must not be queued');
+
+const quiet = new AudioReceiver(receiver, meeting.id, Date.now(), store, queue, budget, (reason) => { throw new Error(reason); });
+quiet.subscribe('u');
+const quietTone = makeTone(100); // Below the raw RMS gate before speech normalization.
+for (let i = 0; i < 75; i++) stream.write(opus.encode(quietTone, 960));
+await new Promise((resolve) => setTimeout(resolve, 200));
+await quiet.stop();
+assert.equal(jobs.length, beforeRevoke + 1, 'speech normalization should recover sustained quiet speech');
 store.close();
-console.log('Opus decode, resample, consent, and revoke smoke test passed');
+console.log('Opus decode, resample, quiet-speech normalization, consent, and revoke smoke test passed');
