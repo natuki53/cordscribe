@@ -7,10 +7,10 @@ function transcription(text: string, overrides: Partial<TranscriptionResult['asr
   return {
     text, language: 'ja', languageProbability: 1, durationMs: 1000,
     asr: {
-      avgLogprob: -0.2, noSpeechProbability: 0.01, compressionRatio: 1.1,
+      avgLogprob: -0.2, noSpeechProbability: 0.01, compressionRatio: 1.1, textRepetitionRatio: 1.1,
       rmsDbfs: -24, peak: 0.4, clippingRatio: 0, speechDurationMs: 900,
       confidence: 'high', suspectedHallucination: false,
-      hallucinationReasons: [], hallucinationPhraseMatch: false, debugAudioId: null,
+      hallucinationReasons: [], hallucinationPhraseMatch: false, hallucinationPhrase: null, debugAudioId: null,
       ...overrides,
     },
   };
@@ -83,6 +83,7 @@ test('ASR quality is persisted without rewriting suspected hallucination text', 
       avgLogprob: -1.1, noSpeechProbability: 0.8, rmsDbfs: -48,
       speechDurationMs: 300, confidence: 'low', suspectedHallucination: true,
       hallucinationReasons: ['known_hallucination_phrase', 'very_low_rms'], hallucinationPhraseMatch: true,
+      hallucinationPhrase: 'ご視聴ありがとうございました',
     }) } as SttClient;
     const queue = new SttQueue(store, client, budget);
     const utterance = store.createUtterance({ meeting_id: meeting.id, speaker_user_id: 'u', chain_id: 'a', chain_index: 0, started_offset_ms: 0, ended_offset_ms: 1000 });
@@ -95,6 +96,7 @@ test('ASR quality is persisted without rewriting suspected hallucination text', 
     assert.equal(saved.suspected_hallucination, 1);
     assert.equal(saved.asr_confidence, 'low');
     assert.equal(saved.asr_avg_logprob, -1.1);
+    assert.equal(saved.asr_text_repetition_ratio, 1.1);
     assert.deepEqual(JSON.parse(saved.hallucination_reasons_json ?? '[]'), ['known_hallucination_phrase', 'very_low_rms']);
   } finally { store.close(); }
 });
@@ -105,7 +107,10 @@ test('three repeated closing phrases add repetition evidence without deleting te
     const meeting = store.createMeeting({ guild_id: 'g', voice_channel_id: 'v', output_channel_id: 'c', started_by_user_id: 'u', title: null, config_snapshot_json: '{}' });
     store.join(meeting.id, 'u', 'Speaker');
     const budget = new AudioBudget(() => {});
-    const client = { transcribe: async () => transcription('ありがとうございました', { hallucinationPhraseMatch: true }) } as SttClient;
+    let calls = 0;
+    const client = { transcribe: async () => transcription(`説明${++calls}です。ありがとうございました`, {
+      hallucinationPhraseMatch: true, hallucinationPhrase: 'ありがとうございました',
+    }) } as SttClient;
     const queue = new SttQueue(store, client, budget);
     const utterances = Array.from({ length: 3 }, (_, index) => store.createUtterance({ meeting_id: meeting.id, speaker_user_id: 'u', chain_id: String(index), chain_index: 0, started_offset_ms: index * 1000, ended_offset_ms: index * 1000 + 500 }));
     const now = Date.now();
@@ -116,8 +121,9 @@ test('three repeated closing phrases add repetition evidence without deleting te
     }
     await queue.drain(meeting.id);
     const saved = store.getUtterance(utterances[2]!.id)!;
-    assert.equal(saved.text, 'ありがとうございました');
+    assert.equal(saved.text, '説明3です。ありがとうございました');
     assert.equal(saved.suspected_hallucination, 1);
+    assert.match(saved.hallucination_reasons_json ?? '', /known_hallucination_phrase/);
     assert.match(saved.hallucination_reasons_json ?? '', /repeated_phrase/);
   } finally { store.close(); }
 });

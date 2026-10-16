@@ -53,6 +53,8 @@ def main() -> None:
     parser.add_argument("--model", action="append", type=parse_model, required=True)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--hotwords", help="Comma- or Japanese-comma-separated vocabulary hints; never rewrites output")
+    parser.add_argument("--repetition-penalty", type=float, default=1.08)
+    parser.add_argument("--no-repeat-ngram-size", type=int, default=3)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
@@ -82,7 +84,8 @@ def main() -> None:
                     speech, language="ja", task="transcribe", beam_size=beam_size,
                     best_of=1, temperature=0.0, no_speech_threshold=0.6,
                     log_prob_threshold=-1.0, compression_ratio_threshold=2.4,
-                    repetition_penalty=1.0, no_repeat_ngram_size=0,
+                    repetition_penalty=args.repetition_penalty,
+                    no_repeat_ngram_size=args.no_repeat_ngram_size,
                     condition_on_previous_text=False, vad_filter=False,
                     initial_prompt=None, hotwords=args.hotwords,
                 )
@@ -110,6 +113,8 @@ def main() -> None:
         results.append({
             "model": model_name, "computeType": compute_type, "beamSize": beam_size,
             "hotwords": args.hotwords,
+            "repetitionPenalty": args.repetition_penalty,
+            "noRepeatNgramSize": args.no_repeat_ngram_size,
             "gpuMemoryBeforeMiB": before_vram, "gpuMemoryLoadedMiB": loaded_vram,
             "meanCer": sum(row["cer"] for row in speech_rows) / max(1, len(speech_rows)),
             "meanWer": sum(row["wer"] for row in speech_rows) / max(1, len(speech_rows)),

@@ -7,6 +7,7 @@ export interface AsrMetrics {
   avgLogprob: number | null;
   noSpeechProbability: number | null;
   compressionRatio: number | null;
+  textRepetitionRatio: number;
   rmsDbfs: number;
   peak: number;
   clippingRatio: number;
@@ -15,6 +16,7 @@ export interface AsrMetrics {
   suspectedHallucination: boolean;
   hallucinationReasons: string[];
   hallucinationPhraseMatch: boolean;
+  hallucinationPhrase: string | null;
   debugAudioId: string | null;
 }
 
@@ -83,10 +85,12 @@ export class SttClient {
     const confidence = asr?.confidence;
     if (typeof value.text !== 'string' || typeof value.language !== 'string' || typeof value.languageProbability !== 'number' || typeof value.durationMs !== 'number'
       || !asr || !nullableNumber(asr.avgLogprob) || !nullableNumber(asr.noSpeechProbability) || !nullableNumber(asr.compressionRatio)
+      || typeof asr.textRepetitionRatio !== 'number'
       || typeof asr.rmsDbfs !== 'number' || typeof asr.peak !== 'number' || typeof asr.clippingRatio !== 'number'
       || typeof asr.speechDurationMs !== 'number' || !['none', 'low', 'medium', 'high'].includes(String(confidence))
       || typeof asr.suspectedHallucination !== 'boolean' || !Array.isArray(asr.hallucinationReasons)
       || asr.hallucinationReasons.some((reason) => typeof reason !== 'string') || typeof asr.hallucinationPhraseMatch !== 'boolean'
+      || !(asr.hallucinationPhrase === null || typeof asr.hallucinationPhrase === 'string')
       || !(asr.debugAudioId === null || typeof asr.debugAudioId === 'string')) {
       throw new Error('STT_INVALID_RESPONSE');
     }
@@ -128,8 +132,9 @@ export class SttQueue {
 
   private applyRepetitionEvidence(job: Job, result: TranscriptionResult): void {
     if (!result.asr.hallucinationPhraseMatch || !result.text.trim()) return;
-    const normalized = result.text.normalize('NFKC').replace(/[\s。．.!！?？、，]+/g, '');
-    const key = `${job.meetingId}\0${normalized}`;
+    const phraseKey = result.asr.hallucinationPhrase
+      ?? result.text.normalize('NFKC').replace(/[\s。．.!！?？、，]+/g, '');
+    const key = `${job.meetingId}\0${phraseKey}`;
     const cutoff = job.enqueuedAtMs - 5 * 60_000;
     const timestamps = (this.recentPhrases.get(key) ?? []).filter((timestamp) => timestamp >= cutoff);
     timestamps.push(job.enqueuedAtMs);
@@ -137,6 +142,9 @@ export class SttQueue {
     if (timestamps.length < 3) return;
     result.asr.suspectedHallucination = true;
     result.asr.confidence = 'low';
+    if (result.asr.hallucinationPhrase && !result.asr.hallucinationReasons.includes('known_hallucination_phrase')) {
+      result.asr.hallucinationReasons.push('known_hallucination_phrase');
+    }
     if (!result.asr.hallucinationReasons.includes('repeated_phrase')) result.asr.hallucinationReasons.push('repeated_phrase');
   }
 
@@ -180,6 +188,7 @@ export class SttQueue {
           avgLogprob: result.asr.avgLogprob,
           noSpeechProbability: result.asr.noSpeechProbability,
           compressionRatio: result.asr.compressionRatio,
+          textRepetitionRatio: result.asr.textRepetitionRatio,
           rmsDbfs: result.asr.rmsDbfs,
           peak: result.asr.peak,
           clippingRatio: result.asr.clippingRatio,
@@ -199,6 +208,7 @@ export class SttQueue {
           avgLogprob: result.asr.avgLogprob,
           noSpeechProbability: result.asr.noSpeechProbability,
           compressionRatio: result.asr.compressionRatio,
+          textRepetitionRatio: result.asr.textRepetitionRatio,
           confidence: result.asr.confidence,
           suspectedHallucination: result.asr.suspectedHallucination,
           textLength: text.length,

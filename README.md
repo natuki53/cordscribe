@@ -62,7 +62,7 @@ VC参加者が、対象Guild内の通常テキストチャンネルまたはVC�
 
 話者ごとの音声はFFmpegの弱い音声正規化（最大3倍）を通し、声量差をならしてからSilero VADへ渡します。RMSゲートの直前300msをRAM内ring bufferに保持し、文頭を含めます。小声と100ms級の短い発話を拾うためVADの既定値は`threshold=0.35`、`min_speech=100ms`、前後余白250msです。環境ノイズまで拾う場合は`STT_VAD_THRESHOLD`を`0.40`、`0.45`の順に上げて、評価manifestで空転写とhallucination件数を比較してください。咳・くしゃみを発話と誤認識する場合があり、公開音声での比較結果と限界を[STT予備評価](docs/stt-public-audio-evaluation.md)に記録しています。
 
-略語・固有名詞は`STT_HOTWORDS`またはJSON配列の`STT_TERMS_FILE`で認識候補を補助します。文字列の強制置換は行いません。`STT_INITIAL_PROMPT`は弱い音声から用語を創作する可能性があるため既定で無効のままです。`condition_on_previous_text`も話者間・発言間のhallucination伝播を避けるため既定で無効です。定型文を本文だけで削除せず、音量・音声長・`no_speech_prob`・`avg_logprob`・`compression_ratio`・短時間の反復を組み合わせて疑いフラグを付け、本文はSQLiteとMarkdownに保持します。
+略語・固有名詞は`STT_HOTWORDS`またはJSON配列の`STT_TERMS_FILE`で認識候補を補助できますが、実VCで用語列の反復生成が確認されたため`STT_HOTWORDS_ENABLED=false`を既定とします。同一音声の比較評価で効果を確認できた場合だけ有効化してください。文字列の強制置換は行いません。`STT_INITIAL_PROMPT`と`condition_on_previous_text`もhallucination伝播を避けるため既定で無効です。decoderは弱いrepetition penaltyと3-token n-gram反復抑制を使います。定型文を本文だけで削除せず、音量・音声長・Whisper品質値・発言全体の反復率・短時間の定型文反復を組み合わせて疑いフラグを付け、本文はSQLiteとMarkdownに保持します。
 
 `TRANSCRIPTION_DEBUG_LOG=true`では本文を出さず、発言ID、音声指標、ASR品質値、文字数をログへ出します。`TRANSCRIPTION_DEBUG_AUDIO=true`の場合だけ、Whisper入力前後の16kHz mono WAVを権限`0600`で`TRANSCRIPTION_DEBUG_AUDIO_DIR`へ保存します。既定はOFFで、最大件数を超えた古いWAVは削除します。実会議音声を含むため、調査後は保存先を削除して設定をOFFへ戻してください。
 

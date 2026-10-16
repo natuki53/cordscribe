@@ -1,6 +1,12 @@
 # ASR精度改善と再現評価
 
-更新日: 2026-09-29。対象は文字起こしまでで、要約、文脈補完、TODO抽出、生成AIによる誤認識修正は対象外。実装は話者別音声と同意境界を維持する。
+更新日: 2026-10-16。対象は文字起こしまでで、要約、文脈補完、TODO抽出、生成AIによる誤認識修正は対象外。実装は話者別音声と同意境界を維持する。
+
+## 2回目の実VC議事録から分かったこと
+
+59分48秒・817発言の議事録では、空転写は60件（7.3%）だった。一方、`うん`、`あー`、`Google`、`Google Analytics`などが数百文字続く反復ループが17件あり、すべて従来の疑い判定から漏れた。Whisper segmentごとの`compression_ratio`最大値だけでは、複数segmentを結合した発言全体の反復を表現できないため、結合後本文をzlib圧縮した`text_repetition_ratio`を追加する。3.0以上かつ正規化後40文字以上は強い反復根拠として扱うが、本文は保持する。
+
+既知の終端定型文で終わる発言40件のうち29件だけが従来フラグ付きだった。完全一致からsuffix一致へ広げ、異なる本文の末尾に同じ定型文が5分以内に3回出た場合も同一フレーズとして数える。用語集由来に見える反復も確認されたため、hotwordsは設定を残したまま既定OFFとし、同一音声のA/B評価時だけ明示的に有効化する。
 
 ## パイプライン
 
@@ -47,10 +53,11 @@
 | no-speech threshold | ライブラリ既定0.6 | 0.6を明示 |
 | logprob threshold | ライブラリ既定-1.0 | -1.0を明示 |
 | compression threshold | ライブラリ既定2.4 | 2.4を明示 |
-| repetition penalty | ライブラリ既定1.0 | 1.0を明示 |
+| repetition penalty | 1.0 | 1.08。弱い反復抑制 |
+| no-repeat n-gram | 0（無効） | 3-token n-gram |
 | previous text | false | falseを明示。話者・品質を考慮した評価ができるまで有効化しない |
 | initial prompt | 既定OFF | OFFを維持 |
-| hotwords | なし | 環境変数またはJSONファイル。本文の置換はしない |
+| hotwords | 常時有効 | 既定OFF。環境変数またはJSONファイルをA/B評価時だけ有効化 |
 | faster-whisper VAD | false | false。手前のSileroとの二重切断を避ける |
 | Bot minimum utterance | 300ms | 100ms。20msの単発clickは破棄し、Sileroでも再判定 |
 | Silero minimum speech | 250ms | 100ms |
@@ -58,7 +65,7 @@
 
 ## 品質情報とhallucination
 
-発言には`avg_logprob`、`no_speech_prob`、`compression_ratio`、`rms_dbfs`、`peak`、`clipping_ratio`、`speech_duration_ms`、`confidence`、`suspected_hallucination`、理由配列を保存する。定型文だけで削除・置換しない。既知の定型文には少なくとも1件の音声・モデル警告が必要で、それ以外の文は3件以上の警告が揃った場合だけ疑いとする。同じ定型文が5分内に3回以上出た場合は反復理由を追加する。Markdownにも低confidenceと疑いを表示し、後段AIが原文と併せて判断できるようにする。
+発言には`avg_logprob`、`no_speech_prob`、`compression_ratio`、`text_repetition_ratio`、`rms_dbfs`、`peak`、`clipping_ratio`、`speech_duration_ms`、`confidence`、`suspected_hallucination`、理由配列を保存する。定型文だけで削除・置換しない。既知の定型文には少なくとも1件の音声・モデル警告が必要で、それ以外の文は3件以上の警告が揃った場合だけ疑いとする。発言全体の強い反復ループは単独で疑い根拠とする。同じ定型文が5分内に3回以上出た場合は反復理由を追加する。Markdownにも低confidenceと疑いを表示し、後段AIが原文と併せて判断できるようにする。
 
 ## 評価方法
 
@@ -68,9 +75,10 @@
 python stt/benchmark.py stt/fixtures/asr/manifest.json \
   --model turbo:int8_float16:1 \
   --model large-v3:int8_float16:1 \
-  --hotwords 'VRChat、VNavi、CordScribe、WordPress、Search Console' \
   --output stt/fixtures/asr/result.json
 ```
+
+hotwords比較時だけ、同じmanifestへ`--hotwords 'VRChat、VNavi、CordScribe、WordPress、Search Console'`を追加する。
 
 主要指標は日本語CER。補助としてWER、latency、real-time factor、非発話hallucination件数、空転写件数、疑い件数、GPU使用量を出す。既存の公開音声17件では、large-v3-turbo / beam 1がCER 18.7%、非発話誤本文3/5で、比較候補中の日本語CERが最良だった。この結果は旧VAD値と公開読み上げ音声によるもので、新しい実VC設定の合格証明ではない。
 

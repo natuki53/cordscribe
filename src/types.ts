@@ -49,6 +49,7 @@ export interface Utterance {
   asr_avg_logprob: number | null;
   asr_no_speech_prob: number | null;
   asr_compression_ratio: number | null;
+  asr_text_repetition_ratio: number | null;
   audio_rms_dbfs: number | null;
   audio_peak: number | null;
   audio_clipping_ratio: number | null;

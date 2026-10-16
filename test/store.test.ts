@@ -64,6 +64,7 @@ test('opening an existing database adds ASR quality columns without dropping row
   try {
     const columns = new Set((store.db.prepare('PRAGMA table_info(utterances)').all() as { name: string }[]).map((column) => column.name));
     assert.ok(columns.has('asr_avg_logprob'));
+    assert.ok(columns.has('asr_text_repetition_ratio'));
     assert.ok(columns.has('suspected_hallucination'));
     assert.equal(store.getUtterance('legacy-u')?.text, '既存の発言');
   } finally {

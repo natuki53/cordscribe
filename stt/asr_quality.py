@@ -5,6 +5,7 @@ from __future__ import annotations
 import math
 import re
 import unicodedata
+import zlib
 from typing import Any
 
 import numpy as np
@@ -24,6 +25,25 @@ HALLUCINATION_PHRASES = {
 
 def normalize_phrase(text: str) -> str:
     return re.sub(r"[\s。．.!！?？、，]+", "", unicodedata.normalize("NFKC", text))
+
+
+def text_repetition_ratio(text: str) -> float:
+    """Return a whole-utterance compression signal for decoder repetition loops."""
+    encoded = text.encode("utf-8")
+    if not encoded:
+        return 0.0
+    return round(len(encoded) / max(1, len(zlib.compress(encoded))), 2)
+
+
+def match_hallucination_phrase(text: str) -> str | None:
+    normalized = normalize_phrase(text)
+    # Longest-first prevents the generic thank-you phrase from masking the
+    # more specific video-outro phrase. A suffix match catches hallucinations
+    # appended to otherwise useful speech without rewriting that speech.
+    for phrase in sorted(HALLUCINATION_PHRASES, key=len, reverse=True):
+        if normalized.endswith(normalize_phrase(phrase)):
+            return phrase
+    return None
 
 
 def signal_metrics(samples: np.ndarray) -> dict[str, float]:
@@ -47,9 +67,9 @@ def classify_quality(
     rms_dbfs: float,
     speech_duration_ms: int,
 ) -> dict[str, Any]:
-    phrase_match = normalize_phrase(text) in {
-        normalize_phrase(phrase) for phrase in HALLUCINATION_PHRASES
-    }
+    matched_phrase = match_hallucination_phrase(text)
+    repetition_ratio = text_repetition_ratio(text)
+    strong_text_loop = len(normalize_phrase(text)) >= 40 and repetition_ratio >= 3.0
     evidence: list[str] = []
     if rms_dbfs <= -42.0:
         evidence.append("very_low_rms")
@@ -61,12 +81,14 @@ def classify_quality(
         evidence.append("low_average_log_probability")
     if compression_ratio is not None and compression_ratio >= 2.4:
         evidence.append("high_compression_ratio")
+    if strong_text_loop:
+        evidence.append("high_text_repetition_ratio")
 
     # A common phrase alone is not enough: actual meeting participants may say it.
     # Require acoustic/model evidence, or three independent warning signals for
     # text outside the known phrase set. The Node queue adds repetition evidence.
-    suspected = (phrase_match and len(evidence) >= 1) or len(evidence) >= 3
-    if suspected and phrase_match:
+    suspected = strong_text_loop or (matched_phrase is not None and len(evidence) >= 1) or len(evidence) >= 3
+    if suspected and matched_phrase is not None:
         evidence.insert(0, "known_hallucination_phrase")
 
     if not text:
@@ -82,7 +104,9 @@ def classify_quality(
         "confidence": confidence,
         "suspectedHallucination": suspected,
         "hallucinationReasons": evidence,
-        "hallucinationPhraseMatch": phrase_match,
+        "hallucinationPhraseMatch": matched_phrase is not None,
+        "hallucinationPhrase": matched_phrase,
+        "textRepetitionRatio": repetition_ratio,
     }
 
 

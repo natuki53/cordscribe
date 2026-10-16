@@ -29,8 +29,8 @@ TEMPERATURE = float(os.getenv("STT_TEMPERATURE", "0"))
 NO_SPEECH_THRESHOLD = float(os.getenv("STT_NO_SPEECH_THRESHOLD", "0.6"))
 LOG_PROB_THRESHOLD = float(os.getenv("STT_LOG_PROB_THRESHOLD", "-1.0"))
 COMPRESSION_RATIO_THRESHOLD = float(os.getenv("STT_COMPRESSION_RATIO_THRESHOLD", "2.4"))
-REPETITION_PENALTY = float(os.getenv("STT_REPETITION_PENALTY", "1.0"))
-NO_REPEAT_NGRAM_SIZE = int(os.getenv("STT_NO_REPEAT_NGRAM_SIZE", "0"))
+REPETITION_PENALTY = float(os.getenv("STT_REPETITION_PENALTY", "1.08"))
+NO_REPEAT_NGRAM_SIZE = int(os.getenv("STT_NO_REPEAT_NGRAM_SIZE", "3"))
 CONDITION_ON_PREVIOUS_TEXT = os.getenv("STT_CONDITION_ON_PREVIOUS_TEXT", "false").lower() == "true"
 # A vocabulary prompt can turn weak audio into plausible-looking invented text.
 # Keep it opt-in even when an older environment file still defines the prompt.
@@ -40,6 +40,8 @@ INITIAL_PROMPT = (
 
 
 def _load_hotwords() -> str | None:
+    if os.getenv("STT_HOTWORDS_ENABLED", "false").lower() != "true":
+        return None
     values: list[str] = []
     configured = os.getenv("STT_HOTWORDS", "").strip()
     if configured:
@@ -145,6 +147,7 @@ def _transcribe_samples(samples: np.ndarray, debug_identifier: str | None = None
                 "compressionRatio": None, "speechDurationMs": 0,
                 "confidence": "none", "suspectedHallucination": False,
                 "hallucinationReasons": [], "hallucinationPhraseMatch": False,
+                "hallucinationPhrase": None, "textRepetitionRatio": 0.0,
                 "debugAudioId": debug_identifier if DEBUG_AUDIO else None,
             },
         }
@@ -189,11 +192,12 @@ def _transcribe_samples(samples: np.ndarray, debug_identifier: str | None = None
             "ASR_DEBUG id=%s model=%s compute_type=%s language=%s duration_ms=%d "
             "speech_ms=%d processing_ms=%d rms_dbfs=%.2f peak=%.4f "
             "clipping_ratio=%.6f avg_logprob=%s no_speech_prob=%s compression_ratio=%s "
+            "text_repetition_ratio=%.2f "
             "confidence=%s suspected_hallucination=%s text_length=%d",
             debug_identifier, MODEL_NAME, COMPUTE_TYPE, info.language,
             round(len(samples) / 16), speech_duration_ms, processing_ms,
             audio["rmsDbfs"], audio["peak"], audio["clippingRatio"],
-            avg_logprob, no_speech_prob, compression_ratio, quality["confidence"],
+            avg_logprob, no_speech_prob, compression_ratio, quality["textRepetitionRatio"], quality["confidence"],
             quality["suspectedHallucination"], len(text),
         )
     return {
@@ -222,6 +226,9 @@ def ready() -> dict[str, Any]:
     return {
         "ready": _model is not None, "modelLoaded": _model is not None,
         "model": MODEL_NAME, "computeType": COMPUTE_TYPE,
+        "hotwordsEnabled": HOTWORDS is not None,
+        "repetitionPenalty": REPETITION_PENALTY,
+        "noRepeatNgramSize": NO_REPEAT_NGRAM_SIZE,
     }
 
 

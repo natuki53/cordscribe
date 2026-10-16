@@ -1,5 +1,6 @@
 """GPU-free checks for model leasing and silence rejection."""
 
+import os
 import time
 import tempfile
 import unittest
@@ -50,6 +51,17 @@ class FakeModel:
 
 
 class SilenceFilterTests(unittest.TestCase):
+    def test_hotwords_require_an_explicit_enable_switch(self):
+        with patch.dict(os.environ, {
+            "STT_HOTWORDS_ENABLED": "false", "STT_HOTWORDS": "VNavi、Google Analytics",
+        }, clear=False):
+            self.assertIsNone(app._load_hotwords())
+        with patch.dict(os.environ, {
+            "STT_HOTWORDS_ENABLED": "true", "STT_HOTWORDS": "VNavi、Google Analytics",
+            "STT_TERMS_FILE": "",
+        }, clear=False):
+            self.assertEqual(app._load_hotwords(), "VNavi、Google Analytics")
+
     def test_no_speech_never_reaches_whisper(self):
         model = FakeModel()
         samples = np.zeros(16000, dtype=np.float32)
@@ -74,6 +86,9 @@ class SilenceFilterTests(unittest.TestCase):
         np.testing.assert_array_equal(model.received, samples[2000:6000])
         self.assertIsNone(model.options["initial_prompt"])
         self.assertEqual(model.options["temperature"], 0.0)
+        self.assertEqual(model.options["repetition_penalty"], 1.08)
+        self.assertEqual(model.options["no_repeat_ngram_size"], 3)
+        self.assertIsNone(model.options["hotwords"])
         self.assertFalse(model.options["condition_on_previous_text"])
         self.assertFalse(model.options["vad_filter"])
 
@@ -107,8 +122,26 @@ class AsrQualityTests(unittest.TestCase):
             compression_ratio=1.1, rms_dbfs=-50, speech_duration_ms=300,
         )
         self.assertFalse(reliable["suspectedHallucination"])
+        self.assertEqual(reliable["hallucinationPhrase"], "ありがとうございました")
         self.assertTrue(suspicious["suspectedHallucination"])
         self.assertIn("known_hallucination_phrase", suspicious["hallucinationReasons"])
+
+    def test_outro_suffix_and_whole_utterance_repetition_are_detected_without_rewriting(self):
+        suffix = classify_quality(
+            "ここまでが集計結果ですご視聴ありがとうございました",
+            avg_logprob=-0.2, no_speech_prob=0.01, compression_ratio=1.1,
+            rms_dbfs=-20, speech_duration_ms=3000,
+        )
+        loop_text = "Google Analytics、" * 80
+        repeated = classify_quality(
+            loop_text, avg_logprob=-0.2, no_speech_prob=0.01,
+            compression_ratio=1.1, rms_dbfs=-20, speech_duration_ms=5000,
+        )
+        self.assertEqual(suffix["hallucinationPhrase"], "ご視聴ありがとうございました")
+        self.assertFalse(suffix["suspectedHallucination"])
+        self.assertTrue(repeated["suspectedHallucination"])
+        self.assertGreaterEqual(repeated["textRepetitionRatio"], 3.0)
+        self.assertIn("high_text_repetition_ratio", repeated["hallucinationReasons"])
 
     def test_signal_and_error_metrics_are_reproducible(self):
         metrics = signal_metrics(np.array([0.0, 0.5, -0.5], dtype=np.float32))
